@@ -436,18 +436,17 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=window, Mode=OneWay}">
-        <Frame x:Name="frPpal" 
-               Content="" HorizontalAlignment="Center" 
+        <Frame x:Name="frPpal" HorizontalAlignment="Center" 
                VerticalAlignment="Center" 
                Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" 
-               Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" d:IsLocked="True"/>
+               Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}"/>
         <Frame x:Name="frLogin" 
                Height="400" 
                VerticalAlignment="Center" 
                HorizontalAlignment="Center" 
                Width="300" 
                Background="#7F007480"
-               FontFamily="Arial" Style="{DynamicResource FrameRoundBorder}" RenderTransformOrigin="0.5,0.5" Source="/BanBan;component/Pages/Login.xaml">
+               FontFamily="Arial" Style="{DynamicResource FrameRoundBorder}" RenderTransformOrigin="0.5,0.5" Source="/BanBan;component/Pages/Login.xaml" d:IsLocked="True" d:IsHidden="True">
             <Frame.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -457,5 +456,43 @@
                 </TransformGroup>
             </Frame.RenderTransform>
         </Frame>
+        <StackPanel x:Name="stpOpciones" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Background="#FF0A92B0" Height="{Binding ActualHeight, ElementName=frPpal}">
+            <Button x:Name="btOpciones" 
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}"
+                    Height="52"
+                    VerticalAlignment="Top"
+                    Margin="4,18,0,0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch">
+                <Grid x:Name="GridButton"
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch"
+                      Width="{Binding ActualWidth, ElementName=btOpciones}"
+                      Margin="-2">
+                    <!--Foreground determina el color de los elementos, rectagulo-->
+                    <Label x:Name="lbOpcion" 
+                           Content="Opciones" 
+                           Foreground="#7FFFFFFF"
+                           Width="110"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"  
+                           Margin="6,0,0,0"
+                           FontFamily="Century Schoolbook"
+                           FontSize="22"
+                           VerticalContentAlignment="Center" Height="52"/>
+                    <Canvas x:Name="imgOpciones"
+                           Height="30" Width="30"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0">
+                        <Rectangle x:Name="rcTop" Fill="{Binding Foreground, ElementName=lbOpcion}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Top" Width="20" Canvas.Left="5" Canvas.Top="5" RadiusX="1" RadiusY="1" />
+                        <Rectangle x:Name="rcMid" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Center" Width="20" Canvas.Left="5" Canvas.Top="13" RadiusX="1" RadiusY="1" />
+                        <Rectangle x:Name="rcBot" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Bottom" Width="20" Canvas.Left="5" Canvas.Top="21" RadiusX="1" RadiusY="1" />
+
+                    </Canvas>
+                </Grid>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
