@@ -458,38 +458,73 @@
         </Frame>
         <StackPanel x:Name="stpOpciones" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Background="#FF0A92B0" Height="{Binding ActualHeight, ElementName=frPpal}">
             <Button x:Name="btOpciones" 
-                    Background="{x:Null}" 
-                    BorderBrush="{x:Null}"
-                    Height="52"
-                    VerticalAlignment="Top"
-                    Margin="4,18,0,0"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch">
-                <Grid x:Name="GridButton"
-                      HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch"
-                      Width="{Binding ActualWidth, ElementName=btOpciones}"
-                      Margin="-2">
-                    <!--Foreground determina el color de los elementos, rectagulo-->
+                Background="{x:Null}" 
+                BorderBrush="{x:Null}"
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,18,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el menu de opciones">
+                <Grid x:Name="gdOpciones"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2">
+                    <!--Foreground determina el color de los todos los demas elementos-->
                     <Label x:Name="lbOpcion" 
-                           Content="Opciones" 
-                           Foreground="#7FFFFFFF"
-                           Width="110"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"  
-                           Margin="6,0,0,0"
-                           FontFamily="Century Schoolbook"
-                           FontSize="22"
-                           VerticalContentAlignment="Center" Height="52"/>
+                        Content="Opciones" 
+                        Foreground="White"
+                        Width="110"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        Margin="6,0,0,0"
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52"/>
                     <Canvas x:Name="imgOpciones"
-                           Height="30" Width="30"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"
-                           Margin="0,0,5,0">
-                        <Rectangle x:Name="rcTop" Fill="{Binding Foreground, ElementName=lbOpcion}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Top" Width="20" Canvas.Left="5" Canvas.Top="5" RadiusX="1" RadiusY="1" />
-                        <Rectangle x:Name="rcMid" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Center" Width="20" Canvas.Left="5" Canvas.Top="13" RadiusX="1" RadiusY="1" />
-                        <Rectangle x:Name="rcBot" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Bottom" Width="20" Canvas.Left="5" Canvas.Top="21" RadiusX="1" RadiusY="1" />
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,5,0">
+                        <Rectangle x:Name="rcTop" Fill="{Binding Foreground, ElementName=lbOpcion}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Top" Width="20" Canvas.Left="5" Canvas.Top="5" RadiusX="2" RadiusY="2" d:IsLocked="True" />
+                        <Rectangle x:Name="rcMid" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Center" Width="20" Canvas.Left="5" Canvas.Top="13" RadiusX="2" RadiusY="2" d:IsLocked="True" />
+                        <Rectangle x:Name="rcBot" Fill="{Binding Fill, ElementName=rcTop}" HorizontalAlignment="Center" Height="5" VerticalAlignment="Bottom" Width="20" Canvas.Left="5" Canvas.Top="21" RadiusX="2" RadiusY="2" d:IsLocked="True" />
 
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btAgregarEmpleados" 
+                Background="{x:Null}" 
+                BorderBrush="{x:Null}"
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el menu para agregar empleados">
+                <Grid x:Name="gdAgregarEmpleados"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2">
+                    <Label x:Name="lbAgregarEmpleados" 
+                        Content="Empleados" 
+                        Foreground="{Binding Foreground, ElementName=lbOpcion}"
+                        Width="121"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52"/>
+                    <Canvas x:Name="imgAgregarEmpleados"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,5,0"
+                        ClipToBounds="True">
+                        <Ellipse x:Name="ecHead" Fill="{Binding Foreground, ElementName=lbAgregarEmpleados}" Height="14" Canvas.Left="8" Canvas.Top="2" Width="14" d:IsLocked="True"/>
+                        <Ellipse x:Name="ecBody" Fill="{Binding Fill, ElementName=ecHead}" Height="26" Canvas.Left="4" Canvas.Top="17" Width="22" d:IsLocked="True"/>
                     </Canvas>
                 </Grid>
             </Button>
