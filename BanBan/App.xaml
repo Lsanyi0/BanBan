@@ -1,9 +1,39 @@
 ﻿<Application x:Class="BanBan.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BanBan"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Name="btNormal" x:Key="btNormal" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource backGroundGlobal}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource foregroundGlobal}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource foregroundGlobal}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource isEnabledGral}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource isEnabledGralFore}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource isEnabledGralBorder}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--
+        Empleado
+Planillas - Impresion, mostrar ambas, preview boletas de pagas
+Empleados por sucursal
+        -->
+
+            <!--Colores-->
+        <SolidColorBrush x:Name="foregroundGlobal" x:Key="foregroundGlobal" Color="White"/>
+        <SolidColorBrush x:Name="backGroundGlobal" x:Key="backGroundGlobal" Color="CadetBlue"/>
+        <!-- -Eventos- -->
+        <!--Mouse over-->
+        <SolidColorBrush x:Name="mouseOverGlobal" x:Key="mouseOverGlobal" Color="#BC3D6364"/>
+        <SolidColorBrush x:Name="mouseOverForeGlobal" x:Key="mouseOverForeGlobal" Color="#FF9B9B9B"/>
+        <SolidColorBrush x:Name="mouseOverBorderGlobal" x:Key="mouseOverBorderGlobal" Color="{Binding Color, ElementName=mouseOverForeGlobal}"/>
+        <!--IsEnabled-->
+        <SolidColorBrush x:Name="isEnabledGral" x:Key="isEnabledGral" Color="#FF213738"/>
+        <SolidColorBrush x:Name="isEnabledGralFore" x:Key="isEnabledGralFore" Color="#FFCBCBCB"/>
+        <SolidColorBrush x:Name="isEnabledGralBorder" x:Key="isEnabledGralBorder" Color="{Binding Color, ElementName=isEnabledGralFore}"/>
     </Application.Resources>
 </Application>

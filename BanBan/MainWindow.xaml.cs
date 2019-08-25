@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using BanBan.Controls;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media.Animation;
-using BanBan.Controls;
 
 
 namespace BanBan
@@ -10,22 +11,33 @@ namespace BanBan
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool anim;
+        private List<Storyboard> anims;
         private LoginControl lgc;
         public MainWindow()
         {
             InitializeComponent();
-            lgc  = new LoginControl();
+            lgc = new LoginControl();
+            anims = new List<Storyboard>
+            {
+                FindResource("stbLoginCorrecto") as Storyboard,
+                FindResource("stbMostrarOpciones") as Storyboard,
+                FindResource("stbOcultarOpciones") as Storyboard
+            };
+            anim = true;
         }
 
         //Usado como trigger para la animacion de fade-out del login
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _ = await lgc.verificarUsuario();
-            Storyboard sb = new MainWindow().FindResource("stbLoginCorrecto") as Storyboard;
-            if (sb != null)
-            {
-                BeginStoryboard(sb);
-            }
+            BeginStoryboard(anims[0]);
+        }
+        //Trigger para las animaciones de btOpciones
+        private void BtOpciones_Click(object sender, RoutedEventArgs e)
+        {
+            if (anim) { BeginStoryboard(anims[1]); anim = false; }
+            else { BeginStoryboard(anims[2]); anim = true; }
         }
     }
 }
