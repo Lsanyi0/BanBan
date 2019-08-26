@@ -8,22 +8,22 @@
                 <Trigger Property="IsEnabled" Value="True">
                     <Setter Property="Background" Value="{DynamicResource backGroundGlobal}"/>
                     <Setter Property="Foreground" Value="{DynamicResource foregroundGlobal}"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource foregroundGlobal}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource backGroundGlobal}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Background" Value="{DynamicResource isEnabledGral}"/>
                     <Setter Property="Foreground" Value="{DynamicResource isEnabledGralFore}"/>
                     <Setter Property="BorderBrush" Value="{DynamicResource isEnabledGralBorder}"/>
                 </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource mouseOverGlobal}"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
-        <!--
-        Empleado
-Planillas - Impresion, mostrar ambas, preview boletas de pagas
-Empleados por sucursal
-        -->
-
-            <!--Colores-->
+        <!--Empleado
+        Planillas - Impresion, mostrar ambas, preview boletas de pagas
+        Empleados por sucursal-->
+         <!--Colores-->
         <SolidColorBrush x:Name="foregroundGlobal" x:Key="foregroundGlobal" Color="White"/>
         <SolidColorBrush x:Name="backGroundGlobal" x:Key="backGroundGlobal" Color="CadetBlue"/>
         <!-- -Eventos- -->

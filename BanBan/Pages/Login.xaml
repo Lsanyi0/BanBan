@@ -14,16 +14,12 @@
                VerticalAlignment="Top" 
                Width="100"
                Margin="0,20,0,0"
-               Source="/BanBan;component/Resources/user.png"/>
-        <Button x:Name="btIniciarSesion" 
-                Content="Iniciar sesion" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Bottom"
-                Margin="0,0,0,65" 
-                Width="180" 
-                Height="30"
-                TextBlock.FontFamily="Arial"
-                TextBlock.FontSize="20" Click="BtIniciarSesion_Click"/>
+               Source="/BanBan;component/Resources/user.png">
+            <Image.Effect>
+                <DropShadowEffect Opacity="0.2"/>
+            </Image.Effect>
+        </Image>
+        <Border>
         <TextBox x:Name="tbUsuario" 
                  HorizontalAlignment="Center" 
                  Height="30" 
@@ -35,6 +31,7 @@
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  TextBlock.FontSize="20"/>
+            </Border>
         <PasswordBox x:Name="pwbClave"
                      Height="{Binding ActualHeight, ElementName=tbUsuario, Mode=OneWay}"
                      Width="{Binding ActualWidth, ElementName=tbUsuario, Mode=OneWay}"
@@ -47,5 +44,14 @@
                      VerticalContentAlignment="Center"
                      TextBlock.FontFamily="Arial"
                      TextBlock.FontSize="20"/>
+        <Button x:Name="btIniciarSesion" 
+                Content="Iniciar sesion" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,65" 
+                Width="180" 
+                Height="30"
+                TextBlock.FontFamily="Arial"
+                TextBlock.FontSize="20" Click="BtIniciarSesion_Click"/>
     </Grid>
 </Page>

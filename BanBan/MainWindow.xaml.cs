@@ -32,6 +32,8 @@ namespace BanBan
         {
             _ = await lgc.verificarUsuario();
             BeginStoryboard(anims[0]);
+            frPpal.Content = new Pages.Empleados();
+            frPpal.IsEnabled = true;
         }
         //Trigger para las animaciones de btOpciones
         private void BtOpciones_Click(object sender, RoutedEventArgs e)
