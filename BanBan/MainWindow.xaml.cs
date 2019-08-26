@@ -11,6 +11,8 @@ namespace BanBan
     /// </summary>
     public partial class MainWindow : Window
     {
+        //**Para no perder el progreso en un form crear un stack de las paginas abiertas
+        //buscar una instancia de la pagina a la que se desea navegar, si existe cargarla, sino crearla
         private bool anim;
         private List<Storyboard> anims;
         private LoginControl lgc;
@@ -32,7 +34,7 @@ namespace BanBan
         {
             _ = await lgc.verificarUsuario();
             BeginStoryboard(anims[0]);
-            frPpal.Content = new Pages.Empleados();
+            frPpal.Content = new Pages.Planillas();
             frPpal.IsEnabled = true;
         }
         //Trigger para las animaciones de btOpciones

@@ -67,14 +67,6 @@
                VerticalAlignment="Center" 
                Width="{Binding ActualWidth, ElementName=grid,Mode=OneWay}" 
                Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
-            <Frame.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Frame.RenderTransform>
         </Frame>
         <StackPanel x:Name="stpOpciones" 
                     HorizontalAlignment="Left"
@@ -164,7 +156,7 @@
                 HorizontalAlignment="Center"  
                 Height="400" 
                 Width="300"
-                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="True">
+                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="True" d:IsHidden="True">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="20" Opacity="0.5" Color="Black" BlurRadius="15"/>
             </Border.Effect>

@@ -7,63 +7,108 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Empleados">
-
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Label x:Name="lbTitulo" 
-            Content="Empleados" 
-            HorizontalAlignment="Center" VerticalAlignment="Center" 
-            Width="130" Height="50" 
-            TextBlock.FontSize="25" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbNombre" 
-               Content="Nombre:" 
-               HorizontalAlignment="Left" VerticalAlignment="Center" 
-               Width="60" Height="30" 
-               Grid.Row="1" 
-               Margin="40,0,0,0"/>
-        <Button x:Name="tbNombre" 
-                HorizontalAlignment="Right" VerticalAlignment="Center" 
-                Width="270" Height="30" 
-                Grid.Row="1"
-                Margin="0,0,20,0"/>
-        <Label x:Name="lbApellido" 
-               Content="Apellido:" 
-               HorizontalAlignment="Left" VerticalAlignment="Center" 
-               Width="60" Height="30" 
-               Grid.Row="1" Grid.Column="1"
-               Margin="40,0,0,0"/>
-        <Button x:Name="tbApellido" 
-                HorizontalAlignment="Right" VerticalAlignment="Center" 
-                Width="270" Height="30" 
-                Grid.Row="1" Grid.Column="1"
-                Margin="0,0,20,0"/>
-        <Label x:Name="lbDUI" 
-               Content="DUI:" 
-               HorizontalAlignment="Left" VerticalAlignment="Center" 
-               Width="60" Height="30" 
-               Grid.Row="2" 
-               Margin="40,0,0,0"/>
-        <Button x:Name="tbDUI" 
-                HorizontalAlignment="Right" VerticalAlignment="Center" 
-                Width="270" Height="30" 
-                Grid.Row="2"
-                Margin="0,0,20,0"/>
-        <Label x:Name="lbNIT" 
-               Content="NIT:" 
-               HorizontalAlignment="Left" VerticalAlignment="Center" 
-               Width="60" Height="30" 
-               Grid.Row="2" Grid.Column="1"
-               Margin="40,0,0,0"/>
-        <Button x:Name="tbNIT" 
-                HorizontalAlignment="Right" VerticalAlignment="Center" 
-                Width="270" Height="30" 
-                Grid.Row="2" Grid.Column="1"
-                Margin="0,0,20,0"/>
+               Content="Empleados" 
+               HorizontalAlignment="Center" VerticalAlignment="Center" 
+               Width="130" Height="50" 
+               TextBlock.FontSize="25" Grid.ColumnSpan="2"/>
+        <StackPanel x:Name="StackPanel1" Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center">
+            <Label x:Name="lbNombre" 
+                   Content="Nombre:" 
+                   HorizontalContentAlignment="Right"
+                   MinWidth="100" Height="30"/>
+            <TextBox x:Name="tbNombre"
+                     MinWidth="200" Height="30" />
+        </StackPanel>
+        <StackPanel x:Name="StackPanel2" 
+                    Orientation="Horizontal" 
+                    Grid.Row="1" Grid.Column="1" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbApellido"             
+                   Content="Apellido:"              
+                   MinWidth="100" Height="30"
+                   HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbApellido" 
+                     MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="StackPanel3" Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center">
+            <Label x:Name="lbDUI"                    
+                   Content="DUI:" 
+                   MinWidth="100" Height="30"
+                   HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbDUI"  
+                    MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="StackPanel4" 
+                    Orientation="Horizontal" 
+                    Grid.Row="2" Grid.Column="1" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbNIT" 
+                   Content="NIT:" 
+                   MinWidth="100" Height="30"
+                   HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbNIT" 
+                     MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="StackPanel5" Grid.Row="3" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+            <Label x:Name="lbHorario"                    
+                   Content="Horario, desde:" 
+                   MinWidth="100"
+                   HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbDesde"
+                     MinWidth="30"
+                     Text="asd"
+                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <RadioButton x:Name="rbAm1" GroupName="rbam" Content="a.m." 
+                         MinWidth="40"
+                         VerticalAlignment="Center" IsChecked="True"/>
+            <RadioButton x:Name="rbPm1" GroupName="rbam" Content="p.m"
+                         MinWidth="40"
+                         VerticalAlignment="Center"/>
+            <Label x:Name="lbHasta" Content="Hasta:"/>
+            <TextBox x:Name="tbHasta"
+                     MinWidth="30"
+                     Text="asd"
+                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <RadioButton x:Name="rbAm2" GroupName="rbpm" Content="a.m." 
+                         MinWidth="40"
+                         VerticalAlignment="Center" IsChecked="True"/>
+            <RadioButton x:Name="rbPm2" GroupName="rbpm" Content="p.m"
+                         MinWidth="40"
+                         VerticalAlignment="Center"/>
+            <Label x:Name="lbAfiliacion"
+                   Content="Afiliado a:"
+                   HorizontalContentAlignment="Right"
+                   MinWidth="80"/>
+            <ComboBox Name="cbAfiliacion" MinWidth="90"/>
+        </StackPanel>
+        <StackPanel x:Name="StackPanel7" Grid.Row="4" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center">
+            <Label x:Name="lbSucursal"                    
+                   Content="Sucursal:" 
+                   MinWidth="100" Height="30"
+                   HorizontalContentAlignment="Right"/>
+            <ComboBox Name="cbSucursal"
+                      MinWidth="200" Height="30"/>
+        </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
