@@ -92,7 +92,7 @@
                    MinWidth="80"/>
             <ComboBox Name="cbAfiliacion" MinWidth="90"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel7" Grid.Row="4" 
+        <StackPanel x:Name="StackPanel6" Grid.Row="4" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
@@ -103,8 +103,31 @@
             <ComboBox Name="cbSucursal"
                       MinWidth="200" Height="30"/>
         </StackPanel>
+        <StackPanel x:Name="StackPanel7" 
+            Orientation="Horizontal" 
+            Grid.Row="4" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbCargo" 
+                Content="Cargo:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <ComboBox x:Name="tbCargo" 
+                MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="StackPanel8" Grid.Row="5" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Label x:Name="lbSueldoBase"                    
+                Content="Sueldo base:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbSueldoBase"
+                MinWidth="200" Height="30"/>
+        </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>

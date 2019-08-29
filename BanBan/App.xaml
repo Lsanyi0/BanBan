@@ -20,9 +20,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <!--Empleado
+        <!--
         Planillas - Impresion, mostrar ambas, preview boletas de pagas
-        Empleados por sucursal-->
+        Empleados por sucursal
+        Sucursales-->
          <!--Colores-->
         <SolidColorBrush x:Name="foregroundGlobal" x:Key="foregroundGlobal" Color="White"/>
         <SolidColorBrush x:Name="backGroundGlobal" x:Key="backGroundGlobal" Color="CadetBlue"/>

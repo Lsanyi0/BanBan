@@ -19,19 +19,6 @@
                 <DropShadowEffect Opacity="0.2"/>
             </Image.Effect>
         </Image>
-        <Border>
-        <TextBox x:Name="tbUsuario" 
-                 HorizontalAlignment="Center" 
-                 Height="30" 
-                 Width="180"
-                 Text="Usuario"
-                 TextBlock.FontFamily="Arial"
-                 VerticalAlignment="Top"
-                 Margin="0,145,0,0"
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 TextBlock.FontSize="20"/>
-            </Border>
         <PasswordBox x:Name="pwbClave"
                      Height="{Binding ActualHeight, ElementName=tbUsuario, Mode=OneWay}"
                      Width="{Binding ActualWidth, ElementName=tbUsuario, Mode=OneWay}"
@@ -53,5 +40,16 @@
                 Height="30"
                 TextBlock.FontFamily="Arial"
                 TextBlock.FontSize="20" Click="BtIniciarSesion_Click"/>
+        <TextBox x:Name="tbUsuario" 
+                 HorizontalAlignment="Center" 
+                 Height="30" 
+                 Width="180"
+                 Text="Usuario"
+                 TextBlock.FontFamily="Arial"
+                 VerticalAlignment="Top"
+                 Margin="60,145,60,0"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 TextBlock.FontSize="20"/>
     </Grid>
 </Page>
