@@ -7,16 +7,109 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Sucursales">
-
-    <Grid>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Label x:Name="lbTitulo" 
+            Content="Sucursal" 
+            HorizontalAlignment="Center" VerticalAlignment="Center" 
+            Width="130" Height="50" 
+            TextBlock.FontSize="25" Grid.ColumnSpan="2"/>
+        <StackPanel x:Name="spNombre" Grid.Row="1" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Label x:Name="lbNombreSucursal" 
+                Content="Nombre de sucursal:" 
+                HorizontalContentAlignment="Right"
+                MinWidth="100" Height="30"/>
+            <TextBox x:Name="tbNombreSucursal"
+                MinWidth="200" Height="30" />
+        </StackPanel>
+        <StackPanel x:Name="spDepartamento" 
+            Orientation="Horizontal" 
+            Grid.Row="1" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbDepartamento"             
+                Content="Departamento:"              
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <ComboBox x:Name="tbDepartamento" 
+                MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="spMunicipio" Grid.Row="2" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Label x:Name="lbMunicipio"                    
+                Content="Municipio:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <ComboBox x:Name="tbMunicipio"  
+                MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="spAsueto" Grid.Row="3" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Label x:Name="lbAsueto"                    
+                Content="Asueto:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <DatePicker x:Name="tbAsueto"  
+                MinWidth="200" Height="30"/>
+        </StackPanel>
+        <StackPanel x:Name="spListaAsueto" 
+                    Orientation="Horizontal" 
+                    Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
+                    VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,10,0,0">
+            <Label x:Name="lbListaAsueto"             
+                Content="Dias de asueto:"              
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right" VerticalAlignment="Top"/>
+            <ListBox x:Name="lsAsuetos" 
+                MinWidth="200" VerticalAlignment="Stretch"/>
+        </StackPanel>
+        <StackPanel x:Name="spBotonesAsueto" 
+                Orientation="Horizontal" 
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                Grid.Row="4" >
+            <Button x:Name="btLimpiar"
+                    Content="Limpiar"
+                    MinWidth="100" Height="30" 
+                    Margin="10,0,10,0"/>
+            <Button x:Name="btQuitar"
+                    Content="Quitar"
+                    MinWidth="100" Height="30" 
+                    Margin="10,0,10,0"/>
+            <Button x:Name="btAgregar" 
+                    Content="Agregar"
+                    MinWidth="100" Height="30" 
+                    Margin="10,0,10,0"/>
+        </StackPanel>
+        <StackPanel x:Name="spBotones" 
+            Orientation="Horizontal" 
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Grid.Row="5" Grid.Column="1" Margin="0,10" >
+            <Button x:Name="btCancelar"
+                Content="Cancelar"
+                MinWidth="100" Height="30" 
+                Margin="10,0,10,0"/>
+            <Button x:Name="btGuardar" 
+                Content="Guardar"
+                MinWidth="100" Height="30" 
+                Margin="10,0,10,0"/>
+        </StackPanel>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
     </Grid>
 </Page>

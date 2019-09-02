@@ -12,62 +12,83 @@
                Content="Empleados" 
                HorizontalAlignment="Center" VerticalAlignment="Center" 
                Width="130" Height="50" 
-               TextBlock.FontSize="25" Grid.ColumnSpan="2"/>
-        <StackPanel x:Name="StackPanel1" Grid.Row="1" 
+               TextBlock.FontSize="25" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+        <StackPanel x:Name="spNombre" Grid.Row="1" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
             <Label x:Name="lbNombre" 
                    Content="Nombre:" 
                    HorizontalContentAlignment="Right"
-                   MinWidth="100" Height="30"/>
+                   MinWidth="100" Height="30" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbNombre"
-                     MinWidth="200" Height="30" />
+                     MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel2" 
+        <StackPanel x:Name="spApelldo" 
                     Orientation="Horizontal" 
                     Grid.Row="1" Grid.Column="1" 
                     VerticalAlignment="Center" HorizontalAlignment="Left">
             <Label x:Name="lbApellido"             
                    Content="Apellido:"              
                    MinWidth="100" Height="30"
-                   HorizontalContentAlignment="Right"/>
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbApellido" 
-                     MinWidth="200" Height="30"/>
+                     MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel3" Grid.Row="2" 
+        <StackPanel x:Name="spDUI" Grid.Row="2" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
             <Label x:Name="lbDUI"                    
                    Content="DUI:" 
                    MinWidth="100" Height="30"
-                   HorizontalContentAlignment="Right"/>
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbDUI"  
-                    MinWidth="200" Height="30"/>
+                    MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel4" 
+        <StackPanel x:Name="spNIT" 
                     Orientation="Horizontal" 
                     Grid.Row="2" Grid.Column="1" 
                     VerticalAlignment="Center" HorizontalAlignment="Left">
             <Label x:Name="lbNIT" 
                    Content="NIT:" 
                    MinWidth="100" Height="30"
-                   HorizontalContentAlignment="Right"/>
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbNIT" 
-                     MinWidth="200" Height="30"/>
+                     MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel5" Grid.Row="3" Grid.ColumnSpan="2"
+        <StackPanel x:Name="spFechaContrato" Grid.Row="3" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center" Margin="0,7.5">
+            <Label x:Name="lbFechaContrato"                    
+                Content="Fecha de contrato:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <DatePicker x:Name="tbFechaContrato"  
+                MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spSalidaEmpresa" 
+            Orientation="Horizontal" 
+            Grid.Row="3" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbSalidaEmpresa" 
+                Content="Fecha despido:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <DatePicker x:Name="tbSalidaEmpresa" 
+                MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spHorario" Grid.Row="4" Grid.ColumnSpan="2"
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
             <Label x:Name="lbHorario"                    
                    Content="Horario, desde:" 
                    MinWidth="100"
-                   HorizontalContentAlignment="Right"/>
+                   HorizontalContentAlignment="Right" />
             <TextBox x:Name="tbDesde"
                      MinWidth="30"
-                     Text="asd"
                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <RadioButton x:Name="rbAm1" GroupName="rbam" Content="a.m." 
                          MinWidth="40"
@@ -78,7 +99,7 @@
             <Label x:Name="lbHasta" Content="Hasta:"/>
             <TextBox x:Name="tbHasta"
                      MinWidth="30"
-                     Text="asd"
+                     Text=""
                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <RadioButton x:Name="rbAm2" GroupName="rbpm" Content="a.m." 
                          MinWidth="40"
@@ -90,43 +111,73 @@
                    Content="Afiliado a:"
                    HorizontalContentAlignment="Right"
                    MinWidth="80"/>
-            <ComboBox Name="cbAfiliacion" MinWidth="90"/>
+            <ComboBox Name="cbAfiliacion" MinWidth="90" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel6" Grid.Row="4" 
+        <StackPanel x:Name="spSucursal" Grid.Row="5" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
             <Label x:Name="lbSucursal"                    
                    Content="Sucursal:" 
                    MinWidth="100" Height="30"
-                   HorizontalContentAlignment="Right"/>
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox Name="cbSucursal"
-                      MinWidth="200" Height="30"/>
+                      MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel7" 
+        <StackPanel x:Name="spCargo" 
             Orientation="Horizontal" 
-            Grid.Row="4" Grid.Column="1" 
+            Grid.Row="5" Grid.Column="1" 
             VerticalAlignment="Center" HorizontalAlignment="Left">
             <Label x:Name="lbCargo" 
                 Content="Cargo:" 
                 MinWidth="100" Height="30"
-                HorizontalContentAlignment="Right"/>
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="tbCargo" 
-                MinWidth="200" Height="30"/>
+                      MinWidth="200" Height="30" 
+                      VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel8" Grid.Row="5" 
+        <StackPanel x:Name="spSueldo" Grid.Row="6" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right" 
             VerticalAlignment="Center">
             <Label x:Name="lbSueldoBase"                    
                 Content="Sueldo base:" 
                 MinWidth="100" Height="30"
-                HorizontalContentAlignment="Right"/>
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbSueldoBase"
-                MinWidth="200" Height="30"/>
+                MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spTelefono" Grid.Row="6" Grid.Column="1"
+            Orientation="Horizontal" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Margin="0,5">
+            <Label x:Name="lbTelefono"                    
+                Content="Telefono:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="tbTelefono"
+                MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spBotones" 
+            Orientation="Horizontal" 
+            Grid.Row="7" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Center">
+            <CheckBox x:Name="cbActivo" Content="Activo"
+                      VerticalContentAlignment="Center"
+                      IsChecked="True"/>
+            <Button x:Name="btCancelar"
+                    Content="Cancelar"
+                    MinWidth="100" Height="30" 
+                    Margin="10,0,10,0"/>
+            <Button x:Name="btAceptar" 
+                    Content="Guardar"
+                    MinWidth="100" Height="30" 
+                    Margin="10,0,10,0"/>
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>

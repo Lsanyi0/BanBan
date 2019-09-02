@@ -18,20 +18,20 @@
                     Orientation="Horizontal" HorizontalAlignment="Stretch" 
                     Grid.Row="2" Grid.ColumnSpan="2">
         </StackPanel>
-        <StackPanel x:Name="StackPanel2" 
+        <StackPanel x:Name="spSucursal" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="100"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150"/>
+            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel x:Name="StackPanel3" Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2"></StackPanel>
-        <StackPanel x:Name="StackPanel4" 
+        <StackPanel x:Name="spBuscar" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
             <Label x:Name="lbBuscar" Content="Buscar:" MinWidth="100"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="tbBuscar" Height="30" Width="150"/>
+            <TextBox x:Name="tbBuscar" Height="30" Width="150" VerticalContentAlignment="Center"/>
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
         <Button x:Name="btAceptar" Height="30" MaxWidth="130" Content="Aceptar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4"/>
