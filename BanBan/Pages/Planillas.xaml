@@ -15,7 +15,7 @@
                Grid.Column="2" Grid.Row="1"
                HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
         <StackPanel x:Name="StackPanel1" 
-                    Orientation="Horizontal" HorizontalAlignment="Stretch" 
+                    Orientation="Horizontal" HorizontalAlignment="Center" 
                     Grid.Row="2" Grid.ColumnSpan="2">
         </StackPanel>
         <StackPanel x:Name="spSucursal" 
@@ -25,7 +25,12 @@
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="100"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="StackPanel3" Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2"></StackPanel>
+        <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    Grid.Row="3" Grid.ColumnSpan="2">
+            <Button x:Name="btObtenerDatos" Content="Obtener datos"/>
+            <Button x:Name="btElOtro" Content="El otro boton que queria poner"/>
+        </StackPanel>
         <StackPanel x:Name="spBuscar" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
@@ -35,9 +40,49 @@
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
         <Button x:Name="btAceptar" Height="30" MaxWidth="130" Content="Aceptar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4"/>
-        <DataGrid x:Name="dgvPlanilla" HorizontalAlignment="Stretch" 
-                  Margin="60,20,40,30" Grid.Row="4" Grid.ColumnSpan="5">
-        </DataGrid>
+        <TabControl x:Name="tcData"  Margin="60,10,38,25" Grid.Row="4" Grid.ColumnSpan="5" >
+            <TabItem Name="Planilla" Header="Planilla">
+                <DataGrid x:Name="dgvPlanilla"
+                          ScrollViewer.CanContentScroll="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre completo" Width="110" />
+                        <DataGridTextColumn Header="Numero de dias" Width="100"/>
+                        <DataGridTextColumn Header="Sueldo" Width="50"/>
+                        <DataGridTextColumn Header="Horas" Width="40"/>
+                        <DataGridTextColumn Header="Nocturnas" Width="65"/>
+                        <DataGridTextColumn Header="% Nocturnidad" Width="90"/>
+                        <DataGridTextColumn Header="Total Horas extra" Width="100"/>
+                        <DataGridTextColumn Header="Asuetos" Width="52"/>
+                        <DataGridTextColumn Header="Total Horas extra nocturnas" Width="155"/>
+                        <DataGridTextColumn Header="Horas Nocturnas" Width="100"/>
+                        <DataGridTextColumn Header="Total devengado" Width="100"/>
+                        <DataGridTextColumn Header="Seguro empleado" Width="110"/>
+                        <DataGridTextColumn Header="AFP empleado" Width="100"/>
+                        <DataGridTextColumn Header="Total deduccion" Width="100"/>
+                        <DataGridTextColumn Header="Neto a pagar" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="Atenciones" Header="Atenciones">
+                <DataGrid x:Name="dgvPlanilla1"
+                    ScrollViewer.CanContentScroll="True"
+                    ColumnHeaderHeight="50" Height="261" Width="696">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre completo" Width="110" />
+                        <DataGridTextColumn Header="Comida" Width="50"/>
+                        <DataGridTextColumn Header="Atenciones" Width="70"/>
+                        <DataGridTextColumn Header="% de Cajas" Width="70"/>
+                        <DataGridTextColumn Header="Total Atenciones" Width="100"/>
+                        <DataGridTextColumn Header="Numero de factura" Width="110"/>
+                        <DataGridTextColumn Header="Monto" Width="45"/>
+                        <DataGridTextColumn Header="Total Neto" Width="65"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="MAS" Header="+">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="4*"/>

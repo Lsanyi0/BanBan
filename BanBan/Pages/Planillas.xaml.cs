@@ -22,7 +22,17 @@ namespace BanBan.Pages
     {
         public Planillas()
         {
+            string xD = "xD";
             InitializeComponent();
+            for (int i = 0; i < 50; i++)
+            {
+                xD += "D";
+                List<string> Nombre = new List<string>
+                {
+                    xD
+                };
+                dgvPlanilla.Items.Add(Nombre);
+            }
         }
     }
 }

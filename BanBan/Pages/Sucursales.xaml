@@ -35,6 +35,17 @@
             <ComboBox x:Name="tbDepartamento" 
                 MinWidth="200" Height="30"/>
         </StackPanel>
+        <StackPanel x:Name="spDireccion" 
+            Orientation="Horizontal" 
+            Grid.Row="2" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label x:Name="lbDireccion"             
+                Content="Direccion:"              
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbDireccion" 
+                MinWidth="200" Height="30"/>
+        </StackPanel>
         <StackPanel x:Name="spMunicipio" Grid.Row="2" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right" 
