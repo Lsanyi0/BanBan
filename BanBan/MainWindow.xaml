@@ -124,7 +124,7 @@
                             Margin="4,0,0,0"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
-                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}">
+                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}" Click="btEmpleadoClick">
                 <Grid x:Name="gdAgregarEmpleados"
                               HorizontalAlignment="Stretch" 
                               VerticalAlignment="Stretch"
@@ -150,13 +150,89 @@
                     </Canvas>
                 </Grid>
             </Button>
+            <Button x:Name="btPlanillas" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el formulario para crear Planillas" Style="{DynamicResource btNormal}" Click="btPlanillasClick">
+                <Grid x:Name="gdPlanillas"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2" Background="{Binding Background, ElementName=btPlanillas}">
+                    <Label x:Name="lbPlanillas" 
+                        Content="Planillas" 
+                        Foreground="{DynamicResource foregroundGlobal}"
+                        Width="121"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgPlanillas"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Rectangle x:Name="rtBorde" Width="20" Height="24" StrokeThickness="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="3" Canvas.Left="6"/>
+                        <Rectangle x:Name="rtlinea" Width="14" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="7" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea1" Width="12" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="10" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea2" Width="5" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="13" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea3" Width="14" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="21" Canvas.Left="9"/>
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btSucursales" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el formulario para crear sucursales" Style="{DynamicResource btNormal}" Click="btSucursalesClick">
+                <Grid x:Name="gdSucursales"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2" Background="{Binding Background, ElementName=btSucursales}">
+                    <Label x:Name="lbSucursales" 
+                        Content="Sucursales" 
+                        Foreground="{DynamicResource foregroundGlobal}"
+                        Width="121"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgSucursales"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Rectangle x:Name="rtBorde1" Width="24" Height="24" StrokeThickness="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="3" Canvas.Left="3"/>
+                        <Rectangle x:Name="rtPuerta" Width="6" Height="7" StrokeThickness="2" Canvas.Bottom="3" Canvas.Right="12" Stroke="{DynamicResource foregroundGlobal}"/>
+                        <Ellipse x:Name="ecToldo1" Width="2" Height="2" Stroke="white" Canvas.Top="15" Canvas.Left="9"/>
+                        <Ellipse x:Name="ecToldo2" Width="3" Height="3" Stroke="white" Canvas.Top="14" Canvas.Left="10"/>
+                        <Ellipse x:Name="ecToldo3" Width="3" Height="3" Stroke="white" Canvas.Top="14" Canvas.Left="12"/>
+                        <Ellipse x:Name="ecToldo4" Width="3" Height="3" Stroke="white" Canvas.Top="14" Canvas.Left="15"/>
+                        <Ellipse x:Name="ecToldo5" Width="3" Height="3" Stroke="white" Canvas.Top="14" Canvas.Left="17"/>
+                        <Ellipse x:Name="ecToldo6" Width="2" Height="2" Stroke="white" Canvas.Top="15" Canvas.Left="19"/>
+                        <Ellipse x:Name="ecToldo7" Width="2" Height="2" Stroke="white" Canvas.Top="15" Canvas.Left="14"/>
+                        <Label x:Name="lbBanBan" Content="BanBan" TextBlock.FontSize="4" Foreground="{DynamicResource foregroundGlobal}" Canvas.Left="3"/>
+                        <Rectangle x:Name="rtlineaS1" Width="12" Height="2" StrokeThickness="3" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="14" Canvas.Left="9"/>
+                    </Canvas>
+                </Grid>
+            </Button>
         </StackPanel>
         <Border x:Name="borderLogin" BorderBrush="Black"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center"  
                 Height="400" 
                 Width="300"
-                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="True" d:IsHidden="True">
+                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="True">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="20" Opacity="0.5" Color="Black" BlurRadius="15"/>
             </Border.Effect>
@@ -173,7 +249,7 @@
                Width="300"
                FontFamily="Arial"
                IsEnabled="True"
-               Source="/BanBan;component/Pages/Login.xaml">
+               Source="/BanBan;component/Pages/Login.xaml" d:IsHidden="True">
                 <Frame.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

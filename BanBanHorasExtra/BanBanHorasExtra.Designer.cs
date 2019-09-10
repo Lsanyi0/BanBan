@@ -129,7 +129,7 @@
             this.Name = "BanBanHorasExtra";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BabBanHorasExtra";
+            this.Text = "BanBanHorasExtra";
             this.ResumeLayout(false);
             this.PerformLayout();
 

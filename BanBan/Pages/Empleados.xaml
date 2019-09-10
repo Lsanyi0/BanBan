@@ -161,7 +161,7 @@
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
             Grid.Row="7" Grid.Column="1" 
-            VerticalAlignment="Center" HorizontalAlignment="Center">
+            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
             <CheckBox x:Name="cbActivo" Content="Activo"
                       VerticalContentAlignment="Center"
                       IsChecked="True"/>

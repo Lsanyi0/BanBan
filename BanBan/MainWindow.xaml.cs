@@ -11,14 +11,18 @@ namespace BanBan
     /// </summary>
     public partial class MainWindow : Window
     {
-        //**Para no perder el progreso en un form crear un stack de las paginas abiertas
-        //buscar una instancia de la pagina a la que se desea navegar, si existe cargarla, sino crearla
         private bool anim;
         private List<Storyboard> anims;
         private LoginControl lgc;
+        private Pages.Empleados empleados;
+        private Pages.Planillas planillas;
+        private Pages.Sucursales sucursales;
         public MainWindow()
         {
             InitializeComponent();
+            empleados = new Pages.Empleados();
+            planillas = new Pages.Planillas();
+            sucursales = new Pages.Sucursales();
             lgc = new LoginControl();
             anims = new List<Storyboard>
             {
@@ -34,14 +38,38 @@ namespace BanBan
         {
             _ = await lgc.verificarUsuario();
             BeginStoryboard(anims[0]);
-            frPpal.Content = new Pages.Planillas();
+            frPpal.Content = planillas;
             frPpal.IsEnabled = true;
         }
+
         //Trigger para las animaciones de btOpciones
         private void BtOpciones_Click(object sender, RoutedEventArgs e)
         {
             if (anim) { BeginStoryboard(anims[1]); anim = false; }
             else { BeginStoryboard(anims[2]); anim = true; }
+        }
+
+        //Cargar contenido en el formulario ppal
+        private void btEmpleadoClick(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(Pages.Empleados))
+            {
+                frPpal.Content = empleados;
+            }
+        }
+        private void btPlanillasClick(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(Pages.Planillas))
+            {
+                frPpal.Content = planillas;
+            }
+        }
+        private void btSucursalesClick(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(Pages.Sucursales))
+            {
+                frPpal.Content = sucursales;
+            }
         }
     }
 }
