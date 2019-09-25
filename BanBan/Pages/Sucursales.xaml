@@ -109,6 +109,17 @@
                 MinWidth="100" Height="30" 
                 Margin="10,0,10,0"/>
         </StackPanel>
+        <StackPanel x:Name="spSupervisor" Grid.Row="5" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Label x:Name="lbSupervisor"                    
+                Content="Supervisor:" 
+                MinWidth="100" Height="30"
+                HorizontalContentAlignment="Right"/>
+            <ComboBox x:Name="tbSupervisor"  
+                MinWidth="200" Height="30"/>
+        </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="4*"/>

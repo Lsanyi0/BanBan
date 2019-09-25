@@ -17,12 +17,14 @@ namespace BanBan
         private Pages.Empleados empleados;
         private Pages.Planillas planillas;
         private Pages.Sucursales sucursales;
+        private Pages.Configuracion configuracion;
         public MainWindow()
         {
             InitializeComponent();
             empleados = new Pages.Empleados();
             planillas = new Pages.Planillas();
             sucursales = new Pages.Sucursales();
+            configuracion = new Pages.Configuracion();
             lgc = new LoginControl();
             anims = new List<Storyboard>
             {
@@ -70,6 +72,22 @@ namespace BanBan
             {
                 frPpal.Content = sucursales;
             }
+        }
+
+        private void btReportesClick(object sender, RoutedEventArgs e)
+        {
+            //if (frPpal.Content.GetType() != typeof(Pages.Configuracion))
+            //{
+            //    
+            //}
+        }
+
+        private void btConfigurarClick(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(Pages.Configuracion))
+            {
+                frPpal.Content = configuracion;
+            }   
         }
     }
 }

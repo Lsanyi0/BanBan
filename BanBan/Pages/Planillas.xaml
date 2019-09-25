@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BanBan.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="820"
       Title="Planillas">
     <!--Cancelar por usuario individual-->
     <Grid>
@@ -16,13 +16,12 @@
                HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
         <StackPanel x:Name="StackPanel1" 
                     Orientation="Horizontal" HorizontalAlignment="Center" 
-                    Grid.Row="2" Grid.ColumnSpan="2">
-        </StackPanel>
+                    Grid.Row="2" Grid.ColumnSpan="2"/>
         <StackPanel x:Name="spSucursal" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
-            <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="100"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
@@ -35,13 +34,17 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" 
                     Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
-            <Label x:Name="lbBuscar" Content="Buscar:" MinWidth="100"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            <Label x:Name="lbBuscar" Content="Buscar:" MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <TextBox x:Name="tbBuscar" Height="30" Width="150" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
-        <Button x:Name="btAceptar" Height="30" MaxWidth="130" Content="Aceptar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4"/>
+        <StackPanel x:Name="spEmpleadosEnPlanilla" Orientation="Horizontal" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label Content="Empleados en planilla:"/>
+            <Label x:Name="lbNumero" Content=""/>
+        </StackPanel>
+        <Button x:Name="btCerrarPlanilla" Height="30" MaxWidth="130" Content="Cerrar planilla" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
+        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4"/>
         <TabControl x:Name="tcData"  Margin="60,10,38,25" Grid.Row="4" Grid.ColumnSpan="5" >
-            <TabItem Name="tbPlanilla" Header="Planilla">
+            <TabItem x:Name="tbPlanilla" Header="Planilla">
                 <DataGrid x:Name="dgvPlanilla"
                           ScrollViewer.CanContentScroll="True">
                     <DataGrid.Columns>
@@ -79,7 +82,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Name="MAS" Header="+">
+            <TabItem x:Name="MAS" Header="+">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

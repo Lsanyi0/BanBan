@@ -28,123 +28,156 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dpDesde = new System.Windows.Forms.DateTimePicker();
-            this.lbNombreEmpleado = new System.Windows.Forms.Label();
+            this.lbSucursal = new System.Windows.Forms.Label();
             this.cbEmpleados = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dpHasta = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btAceptar = new System.Windows.Forms.Button();
+            this.btGuardar = new System.Windows.Forms.Button();
             this.btCancelar = new System.Windows.Forms.Button();
+            this.Comentario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoraFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoraInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dpDesde
+            // lbSucursal
             // 
-            this.dpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dpDesde.Location = new System.Drawing.Point(134, 39);
-            this.dpDesde.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
-            this.dpDesde.Name = "dpDesde";
-            this.dpDesde.Size = new System.Drawing.Size(318, 20);
-            this.dpDesde.TabIndex = 2;
-            // 
-            // lbNombreEmpleado
-            // 
-            this.lbNombreEmpleado.AutoSize = true;
-            this.lbNombreEmpleado.Location = new System.Drawing.Point(12, 15);
-            this.lbNombreEmpleado.Name = "lbNombreEmpleado";
-            this.lbNombreEmpleado.Size = new System.Drawing.Size(115, 13);
-            this.lbNombreEmpleado.TabIndex = 1;
-            this.lbNombreEmpleado.Text = "Seleccionar empleado:";
+            this.lbSucursal.AutoSize = true;
+            this.lbSucursal.Location = new System.Drawing.Point(324, 23);
+            this.lbSucursal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbSucursal.Name = "lbSucursal";
+            this.lbSucursal.Size = new System.Drawing.Size(67, 17);
+            this.lbSucursal.TabIndex = 1;
+            this.lbSucursal.Text = "Sucursal:";
             // 
             // cbEmpleados
             // 
             this.cbEmpleados.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEmpleados.FormattingEnabled = true;
-            this.cbEmpleados.Location = new System.Drawing.Point(134, 12);
+            this.cbEmpleados.Location = new System.Drawing.Point(399, 16);
+            this.cbEmpleados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbEmpleados.MaxDropDownItems = 20;
             this.cbEmpleados.Name = "cbEmpleados";
-            this.cbEmpleados.Size = new System.Drawing.Size(318, 21);
+            this.cbEmpleados.Size = new System.Drawing.Size(423, 24);
             this.cbEmpleados.TabIndex = 1;
             // 
-            // label1
+            // btGuardar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Hora extra desde:";
-            // 
-            // dpHasta
-            // 
-            this.dpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dpHasta.Location = new System.Drawing.Point(134, 65);
-            this.dpHasta.Name = "dpHasta";
-            this.dpHasta.Size = new System.Drawing.Size(318, 20);
-            this.dpHasta.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 71);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Hasta:";
-            // 
-            // btAceptar
-            // 
-            this.btAceptar.Location = new System.Drawing.Point(377, 102);
-            this.btAceptar.Name = "btAceptar";
-            this.btAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btAceptar.TabIndex = 4;
-            this.btAceptar.Text = "Aceptar";
-            this.btAceptar.UseVisualStyleBackColor = true;
+            this.btGuardar.Location = new System.Drawing.Point(722, 500);
+            this.btGuardar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btGuardar.Name = "btGuardar";
+            this.btGuardar.Size = new System.Drawing.Size(100, 28);
+            this.btGuardar.TabIndex = 4;
+            this.btGuardar.Text = "Guardar";
+            this.btGuardar.UseVisualStyleBackColor = true;
             // 
             // btCancelar
             // 
-            this.btCancelar.Location = new System.Drawing.Point(296, 102);
+            this.btCancelar.Location = new System.Drawing.Point(616, 500);
+            this.btCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btCancelar.Name = "btCancelar";
-            this.btCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btCancelar.Size = new System.Drawing.Size(100, 28);
             this.btCancelar.TabIndex = 5;
             this.btCancelar.Text = "Cancelar";
             this.btCancelar.UseVisualStyleBackColor = true;
             // 
+            // Comentario
+            // 
+            this.Comentario.HeaderText = "Comentario";
+            this.Comentario.MinimumWidth = 6;
+            this.Comentario.Name = "Comentario";
+            this.Comentario.Width = 125;
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.MinimumWidth = 6;
+            this.Tipo.Name = "Tipo";
+            this.Tipo.Width = 125;
+            // 
+            // HoraFinal
+            // 
+            this.HoraFinal.HeaderText = "HoraFinal";
+            this.HoraFinal.MinimumWidth = 6;
+            this.HoraFinal.Name = "HoraFinal";
+            this.HoraFinal.Width = 125;
+            // 
+            // HoraInicio
+            // 
+            this.HoraInicio.HeaderText = "Hora inicio";
+            this.HoraInicio.MinimumWidth = 6;
+            this.HoraInicio.Name = "HoraInicio";
+            this.HoraInicio.Width = 125;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.MinimumWidth = 6;
+            this.Fecha.Name = "Fecha";
+            this.Fecha.Width = 125;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 6;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 125;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Nombre,
+            this.Fecha,
+            this.HoraInicio,
+            this.HoraFinal,
+            this.Tipo,
+            this.Comentario});
+            this.dataGridView1.Location = new System.Drawing.Point(16, 57);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(806, 436);
+            this.dataGridView1.TabIndex = 6;
+            // 
             // BanBanHorasExtra
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(464, 129);
+            this.ClientSize = new System.Drawing.Size(842, 533);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btCancelar);
-            this.Controls.Add(this.btAceptar);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btGuardar);
             this.Controls.Add(this.cbEmpleados);
-            this.Controls.Add(this.lbNombreEmpleado);
-            this.Controls.Add(this.dpHasta);
-            this.Controls.Add(this.dpDesde);
+            this.Controls.Add(this.lbSucursal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "BanBanHorasExtra";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BanBanHorasExtra";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DateTimePicker dpDesde;
-        private System.Windows.Forms.Label lbNombreEmpleado;
+        private System.Windows.Forms.Label lbSucursal;
         private System.Windows.Forms.ComboBox cbEmpleados;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dpHasta;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btAceptar;
+        private System.Windows.Forms.Button btGuardar;
         private System.Windows.Forms.Button btCancelar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comentario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoraFinal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoraInicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

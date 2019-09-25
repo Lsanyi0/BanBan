@@ -66,7 +66,7 @@
         <Frame x:Name="frPpal" HorizontalAlignment="Center" 
                VerticalAlignment="Center" 
                Width="{Binding ActualWidth, ElementName=grid,Mode=OneWay}" 
-               Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
+               Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" IsEnabled="False" RenderTransformOrigin="0.5,0.5" Margin="0,10,0,-10" NavigationUIVisibility="Hidden">
         </Frame>
         <StackPanel x:Name="stpOpciones" 
                     HorizontalAlignment="Left"
@@ -118,38 +118,6 @@
                     </Canvas>
                 </Grid>
             </Button>
-            <Button x:Name="btAgregarEmpleados" 
-                            Height="52"
-                            VerticalAlignment="Top"
-                            Margin="4,0,0,0"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"
-                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}" Click="btEmpleadoClick">
-                <Grid x:Name="gdAgregarEmpleados"
-                              HorizontalAlignment="Stretch" 
-                              VerticalAlignment="Stretch"
-                              Width="{Binding ActualWidth, ElementName=btOpciones}"
-                              Margin="-2" Background="{Binding Background, ElementName=btAgregarEmpleados}">
-                    <Label x:Name="lbAgregarEmpleados" 
-                                   Content="Empleados" 
-                                   Foreground="{DynamicResource foregroundGlobal}"
-                                   Width="121"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"  
-                                   FontFamily="Century Schoolbook"
-                                   FontSize="22"
-                                   VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
-                    <Canvas x:Name="imgAgregarEmpleados"
-                                Height="30" Width="30"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Margin="0,11,5,11"
-                                ClipToBounds="True" Grid.Column="1">
-                        <Ellipse x:Name="ecHead" Fill="{Binding Foreground, ElementName=lbAgregarEmpleados}" Height="14" Canvas.Left="8" Canvas.Top="2" Width="14"/>
-                        <Ellipse x:Name="ecBody" Fill="{Binding Fill, ElementName=ecHead}" Height="26" Canvas.Left="4" Canvas.Top="17" Width="22"/>
-                    </Canvas>
-                </Grid>
-            </Button>
             <Button x:Name="btPlanillas" 
                 Height="52"
                 VerticalAlignment="Top"
@@ -182,6 +150,74 @@
                         <Rectangle x:Name="rtlinea1" Width="12" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="10" Canvas.Left="9"/>
                         <Rectangle x:Name="rtlinea2" Width="5" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="13" Canvas.Left="9"/>
                         <Rectangle x:Name="rtlinea3" Width="14" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="21" Canvas.Left="9"/>
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btReportes" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el formulario de reportes" Style="{DynamicResource btNormal}" Click="btReportesClick">
+                <Grid x:Name="gdReportes"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2" Background="{Binding Background, ElementName=btReportes}">
+                    <Label x:Name="lbReportes" 
+                        Content="Reportes" 
+                        Foreground="{DynamicResource foregroundGlobal}"
+                        Width="121"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgReportes"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Ellipse x:Name="elBoton" Fill="{DynamicResource foregroundGlobal}" Width="3" Height="3" Margin="6,9,10,10"/>
+                        <Rectangle x:Name="rcPage1" Width="14" Height="7" StrokeThickness="2" Stroke="{DynamicResource foregroundGlobal}" RadiusX="1" RadiusY="1" Margin="8,1,2,2"/>
+                        <Rectangle x:Name="elPrinter" Width="26" Height="16" StrokeThickness="2" Stroke="{DynamicResource foregroundGlobal}" RadiusX="2" RadiusY="2" Margin="2,6,2,2"/>
+                        <Rectangle x:Name="rcOutput" Width="18" Height="2" StrokeThickness="1" Stroke="{DynamicResource foregroundGlobal}" RadiusX="1" RadiusY="1" Margin="6,16,2,2"/>
+                        <Rectangle x:Name="rcPage2" Width="14" Height="12" StrokeThickness="1" Stroke="{DynamicResource foregroundGlobal}" Fill="{Binding Stroke,ElementName=rcPage2}" RadiusX="1" RadiusY="1" Margin="8,16,2,2"/>
+
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btAgregarEmpleados" 
+                            Height="52"
+                            VerticalAlignment="Top"
+                            Margin="4,0,0,0"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}" Click="btEmpleadoClick">
+                <Grid x:Name="gdAgregarEmpleados"
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch"
+                              Width="{Binding ActualWidth, ElementName=btOpciones}"
+                              Margin="-2" Background="{Binding Background, ElementName=btAgregarEmpleados}">
+                    <Label x:Name="lbAgregarEmpleados" 
+                                   Content="Empleados" 
+                                   Foreground="{DynamicResource foregroundGlobal}"
+                                   Width="121"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"  
+                                   FontFamily="Century Schoolbook"
+                                   FontSize="22"
+                                   VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgAgregarEmpleados"
+                                Height="30" Width="30"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0,11,5,11"
+                                ClipToBounds="True" Grid.Column="1">
+                        <Ellipse x:Name="ecHead" Fill="{Binding Foreground, ElementName=lbAgregarEmpleados}" Height="14" Canvas.Left="8" Canvas.Top="2" Width="14"/>
+                        <Ellipse x:Name="ecBody" Fill="{Binding Fill, ElementName=ecHead}" Height="26" Canvas.Left="4" Canvas.Top="17" Width="22"/>
                     </Canvas>
                 </Grid>
             </Button>
@@ -223,6 +259,79 @@
                         <Ellipse x:Name="ecToldo7" Width="2" Height="2" Stroke="white" Canvas.Top="15" Canvas.Left="14"/>
                         <Label x:Name="lbBanBan" Content="BanBan" TextBlock.FontSize="4" Foreground="{DynamicResource foregroundGlobal}" Canvas.Left="3"/>
                         <Rectangle x:Name="rtlineaS1" Width="12" Height="2" StrokeThickness="3" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="14" Canvas.Left="9"/>
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btConfigurar" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el formulario de configuracion" Style="{DynamicResource btNormal}" Click="btConfigurarClick">
+                <Grid x:Name="gdConfigurar"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btConfigurar}"
+                    Margin="-2" Background="{Binding Background, ElementName=btConfigurar}">
+                    <Label x:Name="lbConfigurar" 
+                        Content="Configurar" 
+                        Foreground="{DynamicResource foregroundGlobal}"
+                        Width="122"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgConfigurar"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Ellipse x:Name="elCirculo" Width="24" Height="24" StrokeThickness="6" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="3" Canvas.Left="3"/>
+                        <Rectangle x:Name="rcGear1" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="11" Canvas.Left="11" Canvas.Top="0"/>
+                        <Rectangle x:Name="rcGear2" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="11" Canvas.Left="2" Canvas.Top="5" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear3" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="11" Canvas.Left="21" Canvas.Top="5" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear4" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="11" Canvas.Left="20" Canvas.Top="19" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear5" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="11" Canvas.Left="2" Canvas.Top="19" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear6" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="0" Canvas.Left="11" />
                     </Canvas>
                 </Grid>
             </Button>

@@ -60,7 +60,7 @@
         <StackPanel x:Name="spFechaContrato" Grid.Row="3" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right" 
-            VerticalAlignment="Center" Margin="0,7.5">
+            VerticalAlignment="Center">
             <Label x:Name="lbFechaContrato"                    
                 Content="Fecha de contrato:" 
                 MinWidth="100" Height="30"
@@ -79,39 +79,25 @@
             <DatePicker x:Name="tbSalidaEmpresa" 
                 MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="spHorario" Grid.Row="4" Grid.ColumnSpan="2"
+        <StackPanel x:Name="spAfiliacion" Grid.Row="4" 
                     Orientation="Horizontal" 
-                    HorizontalAlignment="Center" 
+                    HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
-            <Label x:Name="lbHorario"                    
-                   Content="Horario, desde:" 
-                   MinWidth="100"
-                   HorizontalContentAlignment="Right" />
-            <TextBox x:Name="tbDesde"
-                     MinWidth="30"
-                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            <RadioButton x:Name="rbAm1" GroupName="rbam" Content="a.m." 
-                         MinWidth="40"
-                         VerticalAlignment="Center" IsChecked="True"/>
-            <RadioButton x:Name="rbPm1" GroupName="rbam" Content="p.m"
-                         MinWidth="40"
-                         VerticalAlignment="Center"/>
-            <Label x:Name="lbHasta" Content="Hasta:"/>
-            <TextBox x:Name="tbHasta"
-                     MinWidth="30"
-                     Text=""
-                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            <RadioButton x:Name="rbAm2" GroupName="rbpm" Content="a.m." 
-                         MinWidth="40"
-                         VerticalAlignment="Center" IsChecked="True"/>
-            <RadioButton x:Name="rbPm2" GroupName="rbpm" Content="p.m"
-                         MinWidth="40"
-                         VerticalAlignment="Center"/>
             <Label x:Name="lbAfiliacion"
                    Content="Afiliado a:"
                    HorizontalContentAlignment="Right"
                    MinWidth="80"/>
-            <ComboBox Name="cbAfiliacion" MinWidth="90" VerticalContentAlignment="Center"/>
+            <ComboBox Name="cbAfiliacion" MinWidth="200" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spNumeroAfiliado" Grid.Row="4" Grid.Column="1"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center">
+            <Label x:Name="lbNuneroAfiliado"
+                   Content="Numero afiliado:"
+                   HorizontalContentAlignment="Right"
+                   MinWidth="100"/>
+            <TextBox Name="tbNumeroAfiliado" MinWidth="200" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel x:Name="spSucursal" Grid.Row="5" 
                     Orientation="Horizontal" 
@@ -150,7 +136,7 @@
         <StackPanel x:Name="spTelefono" Grid.Row="6" Grid.Column="1"
             Orientation="Horizontal" 
             HorizontalAlignment="Left" 
-            VerticalAlignment="Center" Margin="0,5">
+            VerticalAlignment="Center">
             <Label x:Name="lbTelefono"                    
                 Content="Telefono:" 
                 MinWidth="100" Height="30"
@@ -158,9 +144,20 @@
             <TextBox x:Name="tbTelefono"
                 MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
+        
+        <StackPanel x:Name="spSucursalesSupervisor" Orientation="Horizontal" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Right">
+            <Label x:Name="lbSucursalesSupervisor" Content="Sucursales a supervisar:"/>
+            <ListBox x:Name="lsSucursalesSupervisor" Width="200"/>
+        </StackPanel>
+        
+        <StackPanel x:Name="spAtenciones" Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left">
+            <Label x:Name="lbAtenciones" MinWidth="100" Content="Atenciones:"/>
+            <ListBox x:Name="lsAtenciones" Width="200"/>
+        </StackPanel>
+
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
-            Grid.Row="7" Grid.Column="1" 
+            Grid.Row="9" Grid.Column="1" 
             VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
             <CheckBox x:Name="cbActivo" Content="Activo"
                       VerticalContentAlignment="Center"
@@ -175,7 +172,6 @@
                     Margin="10,0,10,0"/>
         </StackPanel>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
@@ -183,7 +179,10 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
