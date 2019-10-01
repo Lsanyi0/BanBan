@@ -18,6 +18,7 @@ namespace BanBan
         private Pages.Planillas planillas;
         private Pages.Sucursales sucursales;
         private Pages.Configuracion configuracion;
+        private Pages.pruebaDatos pruebaDatos;
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace BanBan
             planillas = new Pages.Planillas();
             sucursales = new Pages.Sucursales();
             configuracion = new Pages.Configuracion();
+            pruebaDatos = new Pages.pruebaDatos();
             lgc = new LoginControl();
             anims = new List<Storyboard>
             {
@@ -88,6 +90,15 @@ namespace BanBan
             {
                 frPpal.Content = configuracion;
             }   
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(Pages.pruebaDatos))
+            {
+                frPpal.Content = pruebaDatos;
+                btPrueba.Visibility = Visibility.Hidden;
+            }        
         }
     }
 }

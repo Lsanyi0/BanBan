@@ -151,7 +151,7 @@
         </StackPanel>
         
         <StackPanel x:Name="spAtenciones" Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left">
-            <Label x:Name="lbAtenciones" MinWidth="100" Content="Atenciones:"/>
+            <Label x:Name="lbAtenciones" MinWidth="100" Content="Atenciones:" VerticalAlignment="top" HorizontalContentAlignment="Right"/>
             <ListBox x:Name="lsAtenciones" Width="200"/>
         </StackPanel>
 
