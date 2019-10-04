@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BanBan.Pages
 {
+
     /// <summary>
     /// Interaction logic for Sucursales.xaml
     /// </summary>
     public partial class Sucursales : Page
     {
+        sBanBan sb = new sBanBan();
         public Sucursales()
         {
             InitializeComponent();
+            var mn = from muni in sb.Ciudad select muni.ciudad1;
+
+            var dp = from dep in sb.Departamento select dep.departamento1;
+            if (mn != null)
+            {
+                cbMunicipio.ItemsSource = mn.ToList();
+                cbMunicipio.SelectedIndex = 0;
+            }
+            if (dp != null)
+            {
+                cbDepartamento.ItemsSource = dp.ToList();
+                cbDepartamento.SelectedIndex = 0;
+            }
         }
     }
 }

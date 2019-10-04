@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e94edcbc406142cd91590e06afd29f14" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="sql3307115Model.Atencion" Width="1.5" PointX="3.125" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.AtencionDetalle" Width="1.5" PointX="5.375" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Cargo" Width="1.5" PointX="1" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Ciudad" Width="1.5" PointX="3.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.ComentariosPlanilla" Width="1.5" PointX="8.375" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Departamento" Width="1.5" PointX="4.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Descuentos" Width="1.5" PointX="18.625" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.DiaNacional" Width="1.5" PointX="11.125" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.DiaPatronal" Width="1.5" PointX="3.125" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Dispositivo" Width="1.5" PointX="8" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Empleado" Width="1.5" PointX="3.125" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Horario" Width="1.5" PointX="8" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.HorarioExtra" Width="1.5" PointX="21.625" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Planilla" Width="1.5" PointX="16.375" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.PlanillaHorario" Width="1.5" PointX="8.375" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.RegistroSalarial" Width="1.5" PointX="0.625" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.SistemaPension" Width="1.5" PointX="14.125" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Sucursal" Width="1.5" PointX="5.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Telefono" Width="1.5" PointX="0.625" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.tipoHora" Width="1.5" PointX="19.375" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.TipoUsuario" Width="1.5" PointX="22.375" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Trabajo" Width="1.5" PointX="5.375" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.Usuario" Width="1.5" PointX="11.375" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="sql3307115Model.fk_ADetallexAtencion" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_ADetallexEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_EmpleadoxCargo" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_CiudadxDepartamento" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_PatronalxCiudad" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_SucursalxCiudad" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_CPlanillaxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_CPlanillaxPlanilla" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_CPlanillaxPlanillaHorario" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_DescuentosxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_DescuentosxPlanilla" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_DispositivoxSucursal" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_EmpleadoxSPension" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_HorarioxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_PHorarioxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_RegistroxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_TelefonoxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_TrabajoxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_UsuarioxEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxPlanilla" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_PHorarioxPlanilla" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_TrabajoxSucursal" ManuallyRouted="false" />
+        <AssociationConnector Association="sql3307115Model.fk_UsuarioxTipo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

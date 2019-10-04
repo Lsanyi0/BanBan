@@ -32,7 +32,7 @@
                 Content="Departamento:"              
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="tbDepartamento" 
+            <ComboBox x:Name="cbDepartamento" 
                 MinWidth="200" Height="30"/>
         </StackPanel>
         <StackPanel x:Name="spDireccion" 
@@ -54,7 +54,7 @@
                 Content="Municipio:" 
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="tbMunicipio"  
+            <ComboBox x:Name="cbMunicipio"  
                 MinWidth="200" Height="30"/>
         </StackPanel>
         <StackPanel x:Name="spAsueto" Grid.Row="3" 
@@ -117,7 +117,7 @@
                 Content="Supervisor:" 
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="tbSupervisor"  
+            <ComboBox x:Name="cbSupervisor"  
                 MinWidth="200" Height="30"/>
         </StackPanel>
         <Grid.RowDefinitions>

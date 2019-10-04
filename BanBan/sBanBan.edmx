@@ -1,0 +1,1607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sql3307115Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Atencion">
+          <Key>
+            <PropertyRef Name="idAtencion" />
+          </Key>
+          <Property Name="idAtencion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="atencion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="montoBase" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AtencionDetalle">
+          <Key>
+            <PropertyRef Name="idADetalle" />
+          </Key>
+          <Property Name="idADetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="bool" Nullable="false" />
+          <Property Name="idAtencion" Type="int" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="atenciones" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idDepartamento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComentariosPlanilla">
+          <Key>
+            <PropertyRef Name="idComentarios" />
+          </Key>
+          <Property Name="idComentarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comentario" Type="varchar" MaxLength="200" />
+          <Property Name="idPlanilla" Type="int" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPHorario" Type="int" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="idDepartamento" />
+          </Key>
+          <Property Name="idDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departamento" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descuentos">
+          <Key>
+            <PropertyRef Name="idDescuentos" />
+          </Key>
+          <Property Name="idDescuentos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descuento" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPlanilla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiaNacional">
+          <Key>
+            <PropertyRef Name="idDiaNacional" />
+          </Key>
+          <Property Name="idDiaNacional" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diaInicial" Type="date" Nullable="false" />
+          <Property Name="diaFinal" Type="date" Nullable="false" />
+          <Property Name="fiesta" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiaPatronal">
+          <Key>
+            <PropertyRef Name="idDiaPatronal" />
+          </Key>
+          <Property Name="idDiaPatronal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diaInicial" Type="date" Nullable="false" />
+          <Property Name="diaFinal" Type="date" Nullable="false" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dispositivo">
+          <Key>
+            <PropertyRef Name="idDispositivo" />
+          </Key>
+          <Property Name="idDispositivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idSucursal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="dui" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nit" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="numeroISSS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="numeroPension" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechaIngreso" Type="date" Nullable="false" />
+          <Property Name="fechaSalida" Type="date" />
+          <Property Name="estado" Type="bool" Nullable="false" />
+          <Property Name="sueldo" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="idSistemaPension" Type="int" Nullable="false" />
+          <Property Name="idCargo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="horaEntrada" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaSalida" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dias" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HorarioExtra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="horaInicio" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaFinal" Type="time" Precision="0" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="100" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="idTipoHora" Type="int" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPlanilla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planilla">
+          <Key>
+            <PropertyRef Name="idPlanilla" />
+          </Key>
+          <Property Name="idPlanilla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodo" Type="bool" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanillaHorario">
+          <Key>
+            <PropertyRef Name="idPlanillaHorario" />
+          </Key>
+          <Property Name="idPlanillaHorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entrada" Type="time" Precision="0" />
+          <Property Name="salida" Type="time" Precision="0" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="comentario" Type="varchar" MaxLength="50" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPlanilla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroSalarial">
+          <Key>
+            <PropertyRef Name="idRegistroS" />
+          </Key>
+          <Property Name="idRegistroS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sueldoAumentado" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SistemaPension">
+          <Key>
+            <PropertyRef Name="idSistemaPension" />
+          </Key>
+          <Property Name="idSistemaPension" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sistemaP" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="descuento" Type="decimal" Precision="5" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sucursal" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="idTelefono" />
+          </Key>
+          <Property Name="idTelefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="tipoHora">
+          <Key>
+            <PropertyRef Name="idTipoHora" />
+          </Key>
+          <Property Name="idTipoHora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="20" />
+          <Property Name="costo" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idSucursal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_ADetallexAtencion">
+          <End Role="Atencion" Type="Self.Atencion" Multiplicity="1" />
+          <End Role="AtencionDetalle" Type="Self.AtencionDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atencion">
+              <PropertyRef Name="idAtencion" />
+            </Principal>
+            <Dependent Role="AtencionDetalle">
+              <PropertyRef Name="idAtencion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ADetallexEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="AtencionDetalle" Type="Self.AtencionDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="AtencionDetalle">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CiudadxDepartamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="idDepartamento" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="0..1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxPlanillaHorario">
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="0..1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanillaHorario">
+              <PropertyRef Name="idPlanillaHorario" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idPHorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DescuentosxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Descuentos" Type="Self.Descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Descuentos">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DescuentosxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="Descuentos" Type="Self.Descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="Descuentos">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DispositivoxSucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Dispositivo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmpleadoxCargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="idCargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="idCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmpleadoxSPension">
+          <End Role="SistemaPension" Type="Self.SistemaPension" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemaPension">
+              <PropertyRef Name="idSistemaPension" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="idSistemaPension" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxTipo">
+          <End Role="tipoHora" Type="Self.tipoHora" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoHora">
+              <PropertyRef Name="idTipoHora" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idTipoHora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HorarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PatronalxCiudad">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="DiaPatronal" Type="Self.DiaPatronal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="DiaPatronal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHorarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="PlanillaHorario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHorarioxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="PlanillaHorario">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RegistroxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="RegistroSalarial" Type="Self.RegistroSalarial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="RegistroSalarial">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SucursalxCiudad">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TelefonoxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxSucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioxTipo">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sql3307115ModelStoreContainer">
+          <EntitySet Name="Atencion" EntityType="Self.Atencion" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="AtencionDetalle" EntityType="Self.AtencionDetalle" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="ComentariosPlanilla" EntityType="Self.ComentariosPlanilla" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Descuentos" EntityType="Self.Descuentos" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="DiaNacional" EntityType="Self.DiaNacional" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="DiaPatronal" EntityType="Self.DiaPatronal" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="HorarioExtra" EntityType="Self.HorarioExtra" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Planilla" EntityType="Self.Planilla" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="PlanillaHorario" EntityType="Self.PlanillaHorario" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="RegistroSalarial" EntityType="Self.RegistroSalarial" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="SistemaPension" EntityType="Self.SistemaPension" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="tipoHora" EntityType="Self.tipoHora" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="sql3307115" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="sql3307115" store:Type="Tables" />
+          <AssociationSet Name="fk_ADetallexAtencion" Association="Self.fk_ADetallexAtencion">
+            <End Role="Atencion" EntitySet="Atencion" />
+            <End Role="AtencionDetalle" EntitySet="AtencionDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ADetallexEmpleado" Association="Self.fk_ADetallexEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="AtencionDetalle" EntitySet="AtencionDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CiudadxDepartamento" Association="Self.fk_CiudadxDepartamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxEmpleado" Association="Self.fk_CPlanillaxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxPlanilla" Association="Self.fk_CPlanillaxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxPlanillaHorario" Association="Self.fk_CPlanillaxPlanillaHorario">
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DescuentosxEmpleado" Association="Self.fk_DescuentosxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Descuentos" EntitySet="Descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DescuentosxPlanilla" Association="Self.fk_DescuentosxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="Descuentos" EntitySet="Descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DispositivoxSucursal" Association="Self.fk_DispositivoxSucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Dispositivo" EntitySet="Dispositivo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmpleadoxCargo" Association="Self.fk_EmpleadoxCargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmpleadoxSPension" Association="Self.fk_EmpleadoxSPension">
+            <End Role="SistemaPension" EntitySet="SistemaPension" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxEmpleado" Association="Self.fk_HExtraxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxPlanilla" Association="Self.fk_HExtraxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxTipo" Association="Self.fk_HExtraxTipo">
+            <End Role="tipoHora" EntitySet="tipoHora" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HorarioxEmpleado" Association="Self.fk_HorarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PatronalxCiudad" Association="Self.fk_PatronalxCiudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="DiaPatronal" EntitySet="DiaPatronal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHorarioxEmpleado" Association="Self.fk_PHorarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHorarioxPlanilla" Association="Self.fk_PHorarioxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RegistroxEmpleado" Association="Self.fk_RegistroxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="RegistroSalarial" EntitySet="RegistroSalarial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SucursalxCiudad" Association="Self.fk_SucursalxCiudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TelefonoxEmpleado" Association="Self.fk_TelefonoxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxEmpleado" Association="Self.fk_TrabajoxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxSucursal" Association="Self.fk_TrabajoxSucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioxEmpleado" Association="Self.fk_UsuarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioxTipo" Association="Self.fk_UsuarioxTipo">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sql3307115Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Atencion">
+          <Key>
+            <PropertyRef Name="idAtencion" />
+          </Key>
+          <Property Name="idAtencion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="atencion1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="montoBase" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="AtencionDetalle" Relationship="Self.fk_ADetallexAtencion" FromRole="Atencion" ToRole="AtencionDetalle" />
+        </EntityType>
+        <EntityType Name="AtencionDetalle">
+          <Key>
+            <PropertyRef Name="idADetalle" />
+          </Key>
+          <Property Name="idADetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="idAtencion" Type="Int32" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Atencion" Relationship="Self.fk_ADetallexAtencion" FromRole="AtencionDetalle" ToRole="Atencion" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_ADetallexEmpleado" FromRole="AtencionDetalle" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cargo1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="atenciones" Type="Decimal" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_EmpleadoxCargo" FromRole="Cargo" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ciudad1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.fk_CiudadxDepartamento" FromRole="Ciudad" ToRole="Departamento" />
+          <NavigationProperty Name="DiaPatronal" Relationship="Self.fk_PatronalxCiudad" FromRole="Ciudad" ToRole="DiaPatronal" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.fk_SucursalxCiudad" FromRole="Ciudad" ToRole="Sucursal" />
+        </EntityType>
+        <EntityType Name="ComentariosPlanilla">
+          <Key>
+            <PropertyRef Name="idComentarios" />
+          </Key>
+          <Property Name="idComentarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="idPlanilla" Type="Int32" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPHorario" Type="Int32" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_CPlanillaxEmpleado" FromRole="ComentariosPlanilla" ToRole="Empleado" />
+          <NavigationProperty Name="Planilla" Relationship="Self.fk_CPlanillaxPlanilla" FromRole="ComentariosPlanilla" ToRole="Planilla" />
+          <NavigationProperty Name="PlanillaHorario" Relationship="Self.fk_CPlanillaxPlanillaHorario" FromRole="ComentariosPlanilla" ToRole="PlanillaHorario" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="idDepartamento" />
+          </Key>
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departamento1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.fk_CiudadxDepartamento" FromRole="Departamento" ToRole="Ciudad" />
+        </EntityType>
+        <EntityType Name="Descuentos">
+          <Key>
+            <PropertyRef Name="idDescuentos" />
+          </Key>
+          <Property Name="idDescuentos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descuento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="monto" Type="Decimal" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_DescuentosxEmpleado" FromRole="Descuentos" ToRole="Empleado" />
+          <NavigationProperty Name="Planilla" Relationship="Self.fk_DescuentosxPlanilla" FromRole="Descuentos" ToRole="Planilla" />
+        </EntityType>
+        <EntityType Name="DiaNacional">
+          <Key>
+            <PropertyRef Name="idDiaNacional" />
+          </Key>
+          <Property Name="idDiaNacional" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diaInicial" Type="DateTime" Nullable="false" />
+          <Property Name="diaFinal" Type="DateTime" Nullable="false" />
+          <Property Name="fiesta" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiaPatronal">
+          <Key>
+            <PropertyRef Name="idDiaPatronal" />
+          </Key>
+          <Property Name="idDiaPatronal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diaInicial" Type="DateTime" Nullable="false" />
+          <Property Name="diaFinal" Type="DateTime" Nullable="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.fk_PatronalxCiudad" FromRole="DiaPatronal" ToRole="Ciudad" />
+        </EntityType>
+        <EntityType Name="Dispositivo">
+          <Key>
+            <PropertyRef Name="idDispositivo" />
+          </Key>
+          <Property Name="idDispositivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.fk_DispositivoxSucursal" FromRole="Dispositivo" ToRole="Sucursal" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dui" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nit" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroISSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroPension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaIngreso" Type="DateTime" Nullable="false" />
+          <Property Name="fechaSalida" Type="DateTime" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="sueldo" Type="Decimal" />
+          <Property Name="idSistemaPension" Type="Int32" Nullable="false" />
+          <Property Name="idCargo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AtencionDetalle" Relationship="Self.fk_ADetallexEmpleado" FromRole="Empleado" ToRole="AtencionDetalle" />
+          <NavigationProperty Name="Cargo" Relationship="Self.fk_EmpleadoxCargo" FromRole="Empleado" ToRole="Cargo" />
+          <NavigationProperty Name="ComentariosPlanilla" Relationship="Self.fk_CPlanillaxEmpleado" FromRole="Empleado" ToRole="ComentariosPlanilla" />
+          <NavigationProperty Name="Descuentos" Relationship="Self.fk_DescuentosxEmpleado" FromRole="Empleado" ToRole="Descuentos" />
+          <NavigationProperty Name="SistemaPension" Relationship="Self.fk_EmpleadoxSPension" FromRole="Empleado" ToRole="SistemaPension" />
+          <NavigationProperty Name="HorarioExtra" Relationship="Self.fk_HExtraxEmpleado" FromRole="Empleado" ToRole="HorarioExtra" />
+          <NavigationProperty Name="Horario" Relationship="Self.fk_HorarioxEmpleado" FromRole="Empleado" ToRole="Horario" />
+          <NavigationProperty Name="PlanillaHorario" Relationship="Self.fk_PHorarioxEmpleado" FromRole="Empleado" ToRole="PlanillaHorario" />
+          <NavigationProperty Name="RegistroSalarial" Relationship="Self.fk_RegistroxEmpleado" FromRole="Empleado" ToRole="RegistroSalarial" />
+          <NavigationProperty Name="Telefono" Relationship="Self.fk_TelefonoxEmpleado" FromRole="Empleado" ToRole="Telefono" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.fk_TrabajoxEmpleado" FromRole="Empleado" ToRole="Trabajo" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_UsuarioxEmpleado" FromRole="Empleado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="horaEntrada" Type="Time" Nullable="false" />
+          <Property Name="horaSalida" Type="Time" Nullable="false" />
+          <Property Name="dias" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_HorarioxEmpleado" FromRole="Horario" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="HorarioExtra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="horaInicio" Type="Time" Nullable="false" />
+          <Property Name="horaFinal" Type="Time" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="idTipoHora" Type="Int32" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_HExtraxEmpleado" FromRole="HorarioExtra" ToRole="Empleado" />
+          <NavigationProperty Name="Planilla" Relationship="Self.fk_HExtraxPlanilla" FromRole="HorarioExtra" ToRole="Planilla" />
+          <NavigationProperty Name="tipoHora" Relationship="Self.fk_HExtraxTipo" FromRole="HorarioExtra" ToRole="tipoHora" />
+        </EntityType>
+        <EntityType Name="Planilla">
+          <Key>
+            <PropertyRef Name="idPlanilla" />
+          </Key>
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="periodo" Type="Boolean" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ComentariosPlanilla" Relationship="Self.fk_CPlanillaxPlanilla" FromRole="Planilla" ToRole="ComentariosPlanilla" />
+          <NavigationProperty Name="Descuentos" Relationship="Self.fk_DescuentosxPlanilla" FromRole="Planilla" ToRole="Descuentos" />
+          <NavigationProperty Name="HorarioExtra" Relationship="Self.fk_HExtraxPlanilla" FromRole="Planilla" ToRole="HorarioExtra" />
+          <NavigationProperty Name="PlanillaHorario" Relationship="Self.fk_PHorarioxPlanilla" FromRole="Planilla" ToRole="PlanillaHorario" />
+        </EntityType>
+        <EntityType Name="PlanillaHorario">
+          <Key>
+            <PropertyRef Name="idPlanillaHorario" />
+          </Key>
+          <Property Name="idPlanillaHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entrada" Type="Time" />
+          <Property Name="salida" Type="Time" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ComentariosPlanilla" Relationship="Self.fk_CPlanillaxPlanillaHorario" FromRole="PlanillaHorario" ToRole="ComentariosPlanilla" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_PHorarioxEmpleado" FromRole="PlanillaHorario" ToRole="Empleado" />
+          <NavigationProperty Name="Planilla" Relationship="Self.fk_PHorarioxPlanilla" FromRole="PlanillaHorario" ToRole="Planilla" />
+        </EntityType>
+        <EntityType Name="RegistroSalarial">
+          <Key>
+            <PropertyRef Name="idRegistroS" />
+          </Key>
+          <Property Name="idRegistroS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sueldoAumentado" Type="Decimal" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_RegistroxEmpleado" FromRole="RegistroSalarial" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="SistemaPension">
+          <Key>
+            <PropertyRef Name="idSistemaPension" />
+          </Key>
+          <Property Name="idSistemaPension" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sistemaP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descuento" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_EmpleadoxSPension" FromRole="SistemaPension" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sucursal1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.fk_SucursalxCiudad" FromRole="Sucursal" ToRole="Ciudad" />
+          <NavigationProperty Name="Dispositivo" Relationship="Self.fk_DispositivoxSucursal" FromRole="Sucursal" ToRole="Dispositivo" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.fk_TrabajoxSucursal" FromRole="Sucursal" ToRole="Trabajo" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="idTelefono" />
+          </Key>
+          <Property Name="idTelefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="telefono1" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_TelefonoxEmpleado" FromRole="Telefono" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="tipoHora">
+          <Key>
+            <PropertyRef Name="idTipoHora" />
+          </Key>
+          <Property Name="idTipoHora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="HorarioExtra" Relationship="Self.fk_HExtraxTipo" FromRole="tipoHora" ToRole="HorarioExtra" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_UsuarioxTipo" FromRole="TipoUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_TrabajoxEmpleado" FromRole="Trabajo" ToRole="Empleado" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.fk_TrabajoxSucursal" FromRole="Trabajo" ToRole="Sucursal" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_UsuarioxEmpleado" FromRole="Usuario" ToRole="Empleado" />
+          <NavigationProperty Name="TipoUsuario" Relationship="Self.fk_UsuarioxTipo" FromRole="Usuario" ToRole="TipoUsuario" />
+        </EntityType>
+        <Association Name="fk_ADetallexAtencion">
+          <End Role="Atencion" Type="Self.Atencion" Multiplicity="1" />
+          <End Role="AtencionDetalle" Type="Self.AtencionDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atencion">
+              <PropertyRef Name="idAtencion" />
+            </Principal>
+            <Dependent Role="AtencionDetalle">
+              <PropertyRef Name="idAtencion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ADetallexEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="AtencionDetalle" Type="Self.AtencionDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="AtencionDetalle">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmpleadoxCargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="idCargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="idCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CiudadxDepartamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="idDepartamento" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PatronalxCiudad">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="DiaPatronal" Type="Self.DiaPatronal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="DiaPatronal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SucursalxCiudad">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="0..1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CPlanillaxPlanillaHorario">
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="0..1" />
+          <End Role="ComentariosPlanilla" Type="Self.ComentariosPlanilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanillaHorario">
+              <PropertyRef Name="idPlanillaHorario" />
+            </Principal>
+            <Dependent Role="ComentariosPlanilla">
+              <PropertyRef Name="idPHorario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DescuentosxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Descuentos" Type="Self.Descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Descuentos">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DescuentosxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="Descuentos" Type="Self.Descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="Descuentos">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DispositivoxSucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Dispositivo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmpleadoxSPension">
+          <End Role="SistemaPension" Type="Self.SistemaPension" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemaPension">
+              <PropertyRef Name="idSistemaPension" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="idSistemaPension" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HorarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHorarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="PlanillaHorario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RegistroxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="RegistroSalarial" Type="Self.RegistroSalarial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="RegistroSalarial">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TelefonoxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioxEmpleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxTipo">
+          <End Role="tipoHora" Type="Self.tipoHora" Multiplicity="1" />
+          <End Role="HorarioExtra" Type="Self.HorarioExtra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoHora">
+              <PropertyRef Name="idTipoHora" />
+            </Principal>
+            <Dependent Role="HorarioExtra">
+              <PropertyRef Name="idTipoHora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHorarioxPlanilla">
+          <End Role="Planilla" Type="Self.Planilla" Multiplicity="1" />
+          <End Role="PlanillaHorario" Type="Self.PlanillaHorario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="PlanillaHorario">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxSucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Trabajo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioxTipo">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sBanBan" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Atencion" EntityType="Self.Atencion" />
+          <EntitySet Name="AtencionDetalle" EntityType="Self.AtencionDetalle" />
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" />
+          <EntitySet Name="ComentariosPlanilla" EntityType="Self.ComentariosPlanilla" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="Descuentos" EntityType="Self.Descuentos" />
+          <EntitySet Name="DiaNacional" EntityType="Self.DiaNacional" />
+          <EntitySet Name="DiaPatronal" EntityType="Self.DiaPatronal" />
+          <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" />
+          <EntitySet Name="HorarioExtra" EntityType="Self.HorarioExtra" />
+          <EntitySet Name="Planilla" EntityType="Self.Planilla" />
+          <EntitySet Name="PlanillaHorario" EntityType="Self.PlanillaHorario" />
+          <EntitySet Name="RegistroSalarial" EntityType="Self.RegistroSalarial" />
+          <EntitySet Name="SistemaPension" EntityType="Self.SistemaPension" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" />
+          <EntitySet Name="tipoHora" EntityType="Self.tipoHora" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_ADetallexAtencion" Association="Self.fk_ADetallexAtencion">
+            <End Role="Atencion" EntitySet="Atencion" />
+            <End Role="AtencionDetalle" EntitySet="AtencionDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ADetallexEmpleado" Association="Self.fk_ADetallexEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="AtencionDetalle" EntitySet="AtencionDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmpleadoxCargo" Association="Self.fk_EmpleadoxCargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CiudadxDepartamento" Association="Self.fk_CiudadxDepartamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PatronalxCiudad" Association="Self.fk_PatronalxCiudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="DiaPatronal" EntitySet="DiaPatronal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SucursalxCiudad" Association="Self.fk_SucursalxCiudad">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxEmpleado" Association="Self.fk_CPlanillaxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxPlanilla" Association="Self.fk_CPlanillaxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CPlanillaxPlanillaHorario" Association="Self.fk_CPlanillaxPlanillaHorario">
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+            <End Role="ComentariosPlanilla" EntitySet="ComentariosPlanilla" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DescuentosxEmpleado" Association="Self.fk_DescuentosxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Descuentos" EntitySet="Descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DescuentosxPlanilla" Association="Self.fk_DescuentosxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="Descuentos" EntitySet="Descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DispositivoxSucursal" Association="Self.fk_DispositivoxSucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Dispositivo" EntitySet="Dispositivo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmpleadoxSPension" Association="Self.fk_EmpleadoxSPension">
+            <End Role="SistemaPension" EntitySet="SistemaPension" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxEmpleado" Association="Self.fk_HExtraxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HorarioxEmpleado" Association="Self.fk_HorarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHorarioxEmpleado" Association="Self.fk_PHorarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RegistroxEmpleado" Association="Self.fk_RegistroxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="RegistroSalarial" EntitySet="RegistroSalarial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TelefonoxEmpleado" Association="Self.fk_TelefonoxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxEmpleado" Association="Self.fk_TrabajoxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioxEmpleado" Association="Self.fk_UsuarioxEmpleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxPlanilla" Association="Self.fk_HExtraxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxTipo" Association="Self.fk_HExtraxTipo">
+            <End Role="tipoHora" EntitySet="tipoHora" />
+            <End Role="HorarioExtra" EntitySet="HorarioExtra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHorarioxPlanilla" Association="Self.fk_PHorarioxPlanilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="PlanillaHorario" EntitySet="PlanillaHorario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxSucursal" Association="Self.fk_TrabajoxSucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Trabajo" EntitySet="Trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioxTipo" Association="Self.fk_UsuarioxTipo">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sql3307115ModelStoreContainer" CdmEntityContainer="sBanBan">
+          <EntitySetMapping Name="Atencion">
+            <EntityTypeMapping TypeName="sql3307115Model.Atencion">
+              <MappingFragment StoreEntitySet="Atencion">
+                <ScalarProperty Name="idAtencion" ColumnName="idAtencion" />
+                <ScalarProperty Name="atencion1" ColumnName="atencion" />
+                <ScalarProperty Name="montoBase" ColumnName="montoBase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtencionDetalle">
+            <EntityTypeMapping TypeName="sql3307115Model.AtencionDetalle">
+              <MappingFragment StoreEntitySet="AtencionDetalle">
+                <ScalarProperty Name="idADetalle" ColumnName="idADetalle" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="idAtencion" ColumnName="idAtencion" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="sql3307115Model.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+                <ScalarProperty Name="cargo1" ColumnName="cargo" />
+                <ScalarProperty Name="atenciones" ColumnName="atenciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ciudad">
+            <EntityTypeMapping TypeName="sql3307115Model.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="ciudad1" ColumnName="ciudad" />
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComentariosPlanilla">
+            <EntityTypeMapping TypeName="sql3307115Model.ComentariosPlanilla">
+              <MappingFragment StoreEntitySet="ComentariosPlanilla">
+                <ScalarProperty Name="idComentarios" ColumnName="idComentarios" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPHorario" ColumnName="idPHorario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="sql3307115Model.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+                <ScalarProperty Name="departamento1" ColumnName="departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descuentos">
+            <EntityTypeMapping TypeName="sql3307115Model.Descuentos">
+              <MappingFragment StoreEntitySet="Descuentos">
+                <ScalarProperty Name="idDescuentos" ColumnName="idDescuentos" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiaNacional">
+            <EntityTypeMapping TypeName="sql3307115Model.DiaNacional">
+              <MappingFragment StoreEntitySet="DiaNacional">
+                <ScalarProperty Name="idDiaNacional" ColumnName="idDiaNacional" />
+                <ScalarProperty Name="diaInicial" ColumnName="diaInicial" />
+                <ScalarProperty Name="diaFinal" ColumnName="diaFinal" />
+                <ScalarProperty Name="fiesta" ColumnName="fiesta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiaPatronal">
+            <EntityTypeMapping TypeName="sql3307115Model.DiaPatronal">
+              <MappingFragment StoreEntitySet="DiaPatronal">
+                <ScalarProperty Name="idDiaPatronal" ColumnName="idDiaPatronal" />
+                <ScalarProperty Name="diaInicial" ColumnName="diaInicial" />
+                <ScalarProperty Name="diaFinal" ColumnName="diaFinal" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dispositivo">
+            <EntityTypeMapping TypeName="sql3307115Model.Dispositivo">
+              <MappingFragment StoreEntitySet="Dispositivo">
+                <ScalarProperty Name="idDispositivo" ColumnName="idDispositivo" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="sql3307115Model.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dui" ColumnName="dui" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="numeroISSS" ColumnName="numeroISSS" />
+                <ScalarProperty Name="numeroPension" ColumnName="numeroPension" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="fechaSalida" ColumnName="fechaSalida" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="sueldo" ColumnName="sueldo" />
+                <ScalarProperty Name="idSistemaPension" ColumnName="idSistemaPension" />
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horario">
+            <EntityTypeMapping TypeName="sql3307115Model.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="dias" ColumnName="dias" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HorarioExtra">
+            <EntityTypeMapping TypeName="sql3307115Model.HorarioExtra">
+              <MappingFragment StoreEntitySet="HorarioExtra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="horaFinal" ColumnName="horaFinal" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planilla">
+            <EntityTypeMapping TypeName="sql3307115Model.Planilla">
+              <MappingFragment StoreEntitySet="Planilla">
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanillaHorario">
+            <EntityTypeMapping TypeName="sql3307115Model.PlanillaHorario">
+              <MappingFragment StoreEntitySet="PlanillaHorario">
+                <ScalarProperty Name="idPlanillaHorario" ColumnName="idPlanillaHorario" />
+                <ScalarProperty Name="entrada" ColumnName="entrada" />
+                <ScalarProperty Name="salida" ColumnName="salida" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroSalarial">
+            <EntityTypeMapping TypeName="sql3307115Model.RegistroSalarial">
+              <MappingFragment StoreEntitySet="RegistroSalarial">
+                <ScalarProperty Name="idRegistroS" ColumnName="idRegistroS" />
+                <ScalarProperty Name="sueldoAumentado" ColumnName="sueldoAumentado" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SistemaPension">
+            <EntityTypeMapping TypeName="sql3307115Model.SistemaPension">
+              <MappingFragment StoreEntitySet="SistemaPension">
+                <ScalarProperty Name="idSistemaPension" ColumnName="idSistemaPension" />
+                <ScalarProperty Name="sistemaP" ColumnName="sistemaP" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sucursal">
+            <EntityTypeMapping TypeName="sql3307115Model.Sucursal">
+              <MappingFragment StoreEntitySet="Sucursal">
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="sucursal1" ColumnName="sucursal" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefono">
+            <EntityTypeMapping TypeName="sql3307115Model.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="idTelefono" ColumnName="idTelefono" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoHora">
+            <EntityTypeMapping TypeName="sql3307115Model.tipoHora">
+              <MappingFragment StoreEntitySet="tipoHora">
+                <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoUsuario">
+            <EntityTypeMapping TypeName="sql3307115Model.TipoUsuario">
+              <MappingFragment StoreEntitySet="TipoUsuario">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trabajo">
+            <EntityTypeMapping TypeName="sql3307115Model.Trabajo">
+              <MappingFragment StoreEntitySet="Trabajo">
+                <ScalarProperty Name="idTrabajo" ColumnName="idTrabajo" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="sql3307115Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

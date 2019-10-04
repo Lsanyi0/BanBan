@@ -118,7 +118,7 @@
                 Content="Cargo:" 
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-            <ComboBox x:Name="tbCargo" 
+            <ComboBox x:Name="cbCargo" 
                       MinWidth="200" Height="30" 
                       VerticalContentAlignment="Center"/>
         </StackPanel>
