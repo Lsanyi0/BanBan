@@ -11,6 +11,7 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Sucursales : Page
     {
+        int f=0;
         sBanBan sb = new sBanBan();
         public Sucursales()
         {
