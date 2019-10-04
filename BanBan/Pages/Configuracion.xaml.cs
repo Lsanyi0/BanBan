@@ -20,9 +20,36 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Configuracion : Page
     {
+
+        sBanBan sb = new sBanBan();
+
         public Configuracion()
         {
             InitializeComponent();
+
+            var carg = from cr in sb.Cargo
+                       select cr.cargo1;
+            var aten = from at in sb.Atencion
+                       select at.atencion1;
+            var hre = from he in sb.tipoHora
+                      select he.tipo;
+
+            if (carg != null)
+            {
+                cbCargo.ItemsSource = carg.ToList();
+                cbCargo.SelectedIndex = 0;
+            }
+            if (aten != null)
+            {
+                cbAtenciones.ItemsSource = aten.ToList();
+                cbAtenciones.SelectedIndex = 0;
+            }
+            if (hre != null)
+            {
+                cbHoraExtra.ItemsSource = hre.ToList();
+                cbHoraExtra.SelectedIndex = 0;
+            }
+
         }
     }
 }
