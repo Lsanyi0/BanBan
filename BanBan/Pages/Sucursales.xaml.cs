@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using BanBan.Controls;
+
 
 namespace BanBan.Pages
 {
@@ -12,6 +15,7 @@ namespace BanBan.Pages
     public partial class Sucursales : Page
     {
         sBanBan sb = new sBanBan();
+        SucursalesControl sc = new SucursalesControl();
         public Sucursales()
         {
             InitializeComponent();
@@ -37,6 +41,28 @@ namespace BanBan.Pages
             {
                 cbSupervisor.ItemsSource = sup.ToList();
                 cbSupervisor.SelectedIndex = 0;
+            }
+        }
+
+        private void btGuardar(object sender, System.Windows.RoutedEvent e)
+        {
+            List<string> asuetos = new List<string>();
+
+            for (int i = 0; i < lsAsuetos.Items.Count - 1; i++)
+            {
+                asuetos.Add(lsAsuetos.Items[i].ToString());
+            }
+
+            string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text, 
+                                            cbSupervisor.Text, asuetos);
+
+            if (val.Equals("OK"))
+            {
+                MessageBox.Show("Sucursal almacenada con exito");
+            }
+            else
+            {
+                MessageBox.Show(val);
             }
         }
     }

@@ -106,6 +106,7 @@
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmpleadosControl.cs" />
+    <Compile Include="Controls\SucursalesControl.cs" />
     <Compile Include="Departamento.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
