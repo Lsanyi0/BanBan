@@ -1,6 +1,8 @@
 ﻿using System.Windows.Controls;
 using System.Linq;
 using System.Collections.Generic;
+using BanBan.Controls;
+using System.Windows;
 
 namespace BanBan.Pages
 {
@@ -10,29 +12,31 @@ namespace BanBan.Pages
     public partial class Empleados : Page
     {
         //sb es una instancia del "contexto" de la base de datos (base de datos mapeada)
-        sBanBan sb = new sBanBan();
+        EmpleadosControl emp = new EmpleadosControl();
         public Empleados()
         {
             InitializeComponent();
-            //var es generica pero parece no causar problemas...
-            var sp = from sisp in sb.SistemaPension select sisp.sistemaP;
-            var sc = from suc in sb.Sucursal select suc.sucursal1;
-            var cr = from car in sb.Cargo select car.cargo1;
-            if (sp != null)
-            {
-                cbAfiliacion.ItemsSource = sp.ToList();
-                cbAfiliacion.SelectedIndex = 0;
-            }
-            if (sc != null)
-            {
-                cbSucursal.ItemsSource = sc.ToList();
-                cbSucursal.SelectedIndex = 0;
-            }
-            if (cr != null) 
-            {
-                cbCargo.ItemsSource = cr.ToList();
-                cbCargo.SelectedIndex = 0;
-            }
+            empleadosLoad();
+        }
+        private void empleadosLoad()
+        {
+            dpFechaContrato.SelectedDate = System.DateTime.Now;
+
+            cbCargo.ItemsSource = emp.getCargo();
+            cbSucursal.ItemsSource = emp.getSucursal();
+            cbAfiliacion.ItemsSource = emp.getSistemaPension();
+
+            cbCargo.SelectedIndex = 0;
+            cbSucursal.SelectedIndex = 0;
+            cbAfiliacion.SelectedIndex = 0;
+        }
+
+        private void btGuardarClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
+                    dpFechaContrato.DisplayDate, cbAfiliacion.Text, tbNumeroAfiliado.Text,
+                    cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text, null, cbxActivo.IsEnabled);
+            if (val != "OK") MessageBox.Show("Advertencia: " + val, "Advertencia!",MessageBoxButton.OK,MessageBoxImage.Exclamation) ;
         }
     }
 }

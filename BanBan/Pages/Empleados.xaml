@@ -65,7 +65,7 @@
                 Content="Fecha de contrato:" 
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-            <DatePicker x:Name="tbFechaContrato"  
+            <DatePicker x:Name="dpFechaContrato"  
                 MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel x:Name="spSalidaEmpresa" 
@@ -76,7 +76,7 @@
                 Content="Fecha despido:" 
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-            <DatePicker x:Name="tbSalidaEmpresa" 
+            <DatePicker x:Name="dpSalidaEmpresa" 
                 MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel x:Name="spAfiliacion" Grid.Row="4" 
@@ -159,7 +159,7 @@
             Orientation="Horizontal" 
             Grid.Row="9" Grid.Column="1" 
             VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
-            <CheckBox x:Name="cbActivo" Content="Activo"
+            <CheckBox x:Name="cbxActivo" Content="Activo"
                       VerticalContentAlignment="Center"
                       IsChecked="True"/>
             <Button x:Name="btCancelar"
@@ -169,7 +169,7 @@
             <Button x:Name="btAceptar" 
                     Content="Guardar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0"/>
+                    Margin="10,0,10,0" Click="btGuardarClick"/>
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
