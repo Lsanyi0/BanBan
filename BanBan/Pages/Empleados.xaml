@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BanBan.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Empleados">
+      Title="Empleados" GotFocus="PageGotFocus">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Label x:Name="lbTitulo" 
                Content="Empleados" 
@@ -108,7 +108,7 @@
                    MinWidth="100" Height="30"
                    HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox Name="cbSucursal"
-                      MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+                      MinWidth="200" Height="30" VerticalContentAlignment="Center" IsEditable="True" KeyUp="cbSucursalKeyUp"/>
         </StackPanel>
         <StackPanel x:Name="spCargo" 
             Orientation="Horizontal" 
@@ -120,7 +120,7 @@
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="cbCargo" 
                       MinWidth="200" Height="30" 
-                      VerticalContentAlignment="Center"/>
+                      VerticalContentAlignment="Center" DropDownClosed="cbCargoDropDownClosed"/>
         </StackPanel>
         <StackPanel x:Name="spSueldo" Grid.Row="6" 
             Orientation="Horizontal" 
@@ -147,7 +147,7 @@
         
         <StackPanel x:Name="spSucursalesSupervisor" Orientation="Horizontal" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Right">
             <Label x:Name="lbSucursalesSupervisor" Content="Sucursales a supervisar:"/>
-            <ListBox x:Name="lsSucursalesSupervisor" Width="200"/>
+            <ListBox x:Name="lsSucursalesSupervisor" Width="200" IsEnabled="False" SelectionMode="Multiple"/>
         </StackPanel>
         
         <StackPanel x:Name="spAtenciones" Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left">
@@ -161,11 +161,11 @@
             VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
             <CheckBox x:Name="cbxActivo" Content="Activo"
                       VerticalContentAlignment="Center"
-                      IsChecked="True"/>
+                      IsChecked="True" IsEnabled="False"/>
             <Button x:Name="btCancelar"
                     Content="Cancelar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0"/>
+                    Margin="10,0,10,0" Click="btCancelarClick"/>
             <Button x:Name="btAceptar" 
                     Content="Guardar"
                     MinWidth="100" Height="30" 

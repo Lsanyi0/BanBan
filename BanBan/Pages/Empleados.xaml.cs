@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-using System.Linq;
-using System.Collections.Generic;
-using BanBan.Controls;
+﻿using BanBan.Controls;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BanBan.Pages
 {
@@ -12,7 +10,8 @@ namespace BanBan.Pages
     public partial class Empleados : Page
     {
         //sb es una instancia del "contexto" de la base de datos (base de datos mapeada)
-        EmpleadosControl emp = new EmpleadosControl();
+        private EmpleadosControl emp = new EmpleadosControl();
+        public static bool edit = false;
         public Empleados()
         {
             InitializeComponent();
@@ -22,21 +21,45 @@ namespace BanBan.Pages
         {
             dpFechaContrato.SelectedDate = System.DateTime.Now;
 
-            cbCargo.ItemsSource = emp.getCargo();
-            cbSucursal.ItemsSource = emp.getSucursal();
-            cbAfiliacion.ItemsSource = emp.getSistemaPension();
+            lsSucursalesSupervisor.ItemsSource = emp.getSucursales();
+            cbCargo.ItemsSource = emp.getCargos();
+            cbSucursal.ItemsSource = emp.getSucursales();
+            cbAfiliacion.ItemsSource = emp.getSistemaPensiones();
 
             cbCargo.SelectedIndex = 0;
             cbSucursal.SelectedIndex = 0;
             cbAfiliacion.SelectedIndex = 0;
         }
 
-        private void btGuardarClick(object sender, System.Windows.RoutedEventArgs e)
+        private void btGuardarClick(object sender, RoutedEventArgs e)
         {
+            if (!dpFechaContrato.SelectedDate.HasValue) { dpFechaContrato.IsDropDownOpen = true; return; }
             string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
-                    dpFechaContrato.DisplayDate, cbAfiliacion.Text, tbNumeroAfiliado.Text,
-                    cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text, null, cbxActivo.IsEnabled);
-            if (val != "OK") MessageBox.Show("Advertencia: " + val, "Advertencia!",MessageBoxButton.OK,MessageBoxImage.Exclamation) ;
+                    dpFechaContrato.SelectedDate.Value, cbAfiliacion.Text, tbNumeroAfiliado.Text,
+                    cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text, tbTelefono.Text, cbxActivo.IsEnabled);
+            var asd = lsSucursalesSupervisor.SelectedItems;
+            if (val != "OK") MessageBox.Show("Advertencia: " + val,
+                "Advertencia!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+
+        private void btCancelarClick(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show(emp.getIdSistemaPensiones(cbAfiliacion.Text).ToString());
+        }
+
+        private void cbCargoDropDownClosed(object sender, System.EventArgs e)
+        {
+            if (cbCargo.Text == "Supervisor") lsSucursalesSupervisor.IsEnabled = true;
+            else
+            {
+                lsSucursalesSupervisor.IsEnabled = false;
+                lsSucursalesSupervisor.SelectedIndex = -1;
+            }
+        }
+
+        private void PageGotFocus(object sender, RoutedEventArgs e)
+        {
+            cbxActivo.IsEnabled = edit;
         }
     }
 }
