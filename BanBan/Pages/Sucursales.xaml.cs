@@ -44,7 +44,7 @@ namespace BanBan.Pages
             }
         }
 
-        private void btGuardar(object sender, System.Windows.RoutedEvent e)
+        private void btGuardarClick(object sender, RoutedEventArgs e)
         {
             List<string> asuetos = new List<string>();
 
@@ -53,7 +53,7 @@ namespace BanBan.Pages
                 asuetos.Add(lsAsuetos.Items[i].ToString());
             }
 
-            string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text, 
+            string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text,
                                             cbSupervisor.Text, asuetos);
 
             if (val.Equals("OK"))

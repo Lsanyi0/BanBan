@@ -107,7 +107,7 @@
             <Button x:Name="btGuardar" 
                 Content="Guardar"
                 MinWidth="100" Height="30" 
-                Margin="10,0,10,0"/>
+                Margin="10,0,10,0" Click="btGuardarClick"/>
         </StackPanel>
         <StackPanel x:Name="spSupervisor" Grid.Row="5" 
             Orientation="Horizontal" 

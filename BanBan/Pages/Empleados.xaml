@@ -77,7 +77,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <DatePicker x:Name="dpSalidaEmpresa" 
-                MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+                MinWidth="200" Height="30" VerticalContentAlignment="Center" IsEnabled="False"/>
         </StackPanel>
         <StackPanel x:Name="spAfiliacion" Grid.Row="4" 
                     Orientation="Horizontal" 
@@ -99,7 +99,18 @@
                    MinWidth="100"/>
             <TextBox Name="tbNumeroAfiliado" MinWidth="200" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel x:Name="spSucursal" Grid.Row="5" 
+        <StackPanel x:Name="spISSS" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" Grid.Row="5">
+            <Label x:Name="lbISSS"                    
+                    Content="ISSS:" 
+                    MinWidth="100" Height="30"
+                    HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="tbISSS"  
+                    MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="spSucursal" Grid.Row="6" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
@@ -108,7 +119,7 @@
                    MinWidth="100" Height="30"
                    HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox Name="cbSucursal"
-                      MinWidth="200" Height="30" VerticalContentAlignment="Center" IsEditable="True" KeyUp="cbSucursalKeyUp"/>
+                      MinWidth="200" Height="30" VerticalContentAlignment="Center" IsEditable="True"/>
         </StackPanel>
         <StackPanel x:Name="spCargo" 
             Orientation="Horizontal" 
@@ -122,7 +133,7 @@
                       MinWidth="200" Height="30" 
                       VerticalContentAlignment="Center" DropDownClosed="cbCargoDropDownClosed"/>
         </StackPanel>
-        <StackPanel x:Name="spSueldo" Grid.Row="6" 
+        <StackPanel x:Name="spSueldo" Grid.Row="7" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right" 
             VerticalAlignment="Center">
@@ -144,20 +155,20 @@
             <TextBox x:Name="tbTelefono"
                 MinWidth="200" Height="30" VerticalContentAlignment="Center"/>
         </StackPanel>
-        
-        <StackPanel x:Name="spSucursalesSupervisor" Orientation="Horizontal" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Right">
+
+        <StackPanel x:Name="spSucursalesSupervisor" Orientation="Horizontal" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Right">
             <Label x:Name="lbSucursalesSupervisor" Content="Sucursales a supervisar:"/>
             <ListBox x:Name="lsSucursalesSupervisor" Width="200" IsEnabled="False" SelectionMode="Multiple"/>
         </StackPanel>
-        
+
         <StackPanel x:Name="spAtenciones" Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left">
             <Label x:Name="lbAtenciones" MinWidth="100" Content="Atenciones:" VerticalAlignment="top" HorizontalContentAlignment="Right"/>
-            <ListBox x:Name="lsAtenciones" Width="200"/>
+            <ListBox x:Name="lsAtenciones" Width="200" SelectionMode="Multiple"/>
         </StackPanel>
 
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
-            Grid.Row="9" Grid.Column="1" 
+            Grid.Row="10" Grid.Column="1" 
             VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
             <CheckBox x:Name="cbxActivo" Content="Activo"
                       VerticalContentAlignment="Center"
@@ -172,6 +183,7 @@
                     Margin="10,0,10,0" Click="btGuardarClick"/>
         </StackPanel>
         <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>

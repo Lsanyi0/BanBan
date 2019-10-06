@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace BanBan.Controls
 {
@@ -23,6 +22,7 @@ namespace BanBan.Controls
             sp = from sisp in sb.SistemaPension select sisp;
             sc = from suc in sb.Sucursal select suc;
             cr = from car in sb.Cargo select car;
+            at = from aten in sb.Atencion select aten;
         }
         public List<string> getSistemaPensiones()
         {
@@ -40,7 +40,7 @@ namespace BanBan.Controls
         }
         private int getIdSucursal(string sucursal)
         {
-            return (from suc in sc where suc.sucursal1 == sucursal select suc.idSucursal).First();
+            return (from suc in sc where suc.sucursal1.Equals(sucursal) select suc.idSucursal).First();
         }
         public List<string> buscarSucursales(string sucursal)
         {
@@ -55,7 +55,17 @@ namespace BanBan.Controls
         }
         private int getIdCargo(string cargo)
         {
-            return (from car in cr where car.cargo1.Contains(cargo) select car.idCargo).First();
+            return (from car in cr where car.cargo1.Equals(cargo) select car.idCargo).First();
+        }
+        public List<string> getAtenciones()
+        {
+            if (at != null) return (from aten in at select aten.atencion1).ToList();
+            else return lv;
+        }
+
+        private int getIdAtencion(string atencion)
+        {
+            return (from aten in at where aten.atencion1.Contains(atencion) select aten.idAtencion).First();
         }
         //el metodo isVaild() retorna string para facilitar que campos son incorrectos al usuario
         private string isValid(string sueldo, string tel)
@@ -65,57 +75,118 @@ namespace BanBan.Controls
             string v = "vacio.";
             //string e = "ya existente";
             string i = "contiene formato invalido.";
-            if (string.IsNullOrEmpty(emp.nombre)) return "Nombre " + v;
+            if (string.IsNullOrWhiteSpace(emp.nombre)) return "Nombre " + v;
 
-            if (string.IsNullOrEmpty(emp.apellido)) return "Apellido " + v;
+            if (string.IsNullOrWhiteSpace(emp.apellido)) return "Apellido " + v;
             //if nombre + apellido existe aqui and so on
-            if (string.IsNullOrEmpty(emp.dui)) return "DUI " + v;
+            if (string.IsNullOrWhiteSpace(emp.dui)) return "DUI " + v;
             if (!duiRegex.IsMatch(emp.dui)) return "DUI" + i;
             //if Formato valido
-            if (string.IsNullOrEmpty(emp.nit)) return "NIT " + v;
+            if (string.IsNullOrWhiteSpace(emp.nit)) return "NIT " + v;
             if (!nitRegex.IsMatch(emp.nit)) return "NIT " + i;
             if (emp.fechaIngreso == null) return "Fecha de contrato " + v; //<-- no la parece viable/util
 
             if (DateTime.Now < emp.fechaIngreso) return "Fecha de contrato no valida";
             //los combo se validan en la vista en teoria no pueden estar vacios
-            if (string.IsNullOrEmpty(emp.numeroPension)) return "Numero afiliado " + v;
+            if (string.IsNullOrWhiteSpace(emp.numeroPension)) return "Numero afiliado " + v;
+            if (string.IsNullOrWhiteSpace(emp.numeroISSS)) return "Numero de ISSS " + v;
             try { emp.sueldo = decimal.Parse(sueldo); }
             catch (Exception) { return "sueldo " + v; }
-            if (Regex.Matches(tel, @"(\d{4}-\d{4}(,?, ?)?)\1?").Count != tel.Split(',').Count())
+            if (!string.IsNullOrWhiteSpace(tel))
             {
-                return "Numero de telefono " + v +" o " + i
-                + " \n\nRevise cada uno de los telefonos y no coloque ',' cuando ingrese el ultimo telefono.";
+                if (Regex.Matches(tel, @"(\d{4}-\d{4}(,?, ?)?)\1?").Count != tel.Split(',').Count())
+                {
+                    return "Numero de telefono " + v + " o " + i
+                    + " \n\nRevise cada uno de los telefonos y no coloque ',' cuando ingrese el ultimo telefono.";
+                }
             }
             return "OK";
         }
-        //falta ISSS y AFPs
-        public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, string afiliadoA, string nAfiliado, string Sucursal, string Cargo, string sueldo, string telefono, bool estado)
+        //falta ISSS
+        public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, string afiliadoA,
+            string nAfiliado,string ISSS,string sucursal, string cargo, string sueldo, string telefono, bool estado,
+            List<string> sucursales, List<string> atenciones)
         {
+            sb = new sBanBan();
             emp.nombre = nombre;
             emp.apellido = apellido;
             emp.dui = DUI;
             emp.nit = NIT;
             emp.fechaIngreso = fechaC;
             emp.numeroPension = nAfiliado;
-            emp.numeroISSS = "'vacio' de momento";
+            emp.numeroISSS = ISSS;
             emp.estado = estado;
-
+            //sueldo se asigna en la validacion
             var valid = isValid(sueldo, telefono);
 
             if (valid != "OK") return valid;
 
             emp.idSistemaPension = getIdSistemaPensiones(afiliadoA);
-            emp.idCargo = getIdCargo(Cargo);
+            emp.idCargo = getIdCargo(cargo);
 
             sb.Empleado.Add(emp);
             sb.SaveChangesAsync();
-            Trabajo tb = new Trabajo();
-            tb.idEmpleado = emp.idEmpleado;
-            tb.idSucursal = getIdSucursal(Sucursal);
-            sb.Trabajo.Add(tb);
-            sb.SaveChangesAsync();
 
+            guardarTrabajo(emp.idEmpleado, getIdSucursal(sucursal));
+            sucursales.Remove(sucursal);
+
+            if (!string.IsNullOrEmpty(telefono)) guardarTelefonos(telefono);
+            if (sucursales.Count > 0) guardarSucursalesA(sucursales, emp.idEmpleado);
+            if (atenciones.Count > 0) guardarAtenciones(atenciones, emp.idEmpleado);
+            try
+            {
+                sb.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
             return "OK";
+        }
+
+        private void guardarAtenciones(List<string> atenciones, int idEmpleado)
+        {
+            foreach (var atencion in atenciones)
+            {
+                AtencionDetalle atd = new AtencionDetalle()
+                {
+                    idAtencion = getIdAtencion(atencion),
+                    idEmpleado = idEmpleado,
+                    estado = true
+                };
+                sb.AtencionDetalle.Add(atd);
+            }
+        }
+
+        public void guardarSucursalesA(List<string> sucursales, int idEmpleado)
+        {
+            foreach (var sucursal in sucursales)
+            {
+                guardarTrabajo(idEmpleado, getIdSucursal(sucursal));
+            }
+        }
+
+        private void guardarTelefonos(string telefono)
+        {
+            foreach (var tel in telefono.Split(','))
+            {
+                Telefono tele = new Telefono()
+                {
+                    idEmpleado = emp.idEmpleado,
+                    telefono1 = tel.Trim()
+                };
+                sb.Telefono.Add(tele);
+            }
+        }
+        private void guardarTrabajo(int idEmpleado, int idSucursal)
+        {
+            Trabajo tb = new Trabajo()
+            {
+                idEmpleado = idEmpleado,
+                idSucursal = idSucursal
+            };
+            sb.Trabajo.Add(tb);
+
         }
     }
 }
