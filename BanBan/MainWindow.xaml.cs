@@ -35,6 +35,11 @@ namespace BanBan
                 FindResource("stbOcultarOpciones") as Storyboard
             };
             anim = true;
+
+            //btSucursales.Visibility = Visibility.Collapsed;
+            //btPlanillas.Visibility = Visibility.Collapsed;
+            //btReportes.Visibility = Visibility.Collapsed;
+            //btAgregarEmpleados.Visibility = Visibility.Collapsed;
         }
 
         //Usado como trigger para la animacion de fade-out del login

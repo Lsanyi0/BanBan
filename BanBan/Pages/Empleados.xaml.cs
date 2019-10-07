@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace BanBan.Pages
 {
@@ -37,7 +38,7 @@ namespace BanBan.Pages
         {
             if (!dpFechaContrato.SelectedDate.HasValue) { dpFechaContrato.IsDropDownOpen = true; return; }
             string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
-                     dpFechaContrato.SelectedDate.Value, cbAfiliacion.Text, tbNumeroAfiliado.Text,tbISSS.Text,
+                     dpFechaContrato.SelectedDate.Value, cbAfiliacion.Text, tbNumeroAfiliado.Text, tbISSS.Text,
                      cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text, tbTelefono.Text, cbxActivo.IsChecked.Value,
                      getASupervisar(), getAtenciones());
 
@@ -47,11 +48,7 @@ namespace BanBan.Pages
 
         private void btCancelarClick(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(emp.getIdSistemaPensiones(cbAfiliacion.Text).ToString());
-            if (getAtenciones().Count > 0)
-            {
-                getAtenciones();
-            }
+            Utilidades.ClearTextboxes(this);
         }
 
         private void cbCargoDropDownClosed(object sender, System.EventArgs e)
