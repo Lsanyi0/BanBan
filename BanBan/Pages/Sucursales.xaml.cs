@@ -25,7 +25,13 @@ namespace BanBan.Pages
                      on emp.idCargo equals cg.idCargo
                       where cg.cargo1 == "supervisor"
                      select emp.nombre;
-
+            var asu1 = from at1 in sb.DiaPatronal join mun in sb.Ciudad
+                      on at1.idCiudad equals mun.idCiudad
+                      where mun.ciudad1 == cbMunicipio.Text select at1.diaInicial;
+            var asu2 = from at2 in sb.DiaPatronal join mun in sb.Ciudad
+                      on at2.idCiudad equals mun.idCiudad
+                       where mun.ciudad1 == cbMunicipio.Text
+                       select at2.diaFinal; 
 
             if (mn != null)
             {
