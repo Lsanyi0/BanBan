@@ -55,7 +55,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbMunicipio"  
-                MinWidth="200" Height="30"/>
+                MinWidth="200" Height="30" SelectionChanged="CbMunicipio_SelectionChanged"/>
         </StackPanel>
         <StackPanel x:Name="spAsueto" Grid.Row="3" 
             Orientation="Horizontal" 

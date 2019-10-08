@@ -68,9 +68,15 @@ namespace BanBan.Controls
 
         }
 
-        public string DeterminarAsuetos()
+        public List<string> DeterminarAsuetos(string asuetos)
         {
-            return "";
+            List<string> asueto = new List<string>();
+            for (int i = 0; i < asuetos.Split(',').Length - 1; i++)
+            {
+                string[] var = asuetos.Split(',');
+                asueto.Add(var[i]);
+            }
+            return asueto;
         }
 
     }
