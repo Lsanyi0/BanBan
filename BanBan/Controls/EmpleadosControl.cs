@@ -7,7 +7,6 @@ namespace BanBan.Controls
 {
     class EmpleadosControl
     {
-        private sBanBan sb;
         private Empleado emp;
         private List<string> lv = new List<string>();
         //IQueryable para evitar hacer tantas consultas a la BD
@@ -17,12 +16,11 @@ namespace BanBan.Controls
         private readonly IQueryable<Atencion> at;
         public EmpleadosControl()
         {
-            sb = new sBanBan();
             emp = new Empleado();
-            sp = from sisp in sb.SistemaPension select sisp;
-            sc = from suc in sb.Sucursal select suc;
-            cr = from car in sb.Cargo select car;
-            at = from aten in sb.Atencion select aten;
+            sp = from sisp in Utilidades.sb.SistemaPension select sisp;
+            sc = from suc in Utilidades.sb.Sucursal select suc;
+            cr = from car in Utilidades.sb.Cargo select car;
+            at = from aten in Utilidades.sb.Atencion select aten;
         }
         public List<string> getSistemaPensiones()
         {
@@ -104,10 +102,10 @@ namespace BanBan.Controls
         }
         //falta ISSS
         public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, string afiliadoA,
-            string nAfiliado,string ISSS,string sucursal, string cargo, string sueldo, string telefono, bool estado,
+            string nAfiliado, string ISSS, string sucursal, string cargo, string sueldo, string telefono, bool estado,
             List<string> sucursales, List<string> atenciones)
         {
-            sb = new sBanBan();
+            Utilidades.sb = new sBanBan();
             emp.nombre = nombre;
             emp.apellido = apellido;
             emp.dui = DUI;
@@ -124,8 +122,8 @@ namespace BanBan.Controls
             emp.idSistemaPension = getIdSistemaPensiones(afiliadoA);
             emp.idCargo = getIdCargo(cargo);
 
-            sb.Empleado.Add(emp);
-            sb.SaveChangesAsync();
+            Utilidades.sb.Empleado.Add(emp);
+            Utilidades.sb.SaveChangesAsync();
 
             guardarTrabajo(emp.idEmpleado, getIdSucursal(sucursal));
             sucursales.Remove(sucursal);
@@ -135,7 +133,7 @@ namespace BanBan.Controls
             if (atenciones.Count > 0) guardarAtenciones(atenciones, emp.idEmpleado);
             try
             {
-                sb.SaveChanges();
+                Utilidades.sb.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -154,7 +152,7 @@ namespace BanBan.Controls
                     idEmpleado = idEmpleado,
                     estado = true
                 };
-                sb.AtencionDetalle.Add(atd);
+                Utilidades.sb.AtencionDetalle.Add(atd);
             }
         }
 
@@ -175,7 +173,7 @@ namespace BanBan.Controls
                     idEmpleado = emp.idEmpleado,
                     telefono1 = tel.Trim()
                 };
-                sb.Telefono.Add(tele);
+                Utilidades.sb.Telefono.Add(tele);
             }
         }
         private void guardarTrabajo(int idEmpleado, int idSucursal)
@@ -185,8 +183,7 @@ namespace BanBan.Controls
                 idEmpleado = idEmpleado,
                 idSucursal = idSucursal
             };
-            sb.Trabajo.Add(tb);
-
+            Utilidades.sb.Trabajo.Add(tb);
         }
     }
 }

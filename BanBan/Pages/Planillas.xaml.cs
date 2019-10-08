@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BanBan.Controls;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Linq;
 
@@ -9,7 +10,6 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Planillas : Page
     {
-        sBanBan sb = new sBanBan();
         public Planillas()
         {
             string nada = "NADA";
@@ -24,7 +24,7 @@ namespace BanBan.Pages
             }
             lbNumero.Content = dgvPlanilla.Items.Count;
 
-            var sc = from suc in sb.Sucursal select suc.sucursal1;
+            var sc = from suc in Utilidades.sb.Sucursal select suc.sucursal1;
             if (sc != null)
             {
                 cbSucursal.ItemsSource = sc.ToList();            
