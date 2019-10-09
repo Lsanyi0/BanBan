@@ -15,6 +15,7 @@ namespace BanBan.Controls
         private readonly IQueryable<Atencion> at;
         public EmpleadosControl()
         {
+         
             emp = new Empleado();
             sp = from sisp in sb.SistemaPension select sisp;    
             cr = from car in sb.Cargo select car;

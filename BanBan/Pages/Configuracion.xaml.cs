@@ -33,6 +33,12 @@ namespace BanBan.Pages
                        select at.atencion1;
             var hre = from he in sb.tipoHora
                       select he.tipo;
+            var suc = from sc in sb.Sucursal
+                      select sc.sucursal1;
+            var emp = from em in sb.Empleado
+                      select em.nombre;
+            var usu = from us in sb.Usuario
+                      select us.usuario1;
 
             if (carg != null)
             {
@@ -49,7 +55,21 @@ namespace BanBan.Pages
                 cbHoraExtra.ItemsSource = hre.ToList();
                 cbHoraExtra.SelectedIndex = 0;
             }
-
+            if (suc != null)
+            {
+                cbSucursalDispositivo.ItemsSource = suc.ToList();
+                cbSucursalDispositivo.SelectedIndex = 0;
+            }
+            if (emp != null)
+            {
+                cbEmpleado.ItemsSource = emp.ToList();
+                cbEmpleado.SelectedIndex = 0;
+            }
+            if (usu != null)
+            {
+                cbUsuario.ItemsSource = usu.ToList();
+                cbUsuario.SelectedIndex = 0;
+            }
         }
     }
 }
