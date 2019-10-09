@@ -49,7 +49,7 @@ namespace BanBan.Controls
 
         public string ValidarSucursal(string sucursal, string direccion)
         {
-            var verificar = from sc in sb.Sucursal where sc.sucursal1.Equals(sucursal) select sc.sucursal1;
+            var verificar = from sc in sb.Sucursal where sc.sucursal1.Equals(sucursal) select sc.idSucursal;
             if (verificar!=null)
             {
                 return "sucursal existente";

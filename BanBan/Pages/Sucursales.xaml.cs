@@ -16,10 +16,14 @@ namespace BanBan.Pages
     {
         sBanBan sb = new sBanBan();
         SucursalesControl sc = new SucursalesControl();
+        private string date="";
+        private int ind = 0;
+        private List<string> lista;
         public Sucursales()
         {
             InitializeComponent();
-            var mn = from muni in sb.Ciudad select muni.ciudad1;
+        lista = new List<string>();
+        var mn = from muni in sb.Ciudad select muni.ciudad1;
             var dp = from dep in sb.Departamento select dep.departamento1;
             var sup = from emp in sb.Empleado join cg in sb.Cargo
                      on emp.idCargo equals cg.idCargo
@@ -87,6 +91,53 @@ namespace BanBan.Pages
                     lsAsuetos.Items.Add(asuetos[i]);
                 }
             }
+        }
+
+        private void tbAsueto_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            date = tbAsueto.SelectedDate.ToString();
+        }
+
+        private void btAgregar_Click(object sender, RoutedEventArgs e)
+        {
+            agregarAsueto();
+        }
+
+        public void agregarAsueto()
+        {
+            lsAsuetos.Items.Clear();
+            lista.Add(date.ToString());
+            for (int i = 0; i < lista.Count; i++)
+            {
+                lsAsuetos.Items.Add(lista[i]);
+            }
+        }
+
+        public void eliminarAsueto()
+        {
+            lista.RemoveAt(ind);
+            for (int i = 0; i < lista.Count; i++)
+            {
+                lsAsuetos.Items.Add(lista[i]);
+            }
+        }
+        private void btQuitar_Click(object sender, RoutedEventArgs e)
+        {
+            lsAsuetos.Items.Clear();
+            eliminarAsueto();
+        }
+      
+
+        private void lsAsuetos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ind=lsAsuetos.SelectedIndex;
+            ind = ind*(-1);
+        }
+
+        private void btLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            lsAsuetos.Items.Clear();
+            lista.Clear();
         }
     }
 }

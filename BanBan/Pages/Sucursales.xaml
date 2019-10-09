@@ -66,7 +66,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
             <DatePicker x:Name="tbAsueto"  
-                MinWidth="200" Height="30"/>
+                MinWidth="200" Height="30" SelectedDateChanged="tbAsueto_SelectedDateChanged"/>
         </StackPanel>
         <StackPanel x:Name="spListaAsueto" 
                     Orientation="Horizontal" 
@@ -77,7 +77,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalAlignment="Top"/>
             <ListBox x:Name="lsAsuetos" 
-                MinWidth="200" VerticalAlignment="Stretch"/>
+                MinWidth="200" VerticalAlignment="Stretch" SelectionChanged="lsAsuetos_SelectionChanged"/>
         </StackPanel>
         <StackPanel x:Name="spBotonesAsueto" 
                 Orientation="Horizontal" 
@@ -86,15 +86,15 @@
             <Button x:Name="btLimpiar"
                     Content="Limpiar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0"/>
+                    Margin="10,0,10,0" Click="btLimpiar_Click"/>
             <Button x:Name="btQuitar"
                     Content="Quitar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0"/>
+                    Margin="10,0,10,0" Click="btQuitar_Click"/>
             <Button x:Name="btAgregar" 
                     Content="Agregar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0"/>
+                    Margin="10,0,10,0" Click="btAgregar_Click"/>
         </StackPanel>
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
