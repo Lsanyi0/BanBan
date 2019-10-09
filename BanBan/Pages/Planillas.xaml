@@ -22,7 +22,7 @@
                     HorizontalAlignment="Right" 
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center" IsEditable="True" LostFocus="CbSucursalLostFocus"/>
         </StackPanel>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
@@ -48,7 +48,7 @@
                 <DataGrid x:Name="dgvPlanilla"
                           ScrollViewer.CanContentScroll="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre completo" Width="110" />
+                        <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
                         <DataGridTextColumn Header="Numero de dias" Width="100"/>
                         <DataGridTextColumn Header="Sueldo" Width="50"/>
                         <DataGridTextColumn Header="Horas" Width="40"/>
@@ -71,7 +71,7 @@
                     ScrollViewer.CanContentScroll="True"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre completo" Width="110" />
+                        <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
                         <DataGridTextColumn Header="Comida" Width="50"/>
                         <DataGridTextColumn Header="Atenciones" Width="70"/>
                         <DataGridTextColumn Header="% de Cajas" Width="70"/>

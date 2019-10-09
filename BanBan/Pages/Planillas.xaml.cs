@@ -10,26 +10,22 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Planillas : Page
     {
+        PlanillasControl pc = new PlanillasControl();
         public Planillas()
         {
-            string nada = "NADA";
             InitializeComponent();
-            for (int i = 0; i < 50; i++)
-            {
-                List<string> Nombre = new List<string>
-                {
-                    nada
-                };
-                dgvPlanilla.Items.Add(Nombre);
-            }
-            lbNumero.Content = dgvPlanilla.Items.Count;
 
-            var sc = from suc in Utilidades.sb.Sucursal select suc.sucursal1;
-            if (sc != null)
-            {
-                cbSucursal.ItemsSource = sc.ToList();            
-                cbSucursal.SelectedIndex = 0;
-            }
+            cbSucursal.ItemsSource = pc.getSucursales();
+            cbSucursal.SelectedIndex = 0;
+
+            dgvPlanilla.ItemsSource = pc.getEmpleados();
+            dgvAtenciones.ItemsSource = pc.getEmpleados();
+        }
+        private void CbSucursalLostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(cbSucursal.Text)) dgvPlanilla.ItemsSource = pc.getEmpleados(cbSucursal.Text);
+            else dgvPlanilla.ItemsSource = pc.getEmpleados();
+            dgvAtenciones.ItemsSource = dgvPlanilla.Items;
         }
     }
 }

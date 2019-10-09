@@ -11,7 +11,6 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Empleados : Page
     {
-        //sb es una instancia del "contexto" de la base de datos (base de datos mapeada)
         private EmpleadosControl emp = new EmpleadosControl();
         public static bool edit = false;
         public Empleados()
@@ -48,7 +47,7 @@ namespace BanBan.Pages
 
         private void btCancelarClick(object sender, RoutedEventArgs e)
         {
-            Utilidades.ClearTextboxes(this);
+            emp.ClearTextboxes(this);
         }
 
         private void cbCargoDropDownClosed(object sender, System.EventArgs e)

@@ -5,22 +5,20 @@ using System.Text.RegularExpressions;
 
 namespace BanBan.Controls
 {
-    class EmpleadosControl
+    class EmpleadosControl : Utilidades
     {
         private Empleado emp;
-        private List<string> lv = new List<string>();
-        //IQueryable para evitar hacer tantas consultas a la BD
+        //IQueryable para evitar hacer tantas consultas a la BD (NO LO HACE :'v)
         private readonly IQueryable<SistemaPension> sp;
-        private readonly IQueryable<Sucursal> sc;
+        
         private readonly IQueryable<Cargo> cr;
         private readonly IQueryable<Atencion> at;
         public EmpleadosControl()
         {
             emp = new Empleado();
-            sp = from sisp in Utilidades.sb.SistemaPension select sisp;
-            sc = from suc in Utilidades.sb.Sucursal select suc;
-            cr = from car in Utilidades.sb.Cargo select car;
-            at = from aten in Utilidades.sb.Atencion select aten;
+            sp = from sisp in sb.SistemaPension select sisp;    
+            cr = from car in sb.Cargo select car;
+            at = from aten in sb.Atencion select aten;
         }
         public List<string> getSistemaPensiones()
         {
@@ -30,21 +28,6 @@ namespace BanBan.Controls
         private int getIdSistemaPensiones(string sistemaP)
         {
             return (from sisp in sp where sisp.sistemaP == sistemaP select sisp.idSistemaPension).First();
-        }
-        public List<string> getSucursales()
-        {
-            if (sc != null) return (from suc in sc select suc.sucursal1).ToList();
-            else return lv;
-        }
-        private int getIdSucursal(string sucursal)
-        {
-            return (from suc in sc where suc.sucursal1.Equals(sucursal) select suc.idSucursal).First();
-        }
-        public List<string> buscarSucursales(string sucursal)
-        {
-            List<string> sucursales = (from suc in sc where suc.sucursal1.Contains(sucursal) select suc.sucursal1).ToList();
-            if (sucursales != null) return sucursales;
-            else return (from suc in sc select suc.sucursal1).ToList();
         }
         public List<string> getCargos()
         {
@@ -100,12 +83,11 @@ namespace BanBan.Controls
             }
             return "OK";
         }
-        //falta ISSS
         public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, string afiliadoA,
             string nAfiliado, string ISSS, string sucursal, string cargo, string sueldo, string telefono, bool estado,
             List<string> sucursales, List<string> atenciones)
         {
-            Utilidades.sb = new sBanBan();
+            sb = new sBanBan();
             emp.nombre = nombre;
             emp.apellido = apellido;
             emp.dui = DUI;
@@ -122,8 +104,8 @@ namespace BanBan.Controls
             emp.idSistemaPension = getIdSistemaPensiones(afiliadoA);
             emp.idCargo = getIdCargo(cargo);
 
-            Utilidades.sb.Empleado.Add(emp);
-            Utilidades.sb.SaveChangesAsync();
+            sb.Empleado.Add(emp);
+            sb.SaveChangesAsync();
 
             guardarTrabajo(emp.idEmpleado, getIdSucursal(sucursal));
             sucursales.Remove(sucursal);
@@ -133,7 +115,7 @@ namespace BanBan.Controls
             if (atenciones.Count > 0) guardarAtenciones(atenciones, emp.idEmpleado);
             try
             {
-                Utilidades.sb.SaveChanges();
+                sb.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -152,7 +134,7 @@ namespace BanBan.Controls
                     idEmpleado = idEmpleado,
                     estado = true
                 };
-                Utilidades.sb.AtencionDetalle.Add(atd);
+                sb.AtencionDetalle.Add(atd);
             }
         }
 
@@ -173,7 +155,7 @@ namespace BanBan.Controls
                     idEmpleado = emp.idEmpleado,
                     telefono1 = tel.Trim()
                 };
-                Utilidades.sb.Telefono.Add(tele);
+                sb.Telefono.Add(tele);
             }
         }
         private void guardarTrabajo(int idEmpleado, int idSucursal)
@@ -183,7 +165,7 @@ namespace BanBan.Controls
                 idEmpleado = idEmpleado,
                 idSucursal = idSucursal
             };
-            Utilidades.sb.Trabajo.Add(tb);
+            sb.Trabajo.Add(tb);
         }
     }
 }

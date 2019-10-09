@@ -133,6 +133,7 @@
     <Compile Include="HorarioExtra.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PlanillaModel.cs" />
     <Compile Include="Planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
