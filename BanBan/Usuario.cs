@@ -12,15 +12,16 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class usuario
     {
         public int idUsuario { get; set; }
         public string usuario1 { get; set; }
         public string contrasena { get; set; }
+        public bool reseteo { get; set; }
         public int idEmpleado { get; set; }
         public int idTipo { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual TipoUsuario TipoUsuario { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual tipousuario tipousuario { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Dispositivo
+    public partial class dispositivo
     {
         public int idDispositivo { get; set; }
         public string ip { get; set; }
         public int idSucursal { get; set; }
     
-        public virtual Sucursal Sucursal { get; set; }
+        public virtual sucursal sucursal { get; set; }
     }
 }

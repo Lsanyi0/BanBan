@@ -25,28 +25,31 @@ namespace BanBan
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Atencion> Atencion { get; set; }
-        public virtual DbSet<AtencionDetalle> AtencionDetalle { get; set; }
-        public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Ciudad> Ciudad { get; set; }
-        public virtual DbSet<ComentariosPlanilla> ComentariosPlanilla { get; set; }
-        public virtual DbSet<Departamento> Departamento { get; set; }
-        public virtual DbSet<Descuentos> Descuentos { get; set; }
-        public virtual DbSet<DiaNacional> DiaNacional { get; set; }
-        public virtual DbSet<DiaPatronal> DiaPatronal { get; set; }
-        public virtual DbSet<Dispositivo> Dispositivo { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Horario> Horario { get; set; }
-        public virtual DbSet<HorarioExtra> HorarioExtra { get; set; }
-        public virtual DbSet<Planilla> Planilla { get; set; }
-        public virtual DbSet<PlanillaHorario> PlanillaHorario { get; set; }
-        public virtual DbSet<RegistroSalarial> RegistroSalarial { get; set; }
-        public virtual DbSet<SistemaPension> SistemaPension { get; set; }
-        public virtual DbSet<Sucursal> Sucursal { get; set; }
-        public virtual DbSet<Telefono> Telefono { get; set; }
-        public virtual DbSet<tipoHora> tipoHora { get; set; }
-        public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
-        public virtual DbSet<Trabajo> Trabajo { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<atencion> atencion { get; set; }
+        public virtual DbSet<atenciondetalle> atenciondetalle { get; set; }
+        public virtual DbSet<cargo> cargo { get; set; }
+        public virtual DbSet<ciudad> ciudad { get; set; }
+        public virtual DbSet<comentariosplanilla> comentariosplanilla { get; set; }
+        public virtual DbSet<departamento> departamento { get; set; }
+        public virtual DbSet<descuentos> descuentos { get; set; }
+        public virtual DbSet<dianacional> dianacional { get; set; }
+        public virtual DbSet<diapatronal> diapatronal { get; set; }
+        public virtual DbSet<dispositivo> dispositivo { get; set; }
+        public virtual DbSet<empleado> empleado { get; set; }
+        public virtual DbSet<fiestanacional> fiestanacional { get; set; }
+        public virtual DbSet<hangar> hangar { get; set; }
+        public virtual DbSet<horario> horario { get; set; }
+        public virtual DbSet<horarioextra> horarioextra { get; set; }
+        public virtual DbSet<horariosucursal> horariosucursal { get; set; }
+        public virtual DbSet<planilla> planilla { get; set; }
+        public virtual DbSet<planillahorario> planillahorario { get; set; }
+        public virtual DbSet<registrosalarial> registrosalarial { get; set; }
+        public virtual DbSet<sistemapension> sistemapension { get; set; }
+        public virtual DbSet<sucursal> sucursal { get; set; }
+        public virtual DbSet<telefono> telefono { get; set; }
+        public virtual DbSet<tipohora> tipohora { get; set; }
+        public virtual DbSet<tipousuario> tipousuario { get; set; }
+        public virtual DbSet<trabajo> trabajo { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
     }
 }

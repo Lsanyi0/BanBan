@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class RegistroSalarial
+    public partial class registrosalarial
     {
         public int idRegistroS { get; set; }
         public Nullable<decimal> sueldoAumentado { get; set; }
         public int idEmpleado { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
+        public virtual empleado empleado { get; set; }
     }
 }

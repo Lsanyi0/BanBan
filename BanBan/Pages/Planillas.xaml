@@ -46,7 +46,9 @@
         <TabControl x:Name="tcData"  Margin="60,10,38,25" Grid.Row="4" Grid.ColumnSpan="5" >
             <TabItem x:Name="tbPlanilla" Header="Planilla">
                 <DataGrid x:Name="dgvPlanilla"
-                          ScrollViewer.CanContentScroll="True">
+                          ScrollViewer.CanContentScroll="True"
+                          CanUserAddRows="False"
+                          AlternatingRowBackground="LightSkyBlue">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
                         <DataGridTextColumn Header="Numero de dias" Width="100"/>

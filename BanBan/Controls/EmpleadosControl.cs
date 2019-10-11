@@ -7,19 +7,19 @@ namespace BanBan.Controls
 {
     class EmpleadosControl : Utilidades
     {
-        private Empleado emp;
+        private empleado emp;
         //IQueryable para evitar hacer tantas consultas a la BD (NO LO HACE :'v)
-        private readonly IQueryable<SistemaPension> sp;
+        private readonly IQueryable<sistemapension> sp;
         
-        private readonly IQueryable<Cargo> cr;
-        private readonly IQueryable<Atencion> at;
+        private readonly IQueryable<cargo> cr;
+        private readonly IQueryable<atencion> at;
         public EmpleadosControl()
         {
          
-            emp = new Empleado();
-            sp = from sisp in sb.SistemaPension select sisp;    
-            cr = from car in sb.Cargo select car;
-            at = from aten in sb.Atencion select aten;
+            emp = new empleado();
+            sp = from sisp in sb.sistemapension select sisp;    
+            cr = from car in sb.cargo select car;
+            at = from aten in sb.atencion select aten;
         }
         public List<string> getSistemaPensiones()
         {
@@ -105,7 +105,7 @@ namespace BanBan.Controls
             emp.idSistemaPension = getIdSistemaPensiones(afiliadoA);
             emp.idCargo = getIdCargo(cargo);
 
-            sb.Empleado.Add(emp);
+            sb.empleado.Add(emp);
             sb.SaveChangesAsync();
 
             guardarTrabajo(emp.idEmpleado, getIdSucursal(sucursal));
@@ -129,13 +129,13 @@ namespace BanBan.Controls
         {
             foreach (var atencion in atenciones)
             {
-                AtencionDetalle atd = new AtencionDetalle()
+                atenciondetalle atd = new atenciondetalle()
                 {
                     idAtencion = getIdAtencion(atencion),
                     idEmpleado = idEmpleado,
                     estado = true
                 };
-                sb.AtencionDetalle.Add(atd);
+                sb.atenciondetalle.Add(atd);
             }
         }
 
@@ -151,22 +151,22 @@ namespace BanBan.Controls
         {
             foreach (var tel in telefono.Split(','))
             {
-                Telefono tele = new Telefono()
+                telefono tele = new telefono()
                 {
                     idEmpleado = emp.idEmpleado,
                     telefono1 = tel.Trim()
                 };
-                sb.Telefono.Add(tele);
+                sb.telefono.Add(tele);
             }
         }
         private void guardarTrabajo(int idEmpleado, int idSucursal)
         {
-            Trabajo tb = new Trabajo()
+            trabajo tb = new trabajo()
             {
                 idEmpleado = idEmpleado,
                 idSucursal = idSucursal
             };
-            sb.Trabajo.Add(tb);
+            sb.trabajo.Add(tb);
         }
     }
 }

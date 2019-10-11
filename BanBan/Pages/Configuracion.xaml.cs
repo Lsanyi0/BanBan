@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BanBan.Pages
 {
@@ -27,17 +15,17 @@ namespace BanBan.Pages
         {
             InitializeComponent();
 
-            var carg = from cr in sb.Cargo
+            var carg = from cr in sb.cargo
                        select cr.cargo1;
-            var aten = from at in sb.Atencion
+            var aten = from at in sb.atencion
                        select at.atencion1;
-            var hre = from he in sb.tipoHora
+            var hre = from he in sb.tipohora
                       select he.tipo;
-            var suc = from sc in sb.Sucursal
+            var suc = from sc in sb.sucursal
                       select sc.sucursal1;
-            var emp = from em in sb.Empleado
+            var emp = from em in sb.empleado
                       select em.nombre;
-            var usu = from us in sb.Usuario
+            var usu = from us in sb.usuario
                       select us.usuario1;
 
             if (carg != null)

@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Atencion
+    public partial class atencion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Atencion()
+        public atencion()
         {
-            this.AtencionDetalle = new HashSet<AtencionDetalle>();
+            this.atenciondetalle = new HashSet<atenciondetalle>();
         }
     
         public int idAtencion { get; set; }
@@ -25,6 +25,6 @@ namespace BanBan
         public decimal montoBase { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionDetalle> AtencionDetalle { get; set; }
+        public virtual ICollection<atenciondetalle> atenciondetalle { get; set; }
     }
 }

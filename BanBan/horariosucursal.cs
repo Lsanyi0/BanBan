@@ -12,12 +12,14 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class dianacional
+    public partial class horariosucursal
     {
-        public int idDiaNacional { get; set; }
-        public System.DateTime dia { get; set; }
-        public int idFiesta { get; set; }
+        public int idHSucursal { get; set; }
+        public string dias { get; set; }
+        public string aperturas { get; set; }
+        public string cierres { get; set; }
+        public int idSucursal { get; set; }
     
-        public virtual fiestanacional fiestanacional { get; set; }
+        public virtual sucursal sucursal { get; set; }
     }
 }

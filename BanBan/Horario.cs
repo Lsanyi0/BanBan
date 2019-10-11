@@ -12,7 +12,7 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Horario
+    public partial class horario
     {
         public int id { get; set; }
         public System.TimeSpan horaEntrada { get; set; }
@@ -20,6 +20,6 @@ namespace BanBan
         public string dias { get; set; }
         public int idEmpleado { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
+        public virtual empleado empleado { get; set; }
     }
 }

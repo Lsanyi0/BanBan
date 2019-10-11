@@ -90,57 +90,66 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Atencion.cs">
+    <Compile Include="atencion.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="AtencionDetalle.cs">
+    <Compile Include="atenciondetalle.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Cargo.cs">
+    <Compile Include="cargo.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ciudad.cs">
+    <Compile Include="ciudad.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComentariosPlanilla.cs">
+    <Compile Include="comentariosplanilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmpleadosControl.cs" />
     <Compile Include="Controls\PlanillasControl.cs" />
     <Compile Include="Controls\SucursalesControl.cs" />
     <Compile Include="Controls\Utilidades.cs" />
-    <Compile Include="Departamento.cs">
+    <Compile Include="departamento.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Descuentos.cs">
+    <Compile Include="descuentos.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="DiaNacional.cs">
+    <Compile Include="dianacional.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="DiaPatronal.cs">
+    <Compile Include="diapatronal.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Dispositivo.cs">
+    <Compile Include="dispositivo.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Empleado.cs">
+    <Compile Include="empleado.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Horario.cs">
+    <Compile Include="fiestanacional.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="HorarioExtra.cs">
+    <Compile Include="hangar.cs">
+      <DependentUpon>sBanBan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="horario.cs">
+      <DependentUpon>sBanBan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="horarioextra.cs">
+      <DependentUpon>sBanBan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="horariosucursal.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PlanillaModel.cs" />
-    <Compile Include="Planilla.cs">
+    <Compile Include="planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="PlanillaHorario.cs">
+    <Compile Include="planillahorario.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="RegistroSalarial.cs">
+    <Compile Include="registrosalarial.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="sBanBan.Context.cs">
@@ -158,25 +167,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>sBanBan.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SistemaPension.cs">
+    <Compile Include="sistemapension.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sucursal.cs">
+    <Compile Include="sucursal.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Telefono.cs">
+    <Compile Include="telefono.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="tipoHora.cs">
+    <Compile Include="tipohora.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoUsuario.cs">
+    <Compile Include="tipousuario.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Trabajo.cs">
+    <Compile Include="trabajo.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Usuario.cs">
+    <Compile Include="usuario.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">

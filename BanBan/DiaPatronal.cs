@@ -12,13 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class DiaPatronal
+    public partial class diapatronal
     {
         public int idDiaPatronal { get; set; }
-        public System.DateTime diaInicial { get; set; }
-        public System.DateTime diaFinal { get; set; }
+        public System.DateTime dia { get; set; }
         public int idCiudad { get; set; }
     
-        public virtual Ciudad Ciudad { get; set; }
+        public virtual ciudad ciudad { get; set; }
     }
 }

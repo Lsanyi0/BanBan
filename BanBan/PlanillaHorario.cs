@@ -12,14 +12,8 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class PlanillaHorario
+    public partial class planillahorario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PlanillaHorario()
-        {
-            this.ComentariosPlanilla = new HashSet<ComentariosPlanilla>();
-        }
-    
         public int idPlanillaHorario { get; set; }
         public Nullable<System.TimeSpan> entrada { get; set; }
         public Nullable<System.TimeSpan> salida { get; set; }
@@ -28,9 +22,7 @@ namespace BanBan
         public int idEmpleado { get; set; }
         public int idPlanilla { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComentariosPlanilla> ComentariosPlanilla { get; set; }
-        public virtual Empleado Empleado { get; set; }
-        public virtual Planilla Planilla { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual planilla planilla { get; set; }
     }
 }

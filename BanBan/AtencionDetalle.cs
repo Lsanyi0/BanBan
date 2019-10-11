@@ -12,14 +12,14 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class AtencionDetalle
+    public partial class atenciondetalle
     {
         public int idADetalle { get; set; }
         public bool estado { get; set; }
         public int idAtencion { get; set; }
         public int idEmpleado { get; set; }
     
-        public virtual Atencion Atencion { get; set; }
-        public virtual Empleado Empleado { get; set; }
+        public virtual atencion atencion { get; set; }
+        public virtual empleado empleado { get; set; }
     }
 }

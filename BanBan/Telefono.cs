@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Telefono
+    public partial class telefono
     {
         public int idTelefono { get; set; }
         public int idEmpleado { get; set; }
         public string telefono1 { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
+        public virtual empleado empleado { get; set; }
     }
 }

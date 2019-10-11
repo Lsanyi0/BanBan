@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class tipoHora
+    public partial class tipohora
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tipoHora()
+        public tipohora()
         {
-            this.HorarioExtra = new HashSet<HorarioExtra>();
+            this.horarioextra = new HashSet<horarioextra>();
         }
     
         public int idTipoHora { get; set; }
@@ -25,6 +25,6 @@ namespace BanBan
         public decimal costo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HorarioExtra> HorarioExtra { get; set; }
+        public virtual ICollection<horarioextra> horarioextra { get; set; }
     }
 }

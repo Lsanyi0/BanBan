@@ -12,12 +12,12 @@ namespace BanBan.Controls
         //Instancia general para todos los formularios
         private protected static sBanBan sb = new sBanBan();
 
-        private protected readonly IQueryable<Sucursal> sc;
+        private protected readonly IQueryable<sucursal> sc;
         //Lista vacia para retornar cuando no encuentra resultados en una consulta
         private protected readonly List<string> lv = new List<string>();
         public Utilidades()
         {
-            sc = from suc in sb.Sucursal select suc;
+            sc = from suc in sb.sucursal select suc;
         }
         public List<string> getSucursales()
         {

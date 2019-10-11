@@ -12,12 +12,12 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Cargo
+    public partial class cargo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cargo()
+        public cargo()
         {
-            this.Empleado = new HashSet<Empleado>();
+            this.empleado = new HashSet<empleado>();
         }
     
         public int idCargo { get; set; }
@@ -25,6 +25,6 @@ namespace BanBan
         public Nullable<decimal> atenciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<empleado> empleado { get; set; }
     }
 }

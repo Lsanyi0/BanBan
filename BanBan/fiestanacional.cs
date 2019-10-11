@@ -12,12 +12,18 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class dianacional
+    public partial class fiestanacional
     {
-        public int idDiaNacional { get; set; }
-        public System.DateTime dia { get; set; }
-        public int idFiesta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public fiestanacional()
+        {
+            this.dianacional = new HashSet<dianacional>();
+        }
     
-        public virtual fiestanacional fiestanacional { get; set; }
+        public int idFiesta { get; set; }
+        public string fiesta { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dianacional> dianacional { get; set; }
     }
 }

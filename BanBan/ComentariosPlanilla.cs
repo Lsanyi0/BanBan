@@ -12,16 +12,14 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class ComentariosPlanilla
+    public partial class comentariosplanilla
     {
         public int idComentarios { get; set; }
         public string comentario { get; set; }
-        public Nullable<int> idPlanilla { get; set; }
+        public int idPlanilla { get; set; }
         public int idEmpleado { get; set; }
-        public Nullable<int> idPHorario { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Planilla Planilla { get; set; }
-        public virtual PlanillaHorario PlanillaHorario { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual planilla planilla { get; set; }
     }
 }

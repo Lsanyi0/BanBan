@@ -12,21 +12,21 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class empleado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Empleado()
+        public empleado()
         {
-            this.AtencionDetalle = new HashSet<AtencionDetalle>();
-            this.ComentariosPlanilla = new HashSet<ComentariosPlanilla>();
-            this.Descuentos = new HashSet<Descuentos>();
-            this.HorarioExtra = new HashSet<HorarioExtra>();
-            this.Horario = new HashSet<Horario>();
-            this.PlanillaHorario = new HashSet<PlanillaHorario>();
-            this.RegistroSalarial = new HashSet<RegistroSalarial>();
-            this.Telefono = new HashSet<Telefono>();
-            this.Trabajo = new HashSet<Trabajo>();
-            this.Usuario = new HashSet<Usuario>();
+            this.atenciondetalle = new HashSet<atenciondetalle>();
+            this.comentariosplanilla = new HashSet<comentariosplanilla>();
+            this.descuentos = new HashSet<descuentos>();
+            this.horarioextra = new HashSet<horarioextra>();
+            this.horario = new HashSet<horario>();
+            this.planillahorario = new HashSet<planillahorario>();
+            this.registrosalarial = new HashSet<registrosalarial>();
+            this.telefono = new HashSet<telefono>();
+            this.trabajo = new HashSet<trabajo>();
+            this.usuario = new HashSet<usuario>();
         }
     
         public int idEmpleado { get; set; }
@@ -44,26 +44,26 @@ namespace BanBan
         public int idCargo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionDetalle> AtencionDetalle { get; set; }
-        public virtual Cargo Cargo { get; set; }
+        public virtual ICollection<atenciondetalle> atenciondetalle { get; set; }
+        public virtual cargo cargo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComentariosPlanilla> ComentariosPlanilla { get; set; }
+        public virtual ICollection<comentariosplanilla> comentariosplanilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Descuentos> Descuentos { get; set; }
-        public virtual SistemaPension SistemaPension { get; set; }
+        public virtual ICollection<descuentos> descuentos { get; set; }
+        public virtual sistemapension sistemapension { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HorarioExtra> HorarioExtra { get; set; }
+        public virtual ICollection<horarioextra> horarioextra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Horario> Horario { get; set; }
+        public virtual ICollection<horario> horario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaHorario> PlanillaHorario { get; set; }
+        public virtual ICollection<planillahorario> planillahorario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RegistroSalarial> RegistroSalarial { get; set; }
+        public virtual ICollection<registrosalarial> registrosalarial { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telefono> Telefono { get; set; }
+        public virtual ICollection<telefono> telefono { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trabajo> Trabajo { get; set; }
+        public virtual ICollection<trabajo> trabajo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<usuario> usuario { get; set; }
     }
 }

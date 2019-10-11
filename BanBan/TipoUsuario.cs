@@ -12,18 +12,18 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoUsuario
+    public partial class tipousuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoUsuario()
+        public tipousuario()
         {
-            this.Usuario = new HashSet<Usuario>();
+            this.usuario = new HashSet<usuario>();
         }
     
         public int idTipo { get; set; }
         public string tipo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<usuario> usuario { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Trabajo
+    public partial class trabajo
     {
         public int idTrabajo { get; set; }
         public int idEmpleado { get; set; }
         public int idSucursal { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Sucursal Sucursal { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual sucursal sucursal { get; set; }
     }
 }

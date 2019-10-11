@@ -12,7 +12,7 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Descuentos
+    public partial class descuentos
     {
         public int idDescuentos { get; set; }
         public string descuento { get; set; }
@@ -21,7 +21,7 @@ namespace BanBan
         public int idEmpleado { get; set; }
         public int idPlanilla { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Planilla Planilla { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual planilla planilla { get; set; }
     }
 }

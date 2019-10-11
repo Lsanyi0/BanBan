@@ -26,6 +26,7 @@ namespace BanBan.Pages
             if (!string.IsNullOrWhiteSpace(cbSucursal.Text)) dgvPlanilla.ItemsSource = pc.getEmpleados(cbSucursal.Text);
             else dgvPlanilla.ItemsSource = pc.getEmpleados();
             dgvAtenciones.ItemsSource = dgvPlanilla.Items;
+            lbNumero.Content = (dgvPlanilla.Items.Count - 1);
         }
     }
 }

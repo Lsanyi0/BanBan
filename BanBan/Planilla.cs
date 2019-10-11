@@ -12,28 +12,29 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class Planilla
+    public partial class planilla
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Planilla()
+        public planilla()
         {
-            this.ComentariosPlanilla = new HashSet<ComentariosPlanilla>();
-            this.Descuentos = new HashSet<Descuentos>();
-            this.HorarioExtra = new HashSet<HorarioExtra>();
-            this.PlanillaHorario = new HashSet<PlanillaHorario>();
+            this.comentariosplanilla = new HashSet<comentariosplanilla>();
+            this.descuentos = new HashSet<descuentos>();
+            this.horarioextra = new HashSet<horarioextra>();
+            this.planillahorario = new HashSet<planillahorario>();
         }
     
         public int idPlanilla { get; set; }
         public bool periodo { get; set; }
         public System.DateTime fecha { get; set; }
+        public bool fallo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComentariosPlanilla> ComentariosPlanilla { get; set; }
+        public virtual ICollection<comentariosplanilla> comentariosplanilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Descuentos> Descuentos { get; set; }
+        public virtual ICollection<descuentos> descuentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HorarioExtra> HorarioExtra { get; set; }
+        public virtual ICollection<horarioextra> horarioextra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaHorario> PlanillaHorario { get; set; }
+        public virtual ICollection<planillahorario> planillahorario { get; set; }
     }
 }

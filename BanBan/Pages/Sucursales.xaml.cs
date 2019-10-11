@@ -1,9 +1,8 @@
-﻿using System;
+﻿using BanBan.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using BanBan.Controls;
 
 
 namespace BanBan.Pages
@@ -16,20 +15,19 @@ namespace BanBan.Pages
     {
         sBanBan sb = new sBanBan();
         SucursalesControl sc = new SucursalesControl();
-        private string date="";
+        private string date = "";
         private int ind = 0;
         private List<string> lista;
         public Sucursales()
         {
             InitializeComponent();
-        lista = new List<string>();
-        var mn = from muni in sb.Ciudad select muni.ciudad1;
-            var dp = from dep in sb.Departamento select dep.departamento1;
-            var sup = from emp in sb.Empleado join cg in sb.Cargo
-                     on emp.idCargo equals cg.idCargo
+            lista = new List<string>();
+            var mn = from muni in sb.ciudad select muni.ciudad1;
+            var dp = from dep in sb.departamento select dep.departamento1;
+            var sup = from emp in sb.empleado
+                      join cg in sb.cargo on emp.idCargo equals cg.idCargo
                       where cg.cargo1 == "supervisor"
-                     select emp.nombre;
-           
+                      select emp.nombre;
 
             if (mn != null)
             {
@@ -72,12 +70,12 @@ namespace BanBan.Pages
 
         private void CbMunicipio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var asu = from at1 in sb.DiaPatronal
-                       join mun in sb.Ciudad
-                        on at1.idCiudad equals mun.idCiudad
-                       where mun.ciudad1 == cbMunicipio.Text
-                       select at1.diaInicial;
-
+            var asu = from at1 in sb.diapatronal
+                      join mun in sb.ciudad
+                       on at1.idCiudad equals mun.idCiudad
+                      where mun.ciudad1 == cbMunicipio.Text
+                      select at1.dia;
+            //peto asi que lo cambie, no se si funca
             if (asu == null)
             {
 
@@ -126,12 +124,12 @@ namespace BanBan.Pages
             lsAsuetos.Items.Clear();
             eliminarAsueto();
         }
-      
+
 
         private void lsAsuetos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ind=lsAsuetos.SelectedIndex;
-            ind = ind*(-1);
+            ind = lsAsuetos.SelectedIndex;
+            ind = ind * (-1);
         }
 
         private void btLimpiar_Click(object sender, RoutedEventArgs e)

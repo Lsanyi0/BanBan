@@ -12,7 +12,7 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class HorarioExtra
+    public partial class horarioextra
     {
         public int id { get; set; }
         public System.TimeSpan horaInicio { get; set; }
@@ -23,8 +23,8 @@ namespace BanBan
         public int idEmpleado { get; set; }
         public int idPlanilla { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Planilla Planilla { get; set; }
-        public virtual tipoHora tipoHora { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual planilla planilla { get; set; }
+        public virtual tipohora tipohora { get; set; }
     }
 }

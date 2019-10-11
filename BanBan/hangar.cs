@@ -12,18 +12,18 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class departamento
+    public partial class hangar
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public departamento()
+        public hangar()
         {
-            this.ciudad = new HashSet<ciudad>();
+            this.sucursal = new HashSet<sucursal>();
         }
     
-        public int idDepartamento { get; set; }
-        public string departamento1 { get; set; }
+        public int idHangar { get; set; }
+        public string hangar1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ciudad> ciudad { get; set; }
+        public virtual ICollection<sucursal> sucursal { get; set; }
     }
 }
