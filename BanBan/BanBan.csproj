@@ -105,6 +105,7 @@
     <Compile Include="comentariosplanilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ConfiguracionControl.cs" />
     <Compile Include="Controls\EmpleadosControl.cs" />
     <Compile Include="Controls\PlanillasControl.cs" />
     <Compile Include="Controls\SucursalesControl.cs" />

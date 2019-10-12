@@ -20,13 +20,24 @@ namespace BanBan.Pages
 
             dgvPlanilla.ItemsSource = pc.getEmpleados();
             dgvAtenciones.ItemsSource = pc.getEmpleados();
+
+            lbNumero.Content = dgvPlanilla.Items.Count;
         }
-        private void CbSucursalLostFocus(object sender, System.Windows.RoutedEventArgs e)
+
+        private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                cbSucursalDropDownClosed(sender,e);
+            }
+        }
+
+        private void cbSucursalDropDownClosed(object sender, System.EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(cbSucursal.Text)) dgvPlanilla.ItemsSource = pc.getEmpleados(cbSucursal.Text);
             else dgvPlanilla.ItemsSource = pc.getEmpleados();
             dgvAtenciones.ItemsSource = dgvPlanilla.Items;
-            lbNumero.Content = (dgvPlanilla.Items.Count - 1);
+            lbNumero.Content = dgvPlanilla.Items.Count;
         }
     }
 }

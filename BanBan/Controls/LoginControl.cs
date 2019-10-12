@@ -1,25 +1,41 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace BanBan.Controls
 {
-    class LoginControl
+    class LoginControl : Utilidades
     {
-        /// <summary>
-        /// Lógica de negocios para la página de login
-        /// </summary>
+        private readonly IQueryable<usuario> usu;
         public static bool UsuarioValido { get; set; }
+        public static string tipoUsuario { get; set; }
         public LoginControl()
         {
             UsuarioValido = false;
+            tipoUsuario = null;
+            usu = from us in sb.usuario select us;
         }
-        public bool isUsuarioValido()
+        public void isUsuarioValido(string usuario, string clave)
         {
-            return UsuarioValido;
+            if (usu != null)
+            {
+                UsuarioValido = (from us in usu
+                                 where us.usuario1.Equals(usuario) &&
+                                 us.contrasena.Equals(clave)
+                                 select us).Any();
+                if (UsuarioValido)
+                {
+                    tipoUsuario = (from us in usu
+                                   join tp in sb.tipousuario on us.idTipo equals tp.idTipo
+                                   where us.usuario1.Equals(usuario) &&
+                                   us.contrasena.Equals(clave)
+                                   select tp.tipo).First();
+                }
+            }
         }
 
         public async Task<bool> verificarUsuario()
         {
-            while (!isUsuarioValido())
+            while (!UsuarioValido)
             {
                 await Task.Delay(25);
             }

@@ -63,7 +63,7 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=window, Mode=OneWay}">
-        <Button x:Name="btPrueba" Content="Button" HorizontalAlignment="Left" Margin="-20,381,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="btPrueba" Content="Button" HorizontalAlignment="Left" Margin="-20,381,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Visibility="Collapsed"/>
         <Frame x:Name="frPpal" HorizontalAlignment="Center" 
                VerticalAlignment="Center" 
                Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" 
@@ -124,7 +124,7 @@
                 Margin="4,0,0,0"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                ToolTip="Despliega el formulario para crear Planillas" Style="{DynamicResource btNormal}" Click="btPlanillasClick">
+                ToolTip="Despliega el formulario para crear Planillas" Style="{DynamicResource btNormal}" Click="btPlanillasClick" Visibility="Collapsed">
                 <Grid x:Name="gdPlanillas"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"
@@ -159,7 +159,7 @@
                 Margin="4,0,0,0"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                ToolTip="Despliega el formulario de reportes" Style="{DynamicResource btNormal}" Click="btReportesClick">
+                ToolTip="Despliega el formulario de reportes" Style="{DynamicResource btNormal}" Click="btReportesClick" Visibility="Collapsed">
                 <Grid x:Name="gdReportes"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"
@@ -195,7 +195,7 @@
                             Margin="4,0,0,0"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
-                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}" Click="btEmpleadoClick">
+                            ToolTip="Despliega el formulario para agregar empleados" Style="{DynamicResource btNormal}" Click="btEmpleadoClick" Visibility="Collapsed">
                 <Grid x:Name="gdAgregarEmpleados"
                               HorizontalAlignment="Stretch" 
                               VerticalAlignment="Stretch"
@@ -227,7 +227,7 @@
                 Margin="4,0,0,0"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                ToolTip="Despliega el formulario para crear sucursales" Style="{DynamicResource btNormal}" Click="btSucursalesClick">
+                ToolTip="Despliega el formulario para crear sucursales" Style="{DynamicResource btNormal}" Click="btSucursalesClick" Visibility="Collapsed">
                 <Grid x:Name="gdSucursales"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"

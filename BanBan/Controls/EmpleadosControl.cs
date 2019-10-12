@@ -10,14 +10,12 @@ namespace BanBan.Controls
         private empleado emp;
         //IQueryable para evitar hacer tantas consultas a la BD (NO LO HACE :'v)
         private readonly IQueryable<sistemapension> sp;
-        
         private readonly IQueryable<cargo> cr;
         private readonly IQueryable<atencion> at;
         public EmpleadosControl()
         {
-         
             emp = new empleado();
-            sp = from sisp in sb.sistemapension select sisp;    
+            sp = from sisp in sb.sistemapension select sisp;
             cr = from car in sb.cargo select car;
             at = from aten in sb.atencion select aten;
         }
