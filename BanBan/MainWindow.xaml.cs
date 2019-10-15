@@ -32,7 +32,8 @@ namespace BanBan
             {
                 FindResource("stbLoginCorrecto") as Storyboard,
                 FindResource("stbMostrarOpciones") as Storyboard,
-                FindResource("stbOcultarOpciones") as Storyboard
+                FindResource("stbOcultarOpciones") as Storyboard,
+                FindResource("stbLoginLoad") as Storyboard
             };
             anim = true;
             //para configurar en caso de que no se utilicen estos nombres
@@ -45,8 +46,7 @@ namespace BanBan
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _ = await lgc.verificarUsuario();
-            BeginStoryboard(anims[0]);
-
+            anims[0].Begin();
             if (LoginControl.tipoUsuario != null) configuracion = new Pages.Configuracion();
             else Close();
 
@@ -63,6 +63,18 @@ namespace BanBan
                 activarIT();
             }
             frPpal.IsEnabled = true;
+        }
+        //Cierra sesion y ejecuta las animaciones correspondientes
+        private void cerrarSesion()
+        {
+            lgc = new LoginControl();
+            frLogin.Content = new Pages.Login();
+            ocultarTodos();
+            frPpal.Content = null;
+            grid.IsEnabled = false;
+            stpOpciones.IsEnabled = false;
+            anims[3].Begin();
+            Window_Loaded(null, null);
         }
 
         //Trigger para las animaciones de btOpciones
@@ -119,9 +131,12 @@ namespace BanBan
                 btPrueba.Visibility = Visibility.Hidden;
             }
         }
+        private void btCerrarSesionClick(object sender, RoutedEventArgs e)
+        {
+            cerrarSesion();
+        }
         private void ocultarTodos()
         {
-            btOpciones.Visibility = Visibility.Collapsed;
             btSucursales.Visibility = Visibility.Collapsed;
             btPlanillas.Visibility = Visibility.Collapsed;
             btReportes.Visibility = Visibility.Collapsed;

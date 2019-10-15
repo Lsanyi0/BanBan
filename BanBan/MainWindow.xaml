@@ -20,6 +20,22 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="borderLogin">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Hidden</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="borderLogin">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="stbLoginCorrecto">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="borderLogin">
@@ -335,13 +351,45 @@
                     </Canvas>
                 </Grid>
             </Button>
+            <Button x:Name="btCerrarSesion" 
+            Height="52"
+            VerticalAlignment="Top"
+            Margin="4,0,0,0"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            ToolTip="Cierra sesion para el usuario actual" Style="{DynamicResource btNormal}" Click="btCerrarSesionClick">
+                <Grid x:Name="gdCerrarSesion"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch"
+                Width="{Binding ActualWidth, ElementName=btCerrarSesion}"
+                Margin="-2" Background="{Binding Background, ElementName=btCerrarSesion}">
+                    <Label x:Name="lbCerrarSesion" 
+                    Content="Logout" 
+                    Foreground="{DynamicResource foregroundGlobal}"
+                    Width="122"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"  
+                    FontFamily="Century Schoolbook"
+                    FontSize="22"
+                    VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgCerrarSesion"
+                            Height="30" Width="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,11,5,11"
+                            ClipToBounds="True" Grid.Column="1">
+                        <Ellipse x:Name="elCerrar" Stroke="White" StrokeThickness="3"  Width="25" Height="25" Margin="3,3" Opacity="0.9" />
+                        <Rectangle x:Name="lnLinea" Fill="White" Height="14" Width="4" Margin="13.21,0" RadiusX="3" RadiusY="2" />
+                    </Canvas>
+                </Grid>
+            </Button>
         </StackPanel>
         <Border x:Name="borderLogin" BorderBrush="Black"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center"  
                 Height="400" 
                 Width="300"
-                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="True">
+                CornerRadius="30" Background="{DynamicResource backGroundGlobal}" RenderTransformOrigin="0.5,0.5" IsEnabled="False" Visibility="Collapsed">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="20" Opacity="0.5" Color="Black" BlurRadius="15"/>
             </Border.Effect>
@@ -358,7 +406,7 @@
                Width="300"
                FontFamily="Arial"
                IsEnabled="True"
-               Source="/BanBan;component/Pages/Login.xaml" d:IsHidden="True">
+               Source="/BanBan;component/Pages/Login.xaml" d:IsHidden="True" NavigationUIVisibility="Hidden">
                 <Frame.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

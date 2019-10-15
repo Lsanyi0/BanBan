@@ -86,7 +86,14 @@ namespace BanBan.Controls
             string nAfiliado, string ISSS, string sucursal, string cargo, string sueldo, string telefono, bool estado,
             List<string> sucursales, List<string> atenciones)
         {
-            sb = new sBanBan();
+
+            if (Pages.Empleados.edit)
+            {
+                emp = (from em in sb.empleado
+                       where em.idEmpleado.Equals(Pages.Empleados.idEdit)
+                       select em).Single();
+            }
+
             emp.nombre = nombre;
             emp.apellido = apellido;
             emp.dui = DUI;
@@ -121,6 +128,11 @@ namespace BanBan.Controls
                 return ex.Message;
             }
             return "OK";
+        }
+
+        public void load()
+        {
+
         }
 
         private void guardarAtenciones(List<string> atenciones, int idEmpleado)

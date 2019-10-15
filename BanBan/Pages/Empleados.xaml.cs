@@ -13,6 +13,7 @@ namespace BanBan.Pages
     {
         private EmpleadosControl emp = new EmpleadosControl();
         public static bool edit = false;
+        public static int idEdit = -1;
         public Empleados()
         {
             InitializeComponent();

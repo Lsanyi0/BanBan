@@ -30,7 +30,7 @@
                      HorizontalContentAlignment="Center"
                      VerticalContentAlignment="Center"
                      TextBlock.FontFamily="Arial"
-                     TextBlock.FontSize="20"/>
+                     TextBlock.FontSize="20" KeyUp="pwbClaveKeyUp" GotFocus="pwbClaveGotFocus" LostFocus="pwbClaveLostFocus" TabIndex="2"/>
         <Button x:Name="btIniciarSesion" 
                 Content="Iniciar sesion" 
                 HorizontalAlignment="Center" 
@@ -50,6 +50,6 @@
                  Margin="60,145,60,0"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
-                 TextBlock.FontSize="20"/>
+                 TextBlock.FontSize="20" KeyUp="tbUsuarioKeyUp" GotFocus="tbUsuarioGotFocus" LostFocus="tbUsuarioLostFocus" TabIndex="1"/>
     </Grid>
 </Page>
