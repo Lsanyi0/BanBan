@@ -55,7 +55,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbMunicipio"  
-                MinWidth="200" Height="30" SelectionChanged="CbMunicipio_SelectionChanged"/>
+                MinWidth="200" Height="30" SelectionChanged="CbMunicipio_SelectionChanged" DropDownClosed="cbMunicipio_DropDownClosed"/>
         </StackPanel>
         <StackPanel x:Name="spAsueto" Grid.Row="3" 
             Orientation="Horizontal" 
@@ -77,7 +77,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right" VerticalAlignment="Top"/>
             <ListBox x:Name="lsAsuetos" 
-                MinWidth="200" VerticalAlignment="Stretch" SelectionChanged="lsAsuetos_SelectionChanged"/>
+                MinWidth="200" VerticalAlignment="Stretch"/>
         </StackPanel>
         <StackPanel x:Name="spBotonesAsueto" 
                 Orientation="Horizontal" 

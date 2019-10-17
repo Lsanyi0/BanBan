@@ -68,10 +68,23 @@ namespace BanBan.Controls
         public List<string> DeterminarAsuetos(string asuetos)
         {
             List<string> asueto = new List<string>();
-            for (int i = 0; i < asuetos.Split(',').Length - 1; i++)
+            var asu = from at1 in sb.diapatronal
+                      join mun in sb.ciudad
+                       on at1.idCiudad equals mun.idCiudad
+                      where mun.ciudad1 == asuetos
+                      select at1.dia;
+            if (asu == null)
             {
-                string[] var = asuetos.Split(',');
-                asueto.Add(var[i]);
+                return asueto;
+            }
+            else
+            {
+
+                foreach (var list in asu)
+                {
+                    asueto.Add(list.ToString());
+                }
+
             }
             return asueto;
         }

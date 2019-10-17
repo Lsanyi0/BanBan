@@ -48,15 +48,9 @@ namespace BanBan.Pages
 
         private void btGuardarClick(object sender, RoutedEventArgs e)
         {
-            List<string> asuetos = new List<string>();
-
-            for (int i = 0; i < lsAsuetos.Items.Count - 1; i++)
-            {
-                asuetos.Add(lsAsuetos.Items[i].ToString());
-            }
 
             string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text,
-                                            cbSupervisor.Text, asuetos);
+                                            cbSupervisor.Text, lista);
 
             if (val.Equals("OK"))
             {
@@ -82,12 +76,12 @@ namespace BanBan.Pages
             }
             else
             {
-                List<string> asuetos = new List<string>();
-                asuetos = sc.DeterminarAsuetos(asu.ToString());
-                for (int i = 0; i < asuetos.Count - 1; i++)
+
+                foreach (var list in asu)
                 {
-                    lsAsuetos.Items.Add(asuetos[i]);
+                    lsAsuetos.Items.Add(list);
                 }
+
             }
         }
 
@@ -103,6 +97,12 @@ namespace BanBan.Pages
 
         public void agregarAsueto()
         {
+            lista.Clear();
+            for (int i=0; i<lsAsuetos.Items.Count; i++)
+            {
+                lista.Add(lsAsuetos.Items[i].ToString());
+            }
+            
             lsAsuetos.Items.Clear();
             lista.Add(date.ToString());
             for (int i = 0; i < lista.Count; i++)
@@ -114,28 +114,69 @@ namespace BanBan.Pages
         public void eliminarAsueto()
         {
             lista.RemoveAt(ind);
-            for (int i = 0; i < lista.Count; i++)
+            if (lista.Count == 0)
             {
-                lsAsuetos.Items.Add(lista[i]);
+                lsAsuetos.SelectedIndex=0;
+                lsAsuetos.Items.Clear();
+            }
+            else
+            {
+                lsAsuetos.Items.Clear();
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    lsAsuetos.Items.Add(lista[i]);
+                }
             }
         }
         private void btQuitar_Click(object sender, RoutedEventArgs e)
         {
-            lsAsuetos.Items.Clear();
+            if (lsAsuetos.SelectedItem==null)
+            {
+                return;
+            }
+            string asuetoL = lsAsuetos.SelectedItem.ToString();
+            for (int i = 0; i < lista.Count; i++)
+            {
+                if (lista[i].ToString() == asuetoL)
+                {
+                    ind = i;
+                }
+            }
+            //if ()
+            //{
+
+            //}
             eliminarAsueto();
         }
 
 
-        private void lsAsuetos_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ind = lsAsuetos.SelectedIndex;
-            ind = ind * (-1);
-        }
 
         private void btLimpiar_Click(object sender, RoutedEventArgs e)
         {
             lsAsuetos.Items.Clear();
             lista.Clear();
         }
+
+        private void cbMunicipio_DropDownClosed(object sender, System.EventArgs e)
+        {
+            lista.Clear();
+            lista=sc.DeterminarAsuetos(cbMunicipio.Text);
+            lsAsuetos.Items.Clear();
+            if (lista.Count==0)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("El municipio seleccionado ya tiene asuetos, pero puede agregar más");
+                foreach (var item in lista)
+                {
+                    lsAsuetos.Items.Add(item);
+                }
+                
+            }
+            
+        }
+
     }
 }
