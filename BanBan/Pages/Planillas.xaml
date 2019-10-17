@@ -22,7 +22,10 @@
                     HorizontalAlignment="Right" 
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" KeyUp="cbSucursalKeyUp">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" VerticalContentAlignment="Center" IsEditable="True" DropDownClosed="cbSucursalDropDownClosed"/>
+            <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" 
+                      VerticalContentAlignment="Center" IsEditable="True" 
+                      DropDownClosed="cbSucursalDropDownClosed">
+            </ComboBox>
         </StackPanel>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
@@ -67,6 +70,11 @@
                         <DataGridTextColumn Header="Total deduccion" Width="100"/>
                         <DataGridTextColumn Header="Neto a pagar" Width="80"/>
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Editar Empleado" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </TabItem>
             <TabItem x:Name="tbAtenciones" Header="Atenciones">
@@ -107,4 +115,5 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
     </Grid>
+
 </Page>

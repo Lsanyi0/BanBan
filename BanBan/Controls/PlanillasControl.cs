@@ -31,7 +31,10 @@ namespace BanBan.Controls
                 {
                     PlanillaModel pm = new PlanillaModel()
                     {
-                        NombreCompleto = empleado.nombre + " " + empleado.apellido
+                        IdEmpleado = empleado.idEmpleado,
+                        Nombre = empleado.nombre,
+                        Apellido = empleado.apellido
+
                     };
                     planillaModels.Add(pm);
                 }

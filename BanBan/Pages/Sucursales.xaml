@@ -99,7 +99,7 @@
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
             VerticalAlignment="Center" HorizontalAlignment="Left"
-            Grid.Row="5" Grid.Column="1" Margin="70,0,0,0" >
+            Grid.Row="6" Grid.Column="1" Margin="70,0,0,0">
             <Button x:Name="btCancelar"
                 Content="Cancelar"
                 MinWidth="100" Height="30" 
@@ -120,8 +120,18 @@
             <ComboBox x:Name="cbSupervisor"  
                 MinWidth="200" Height="30"/>
         </StackPanel>
+        <StackPanel x:Name="spEditarSucursal" Grid.Row="6" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center">
+            <Button x:Name="btCargarSucursales" Content="Cargar" MinHeight="30" 
+                    MinWidth="100" Margin="0,0,4,0" Click="btCargarSucursalesClick"/>
+            <ComboBox x:Name="cbEditarSucursal" 
+                      MinWidth="200" Height="30"/>
+        </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>

@@ -1,7 +1,6 @@
 ﻿using BanBan.Controls;
-using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Linq;
+using System.Windows;
 
 namespace BanBan.Pages
 {
@@ -28,12 +27,13 @@ namespace BanBan.Pages
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                cbSucursalDropDownClosed(sender,e);
+                cbSucursalDropDownClosed(sender, e);
             }
         }
 
         private void cbSucursalDropDownClosed(object sender, System.EventArgs e)
         {
+            if (!cbSucursal.Items.Contains(cbSucursal.Text)) return;
             if (!string.IsNullOrWhiteSpace(cbSucursal.Text)) dgvPlanilla.ItemsSource = pc.getEmpleados(cbSucursal.Text);
             else dgvPlanilla.ItemsSource = pc.getEmpleados();
             dgvAtenciones.ItemsSource = dgvPlanilla.Items;

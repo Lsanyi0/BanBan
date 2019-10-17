@@ -143,7 +143,9 @@
     <Compile Include="horariosucursal.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\AtencionesModel.cs" />
     <Compile Include="Model\PlanillaModel.cs" />
+    <Compile Include="Model\SucursalModel.cs" />
     <Compile Include="planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>

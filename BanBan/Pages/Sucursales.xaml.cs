@@ -1,4 +1,5 @@
 ﻿using BanBan.Controls;
+using BanBan.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace BanBan.Pages
         private string date = "";
         private int ind = 0;
         private List<string> lista;
+        private bool edit;
         public Sucursales()
         {
             InitializeComponent();
@@ -28,7 +30,9 @@ namespace BanBan.Pages
                       join cg in sb.cargo on emp.idCargo equals cg.idCargo
                       where cg.cargo1 == "supervisor"
                       select emp.nombre;
-
+            cbEditarSucursal.ItemsSource = sc.getSucursales();
+            if (cbEditarSucursal.Items.Count > 0) cbEditarSucursal.SelectedIndex = 0;
+            edit = false;
             if (mn != null)
             {
                 cbMunicipio.ItemsSource = mn.ToList();
@@ -98,11 +102,11 @@ namespace BanBan.Pages
         public void agregarAsueto()
         {
             lista.Clear();
-            for (int i=0; i<lsAsuetos.Items.Count; i++)
+            for (int i = 0; i < lsAsuetos.Items.Count; i++)
             {
                 lista.Add(lsAsuetos.Items[i].ToString());
             }
-            
+
             lsAsuetos.Items.Clear();
             lista.Add(date.ToString());
             for (int i = 0; i < lista.Count; i++)
@@ -116,7 +120,7 @@ namespace BanBan.Pages
             lista.RemoveAt(ind);
             if (lista.Count == 0)
             {
-                lsAsuetos.SelectedIndex=0;
+                lsAsuetos.SelectedIndex = 0;
                 lsAsuetos.Items.Clear();
             }
             else
@@ -130,7 +134,7 @@ namespace BanBan.Pages
         }
         private void btQuitar_Click(object sender, RoutedEventArgs e)
         {
-            if (lsAsuetos.SelectedItem==null)
+            if (lsAsuetos.SelectedItem == null)
             {
                 return;
             }
@@ -160,9 +164,9 @@ namespace BanBan.Pages
         private void cbMunicipio_DropDownClosed(object sender, System.EventArgs e)
         {
             lista.Clear();
-            lista=sc.DeterminarAsuetos(cbMunicipio.Text);
+            lista = sc.DeterminarAsuetos(cbMunicipio.Text);
             lsAsuetos.Items.Clear();
-            if (lista.Count==0)
+            if (lista.Count == 0)
             {
 
             }
@@ -173,10 +177,26 @@ namespace BanBan.Pages
                 {
                     lsAsuetos.Items.Add(item);
                 }
-                
-            }
-            
-        }
 
+            }
+
+        }
+        private void btCargarSucursalesClick(object sender, RoutedEventArgs e)
+        {
+            if (cbEditarSucursal.SelectedIndex > -1)
+            {
+                if (MessageBox.Show($"Editar {cbEditarSucursal.Text}, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    edit = true;
+                    SucursalModel suc = sc.getSucursal(cbEditarSucursal.Text);
+                    tbNombreSucursal.Text = suc.NombreSucursal;
+                    cbDepartamento.SelectedItem = suc.Departamento;
+                    cbMunicipio.SelectedItem = suc.Municipio;
+                    tbDireccion.Text = suc.Direccion;
+                    foreach (var asu in suc.DiasAsueto) lsAsuetos.Items.Add(asu);
+                    cbSupervisor.SelectedItem = suc.NombreEmpleado;
+                }
+            }
+        }
     }
 }
