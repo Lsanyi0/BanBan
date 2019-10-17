@@ -54,7 +54,7 @@ namespace BanBan.Pages
         {
 
             string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text,
-                                            cbSupervisor.Text, lista);
+                                            cbSupervisor.Text, cbDepartamento.Text, lista);
 
             if (val.Equals("OK"))
             {
@@ -73,7 +73,6 @@ namespace BanBan.Pages
                        on at1.idCiudad equals mun.idCiudad
                       where mun.ciudad1 == cbMunicipio.Text
                       select at1.dia;
-            //peto asi que lo cambie, no se si funca
             if (asu == null)
             {
 
@@ -92,6 +91,8 @@ namespace BanBan.Pages
         private void tbAsueto_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             date = tbAsueto.SelectedDate.ToString();
+            string[] fecha = date.Split(' ');
+            date = fecha[0];
         }
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
@@ -146,10 +147,7 @@ namespace BanBan.Pages
                     ind = i;
                 }
             }
-            //if ()
-            //{
 
-            //}
             eliminarAsueto();
         }
 

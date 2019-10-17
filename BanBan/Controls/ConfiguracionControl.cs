@@ -58,5 +58,12 @@ namespace BanBan.Controls
             }
             return lv;
         }
+
+        public void updateCargo(string cargo, decimal monto)
+        {
+            var carg = (from cg in sb.cargo where cg.cargo1 == cargo select cg).FirstOrDefault();
+            carg.atenciones = monto;
+            sb.SaveChanges();
+        }
     }
 }

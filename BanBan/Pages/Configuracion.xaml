@@ -132,7 +132,7 @@
         <StackPanel x:Name="spBotones" Orientation="Horizontal" 
                     Grid.Column="2" Grid.Row="10" 
                     HorizontalAlignment="Center">
-            <Button x:Name="btGuardarAdmin" Content="Guardar" Height="30" MinWidth="100"/>
+            <Button x:Name="btGuardarAdmin" Content="Guardar" Height="30" MinWidth="100" Click="btGuardarAdmin_Click"/>
             <Button x:Name="btGuardarRoot" Content="Guardar" Height="30" MinWidth="100"/>
         </StackPanel>
         <Grid.ColumnDefinitions>

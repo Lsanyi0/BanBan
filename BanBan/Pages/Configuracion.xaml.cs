@@ -9,10 +9,13 @@ namespace BanBan.Pages
     public partial class Configuracion : Page
     {
 
-        private ConfiguracionControl cc = new ConfiguracionControl();
+        ConfiguracionControl cc = new ConfiguracionControl();
+
         public Configuracion()
         {
             InitializeComponent();
+
+
 
             if (MainWindow.tiposUsuario[0] == LoginControl.tipoUsuario)
             {
@@ -55,6 +58,11 @@ namespace BanBan.Pages
             cbSucursalDispositivo.SelectedIndex = 0;
             cbEmpleado.SelectedIndex = 0;
             cbUsuario.SelectedIndex = 0;
+        }
+
+        private void btGuardarAdmin_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            cc.updateCargo(cbCargo.Text, decimal.Parse(tbMontoCargo.Text));
         }
     }
 }
