@@ -12,9 +12,11 @@ namespace BanBanHorasExtra
 {
     public partial class BanBanHorasExtra : Form
     {
+        sbanbanHE he = new sbanbanHE();
         public BanBanHorasExtra()
         {
             InitializeComponent();
+            cbEmpleados.DataSource = (from suc in he.sucursal select suc.sucursal1).ToList();
         }
     }
 }
