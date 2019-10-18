@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sbanban.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="atenciones" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="descuentos">
+          <Key>
+            <PropertyRef Name="idDescuentos" />
+          </Key>
+          <Property Name="idDescuentos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descuento" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPlanilla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="dui" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nit" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="numeroISSS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="numeroPension" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechaIngreso" Type="date" Nullable="false" />
+          <Property Name="fechaSalida" Type="date" />
+          <Property Name="estado" Type="bool" Nullable="false" />
+          <Property Name="sueldo" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="idSistemaPension" Type="int" Nullable="false" />
+          <Property Name="idCargo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="horaEntrada" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaSalida" Type="time" Precision="0" Nullable="false" />
+          <Property Name="dias" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horarioextra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="horaInicio" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaFinal" Type="time" Precision="0" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="100" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="idTipoHora" Type="int" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPlanilla" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sucursal" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+          <Property Name="idHangar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idSucursal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="356" Nullable="false" />
+          <Property Name="reseteo" Type="bool" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_DescuentosxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="descuentos" Type="Self.descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="descuentos">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmpleadoxCargo">
+          <End Role="cargo" Type="Self.cargo" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargo">
+              <PropertyRef Name="idCargo" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="horarioextra" Type="Self.horarioextra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="horarioextra">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HorarioxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="horario" Type="Self.horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="horario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxSucursal">
+          <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sbanbanStoreContainer">
+          <EntitySet Name="cargo" EntityType="Self.cargo" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="descuentos" EntityType="Self.descuentos" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="horario" EntityType="Self.horario" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="horarioextra" EntityType="Self.horarioextra" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="sucursal" EntityType="Self.sucursal" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="trabajo" EntityType="Self.trabajo" Schema="sbanban" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="sbanban" store:Type="Tables" />
+          <AssociationSet Name="fk_DescuentosxEmpleado" Association="Self.fk_DescuentosxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="descuentos" EntitySet="descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmpleadoxCargo" Association="Self.fk_EmpleadoxCargo">
+            <End Role="cargo" EntitySet="cargo" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxEmpleado" Association="Self.fk_HExtraxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="horarioextra" EntitySet="horarioextra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HorarioxEmpleado" Association="Self.fk_HorarioxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="horario" EntitySet="horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxEmpleado" Association="Self.fk_TrabajoxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxSucursal" Association="Self.fk_TrabajoxSucursal">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioxEmpleado" Association="Self.fk_UsuarioxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sbanban" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cargo1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="atenciones" Type="Decimal" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_EmpleadoxCargo" FromRole="cargo" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="descuentos">
+          <Key>
+            <PropertyRef Name="idDescuentos" />
+          </Key>
+          <Property Name="idDescuentos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descuento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="monto" Type="Decimal" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_DescuentosxEmpleado" FromRole="descuentos" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dui" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nit" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroISSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroPension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaIngreso" Type="DateTime" Nullable="false" />
+          <Property Name="fechaSalida" Type="DateTime" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="sueldo" Type="Decimal" />
+          <Property Name="idSistemaPension" Type="Int32" Nullable="false" />
+          <Property Name="idCargo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cargo" Relationship="Self.fk_EmpleadoxCargo" FromRole="empleado" ToRole="cargo" />
+          <NavigationProperty Name="descuentos" Relationship="Self.fk_DescuentosxEmpleado" FromRole="empleado" ToRole="descuentos" />
+          <NavigationProperty Name="horarioextra" Relationship="Self.fk_HExtraxEmpleado" FromRole="empleado" ToRole="horarioextra" />
+          <NavigationProperty Name="horario" Relationship="Self.fk_HorarioxEmpleado" FromRole="empleado" ToRole="horario" />
+          <NavigationProperty Name="trabajo" Relationship="sbanban.fk_TrabajoxEmpleado" FromRole="empleado" ToRole="trabajo" />
+          <NavigationProperty Name="usuario" Relationship="sbanban.fk_UsuarioxEmpleado" FromRole="empleado" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="horaEntrada" Type="Time" Nullable="false" />
+          <Property Name="horaSalida" Type="Time" Nullable="false" />
+          <Property Name="dias" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_HorarioxEmpleado" FromRole="horario" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="horarioextra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="horaInicio" Type="Time" Nullable="false" />
+          <Property Name="horaFinal" Type="Time" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="idTipoHora" Type="Int32" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_HExtraxEmpleado" FromRole="horarioextra" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sucursal1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <Property Name="idHangar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="trabajo" Relationship="sbanban.fk_TrabajoxSucursal" FromRole="sucursal" ToRole="trabajo" />
+        </EntityType>
+        <Association Name="fk_EmpleadoxCargo">
+          <End Role="cargo" Type="Self.cargo" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargo">
+              <PropertyRef Name="idCargo" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DescuentosxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="descuentos" Type="Self.descuentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="descuentos">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="horarioextra" Type="Self.horarioextra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="horarioextra">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HorarioxEmpleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="horario" Type="Self.horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="horario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sbanbanHE" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cargo" EntityType="Self.cargo" />
+          <EntitySet Name="descuentos" EntityType="Self.descuentos" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="horario" EntityType="Self.horario" />
+          <EntitySet Name="horarioextra" EntityType="Self.horarioextra" />
+          <EntitySet Name="sucursal" EntityType="Self.sucursal" />
+          <AssociationSet Name="fk_EmpleadoxCargo" Association="Self.fk_EmpleadoxCargo">
+            <End Role="cargo" EntitySet="cargo" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DescuentosxEmpleado" Association="Self.fk_DescuentosxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="descuentos" EntitySet="descuentos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxEmpleado" Association="Self.fk_HExtraxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="horarioextra" EntitySet="horarioextra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HorarioxEmpleado" Association="Self.fk_HorarioxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="horario" EntitySet="horario" />
+          </AssociationSet>
+          <EntitySet Name="trabajo" EntityType="sbanban.trabajo" />
+          <AssociationSet Name="fk_TrabajoxEmpleado" Association="sbanban.fk_TrabajoxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TrabajoxSucursal" Association="sbanban.fk_TrabajoxSucursal">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <EntitySet Name="usuario" EntityType="sbanban.usuario" />
+          <AssociationSet Name="fk_UsuarioxEmpleado" Association="sbanban.fk_UsuarioxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="sbanban.fk_TrabajoxEmpleado" FromRole="trabajo" ToRole="empleado" />
+          <NavigationProperty Name="sucursal" Relationship="sbanban.fk_TrabajoxSucursal" FromRole="trabajo" ToRole="sucursal" />
+        </EntityType>
+        <Association Name="fk_TrabajoxEmpleado">
+          <End Type="sbanban.empleado" Role="empleado" Multiplicity="1" />
+          <End Type="sbanban.trabajo" Role="trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TrabajoxSucursal">
+          <End Type="sbanban.sucursal" Role="sucursal" Multiplicity="1" />
+          <End Type="sbanban.trabajo" Role="trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" Nullable="false" MaxLength="356" FixedLength="false" Unicode="false" />
+          <Property Name="reseteo" Type="Boolean" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="sbanban.fk_UsuarioxEmpleado" FromRole="usuario" ToRole="empleado" />
+        </EntityType>
+        <Association Name="fk_UsuarioxEmpleado">
+          <End Type="sbanban.empleado" Role="empleado" Multiplicity="1" />
+          <End Type="sbanban.usuario" Role="usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sbanbanStoreContainer" CdmEntityContainer="sbanbanHE">
+          <EntitySetMapping Name="cargo">
+            <EntityTypeMapping TypeName="sbanban.cargo">
+              <MappingFragment StoreEntitySet="cargo">
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+                <ScalarProperty Name="cargo1" ColumnName="cargo" />
+                <ScalarProperty Name="atenciones" ColumnName="atenciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="descuentos">
+            <EntityTypeMapping TypeName="sbanban.descuentos">
+              <MappingFragment StoreEntitySet="descuentos">
+                <ScalarProperty Name="idDescuentos" ColumnName="idDescuentos" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="sbanban.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dui" ColumnName="dui" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="numeroISSS" ColumnName="numeroISSS" />
+                <ScalarProperty Name="numeroPension" ColumnName="numeroPension" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="fechaSalida" ColumnName="fechaSalida" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="sueldo" ColumnName="sueldo" />
+                <ScalarProperty Name="idSistemaPension" ColumnName="idSistemaPension" />
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horario">
+            <EntityTypeMapping TypeName="sbanban.horario">
+              <MappingFragment StoreEntitySet="horario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
+                <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
+                <ScalarProperty Name="dias" ColumnName="dias" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horarioextra">
+            <EntityTypeMapping TypeName="sbanban.horarioextra">
+              <MappingFragment StoreEntitySet="horarioextra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="horaFinal" ColumnName="horaFinal" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sucursal">
+            <EntityTypeMapping TypeName="sbanban.sucursal">
+              <MappingFragment StoreEntitySet="sucursal">
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="sucursal1" ColumnName="sucursal" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="idHangar" ColumnName="idHangar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trabajo">
+            <EntityTypeMapping TypeName="sbanban.trabajo">
+              <MappingFragment StoreEntitySet="trabajo">
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idTrabajo" ColumnName="idTrabajo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="sbanban.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="reseteo" ColumnName="reseteo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
