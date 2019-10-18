@@ -224,7 +224,8 @@ namespace BanBan.Controls
                                       DiasAsueto = (from diap in sb.diapatronal where diap.idCiudad.Equals(cd.idCiudad) select diap.dia).ToList(),
                                       IdEmpleado = tr.idEmpleado,
                                       NombreEmpleado = emp.nombre
-                                  }).FirstOrDefault();
+                                  }).FirstOrDefault() ?? new SucursalModel();
+            ssuc.DiasAsueto ??= new List<DateTime>(); 
             return ssuc;
         }
     }

@@ -186,8 +186,9 @@ namespace BanBan.Pages
                 if (MessageBox.Show($"Editar {cbEditarSucursal.Text}, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     edit = true;
+                    lsAsuetos.Items.Clear();
                     SucursalModel suc = sc.getSucursal(cbEditarSucursal.Text);
-                    tbNombreSucursal.Text = suc.NombreSucursal;
+                    tbNombreSucursal.Text = suc.NombreSucursal ?? "";
                     cbDepartamento.SelectedItem = suc.Departamento;
                     cbMunicipio.SelectedItem = suc.Municipio;
                     tbDireccion.Text = suc.Direccion;
