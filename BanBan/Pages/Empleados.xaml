@@ -166,23 +166,42 @@
             <ListBox x:Name="lsAtenciones" Width="200" SelectionMode="Multiple"/>
         </StackPanel>
 
-        <StackPanel x:Name="spBotones" 
-            Orientation="Horizontal" 
-            Grid.Row="10" Grid.Column="1" 
-            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0">
-            <CheckBox x:Name="cbxActivo" Content="Activo"
+        <StackPanel x:Name="spEmpleadoActivo" 
+                    Orientation="Horizontal" 
+                    Grid.Row="9" Grid.Column="1" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="100,0,0,0">
+            <CheckBox x:Name="cbxActivo" Content="Empleado Activo"
                       VerticalContentAlignment="Center"
                       IsChecked="True" IsEnabled="False"/>
+        </StackPanel>
+
+        <StackPanel x:Name="spEditarEmpleado" Grid.Row="11" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Button x:Name="btCargarEmpleado" Content="Editar empleado -&gt;" MinHeight="30" 
+                MinWidth="100" Margin="0,0,4,0" Click="btCargarEmpleadoClick"/>
+            <ComboBox x:Name="cbEditarEmpleado" VerticalContentAlignment="Center"
+                MinWidth="200" Height="30"/>
+        </StackPanel>
+        
+        <StackPanel x:Name="spBotones" 
+            Orientation="Horizontal" 
+            Grid.Row="11" Grid.Column="1" 
+            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0">
             <Button x:Name="btCancelar"
                     Content="Cancelar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0" Click="btCancelarClick"/>
+                    Click="btCancelarClick"/>
             <Button x:Name="btAceptar" 
                     Content="Guardar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0" Click="btGuardarClick"/>
+                    Margin="10,0,0,0" Click="btGuardarClick"/>
         </StackPanel>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>

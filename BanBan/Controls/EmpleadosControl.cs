@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BanBan.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,12 +13,13 @@ namespace BanBan.Controls
         private readonly IQueryable<sistemapension> sp;
         private readonly IQueryable<cargo> cr;
         private readonly IQueryable<atencion> at;
+        private readonly IQueryable<empleado> em;
         public EmpleadosControl()
         {
-            emp = new empleado();
             sp = from sisp in sb.sistemapension select sisp;
             cr = from car in sb.cargo select car;
             at = from aten in sb.atencion select aten;
+            em = from empl in sb.empleado select empl;
         }
         public List<string> getSistemaPensiones()
         {
@@ -46,6 +48,14 @@ namespace BanBan.Controls
         private int getIdAtencion(string atencion)
         {
             return (from aten in at where aten.atencion1.Contains(atencion) select aten.idAtencion).First();
+        }
+        public List<string> getEmpleados()
+        {
+            return (from emp in em select (emp.nombre + " " + emp.apellido)).ToList() ?? new List<string>();
+        }
+        public int getIdEmpleado(string empleado)
+        {
+            return (from emp in em where (emp.nombre + " " + emp.apellido).Equals(empleado) select emp.idEmpleado).First();
         }
         //el metodo isVaild() retorna string para facilitar que campos son incorrectos al usuario
         private string isValid(string sueldo, string tel)
@@ -82,17 +92,12 @@ namespace BanBan.Controls
             }
             return "OK";
         }
-        public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, string afiliadoA,
+        public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, DateTime? fechaD, string afiliadoA,
             string nAfiliado, string ISSS, string sucursal, string cargo, string sueldo, string telefono, bool estado,
             List<string> sucursales, List<string> atenciones)
         {
 
-            if (Pages.Empleados.edit)
-            {
-                emp = (from em in sb.empleado
-                       where em.idEmpleado.Equals(Pages.Empleados.idEdit)
-                       select em).Single();
-            }
+            emp = Pages.Empleados.cargarEdit ? cargarEmpleado(Pages.Empleados.idEdit) : new empleado();
 
             emp.nombre = nombre;
             emp.apellido = apellido;
@@ -130,9 +135,11 @@ namespace BanBan.Controls
             return "OK";
         }
 
-        public void load()
+        private empleado cargarEmpleado(int id)
         {
-
+            return (from em in sb.empleado
+                    where em.idEmpleado.Equals(id)
+                    select em).Single() ?? new empleado();
         }
 
         private void guardarAtenciones(List<string> atenciones, int idEmpleado)
@@ -177,6 +184,41 @@ namespace BanBan.Controls
                 idSucursal = idSucursal
             };
             sb.trabajo.Add(tb);
+        }
+
+        public EmpleadosModel getEmpleado(int idEmpleado)
+        {
+            var emp = (from emple in sb.empleado
+                       join cg in sb.cargo on emple.idCargo equals cg.idCargo
+                       join sp in sb.sistemapension on emple.idSistemaPension equals sp.idSistemaPension
+                       where emple.idEmpleado.Equals(idEmpleado)
+                       select new EmpleadosModel
+                       {
+                           Nombre = emple.nombre,
+                           Apellido = emple.apellido,
+                           Activo = emple.estado,
+                           DUI = emple.dui,
+                           NIT = emple.nit,
+                           FechaContrato = emple.fechaIngreso,
+                           FechaDespido = emple.fechaSalida,
+                           AfiliadoA = sp.sistemaP, 
+                           NumeroAfiliado = emple.numeroPension,
+                           ISSS = emple.numeroISSS,
+                           Cargo = cg.cargo1,
+                           SueldoBase = emple.sueldo
+                       }).FirstOrDefault() ?? new EmpleadosModel();
+            emp.Sucursales = (from sc in sb.sucursal
+                              join tb in sb.trabajo on sc.idSucursal equals tb.idSucursal
+                              where tb.idEmpleado.Equals(idEmpleado)
+                              select sc.sucursal1).ToList() ?? new List<string>();
+            emp.Telefonos = (from tf in sb.telefono
+                             where tf.idEmpleado.Equals(idEmpleado)
+                             select tf.telefono1).ToList() ?? new List<string>();
+            emp.Atenciones = (from atd in sb.atenciondetalle
+                              join at in sb.atencion on atd.idAtencion equals at.idAtencion
+                              where atd.idEmpleado.Equals(idEmpleado)
+                              select at.atencion1).ToList() ?? new List<string>();
+            return emp;
         }
     }
 }

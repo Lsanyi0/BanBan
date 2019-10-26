@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Animation;
+using BanBan.Pages;
 
 
 namespace BanBan
@@ -14,19 +15,21 @@ namespace BanBan
         private bool anim;
         private List<Storyboard> anims;
         private LoginControl lgc;
-        private Pages.Empleados empleados;
-        private Pages.Planillas planillas;
-        private Pages.Sucursales sucursales;
-        private Pages.Configuracion configuracion;
-        private Pages.pruebaDatos pruebaDatos;
+        private Empleados empleados;
+        private Planillas planillas;
+        private Sucursales sucursales;
+        private Configuracion configuracion;
+        private pruebaDatos pruebaDatos;
         public static readonly List<string> tiposUsuario = new List<string>();
+        //
+        private int contador = 0;
         public MainWindow()
         {
             InitializeComponent();
-            empleados = new Pages.Empleados();
-            planillas = new Pages.Planillas();
-            sucursales = new Pages.Sucursales();
-            pruebaDatos = new Pages.pruebaDatos();
+            empleados = new Empleados();
+            planillas = new Planillas();
+            sucursales = new Sucursales();
+            pruebaDatos = new pruebaDatos();
             lgc = new LoginControl();
             anims = new List<Storyboard>
             {
@@ -47,7 +50,7 @@ namespace BanBan
         {
             _ = await lgc.verificarUsuario();
             anims[0].Begin();
-            if (LoginControl.tipoUsuario != null) configuracion = new Pages.Configuracion();
+            if (LoginControl.tipoUsuario != null) configuracion = new Configuracion();
             else Close();
 
             if (LoginControl.tipoUsuario == tiposUsuario[0])
@@ -68,7 +71,7 @@ namespace BanBan
         private void cerrarSesion()
         {
             lgc = new LoginControl();
-            frLogin.Content = new Pages.Login();
+            frLogin.Content = new Login();
             ocultarTodos();
             frPpal.Content = null;
             grid.IsEnabled = false;
@@ -87,21 +90,21 @@ namespace BanBan
         //Cargar contenido en el formulario ppal
         private void btEmpleadoClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Pages.Empleados))
+            if (frPpal.Content.GetType() != typeof(Empleados))
             {
                 frPpal.Content = empleados;
             }
         }
         private void btPlanillasClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Pages.Planillas))
+            if (frPpal.Content.GetType() != typeof(Planillas))
             {
                 frPpal.Content = planillas;
             }
         }
         private void btSucursalesClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Pages.Sucursales))
+            if (frPpal.Content.GetType() != typeof(Sucursales))
             {
                 frPpal.Content = sucursales;
             }
@@ -109,7 +112,7 @@ namespace BanBan
 
         private void btReportesClick(object sender, RoutedEventArgs e)
         {
-            //if (frPpal.Content.GetType() != typeof(Pages.Configuracion))
+            //if (frPpal.Content.GetType() != typeof(Configuracion))
             //{
             //    
             //}
@@ -117,7 +120,7 @@ namespace BanBan
 
         private void btConfigurarClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Pages.Configuracion))
+            if (frPpal.Content.GetType() != typeof(Configuracion))
             {
                 frPpal.Content = configuracion;
             }
@@ -125,7 +128,7 @@ namespace BanBan
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Pages.pruebaDatos))
+            if (frPpal.Content.GetType() != typeof(pruebaDatos))
             {
                 frPpal.Content = pruebaDatos;
                 btPrueba.Visibility = Visibility.Hidden;
@@ -158,6 +161,20 @@ namespace BanBan
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             frPpal.Content = configuracion;
+        }
+
+        private async void frPpal_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (frPpal.Content.GetType() == typeof(Planillas) && contador < 1)
+            {
+                contador += 1;
+                await empleados.Edit();
+                Empleados.edit = true;
+                empleados.tbApellido.Focus();
+                frPpal.Content = empleados;
+                Empleados.cargarEdit = false;
+                contador = 0;
+            }
         }
     }
 }

@@ -72,7 +72,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Editar Empleado" />
+                            <MenuItem x:Name="miEditarEmlpleado" Header="Editar Empleado" Click="miEditarEmpleadoClick" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

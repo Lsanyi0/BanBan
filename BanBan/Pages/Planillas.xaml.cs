@@ -1,6 +1,7 @@
 ﻿using BanBan.Controls;
 using System.Windows.Controls;
 using System.Windows;
+using BanBan.Model;
 
 namespace BanBan.Pages
 {
@@ -38,6 +39,12 @@ namespace BanBan.Pages
             else dgvPlanilla.ItemsSource = pc.getEmpleados();
             dgvAtenciones.ItemsSource = dgvPlanilla.Items;
             lbNumero.Content = dgvPlanilla.Items.Count;
+        }
+
+        private void miEditarEmpleadoClick(object sender, RoutedEventArgs e)
+        {      
+            Empleados.idEdit = ((PlanillaModel)dgvPlanilla.SelectedItems[0]).IdEmpleado;
+            Empleados.cargarEdit = true;
         }
     }
 }
