@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BanBan.Model
 {
-    class AtencionesModel
+    class SucursalesASupervisarModel
     {
-        public string Atencion { get; set; }
+        public string Sucursal { get; set; }
         public bool Activa { get; set; }
     }
 }

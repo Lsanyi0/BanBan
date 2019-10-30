@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Threading.Tasks;
+using BanBan.Model;
 
 namespace BanBan.Pages
 {
@@ -15,7 +16,7 @@ namespace BanBan.Pages
         private EmpleadosControl emp = new EmpleadosControl();
         public static bool cargarEdit = false;
         public static bool edit = false;
-        public static bool editState = false;
+        private bool editState = false;
         public static int idEdit = -1;
         public Empleados()
         {
@@ -43,13 +44,16 @@ namespace BanBan.Pages
         private void btGuardarClick(object sender, RoutedEventArgs e)
         {
             if (!dpFechaContrato.SelectedDate.HasValue) { dpFechaContrato.IsDropDownOpen = true; return; }
+
             string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
                      dpFechaContrato.SelectedDate.Value, dpSalidaEmpresa.SelectedDate, cbAfiliacion.Text,
                      tbNumeroAfiliado.Text, tbISSS.Text, cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text,
-                     tbTelefono.Text, cbxActivo.IsChecked.Value, getASupervisar(), getAtenciones());
+                     tbTelefono.Text, cbxActivo.IsChecked.Value, getASupervisar(), getAtenciones(),editState);
 
             if (val != "OK") MessageBox.Show("Advertencia: " + val,
                 "Advertencia!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            else _ = editState ? MessageBox.Show("Registro modificado correctamente","OK",MessageBoxButton.OK, MessageBoxImage.Information) 
+                               : MessageBox.Show("Registro guardado correctamente", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btCancelarClick(object sender, RoutedEventArgs e)
@@ -107,12 +111,21 @@ namespace BanBan.Pages
             foreach (var asu in asupervisar) ret.Add(asu.ToString());
             return ret;
         }
-        private List<string> getAtenciones()
+        private List<AtencionesModel> getAtenciones()
         {
-            List<string> ret = new List<string>();
-            var at = lsAtenciones.SelectedItems;
-            foreach (var ate in at) ret.Add(ate.ToString());
-            return ret;
+            List<AtencionesModel> atenciones = new List<AtencionesModel>();
+            var ats = lsAtenciones.SelectedItems;
+            var at = lsAtenciones.Items;
+            foreach (var ate in at) 
+            {
+                AtencionesModel atencion = new AtencionesModel()
+                {
+                    Atencion = ate.ToString(),
+                    Activa = ats.Contains(ate)
+                };
+                atenciones.Add(atencion);
+            }
+            return atenciones;
         }
 
         private void btCargarEmpleadoClick(object sender, RoutedEventArgs e)
@@ -134,6 +147,11 @@ namespace BanBan.Pages
                 await Task.Delay(100);
             }
             return true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (dpFechaContrato.SelectedDate > dpSalidaEmpresa.SelectedDate) MessageBox.Show("-_-");
         }
     }
 }

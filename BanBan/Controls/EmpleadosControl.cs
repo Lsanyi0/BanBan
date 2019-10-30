@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace BanBan.Controls
 {
@@ -14,12 +15,14 @@ namespace BanBan.Controls
         private readonly IQueryable<cargo> cr;
         private readonly IQueryable<atencion> at;
         private readonly IQueryable<empleado> em;
+        private bool edit { get; set; }
         public EmpleadosControl()
         {
             sp = from sisp in sb.sistemapension select sisp;
             cr = from car in sb.cargo select car;
             at = from aten in sb.atencion select aten;
             em = from empl in sb.empleado select empl;
+            edit = false;
         }
         public List<string> getSistemaPensiones()
         {
@@ -77,9 +80,14 @@ namespace BanBan.Controls
             if (emp.fechaIngreso == null) return "Fecha de contrato " + v; //<-- no la parece viable/util
 
             if (DateTime.Now < emp.fechaIngreso) return "Fecha de contrato no valida";
+            if (emp.fechaIngreso > emp.fechaSalida) return "Fecha de despido no puede ser anterior a fecha de contrato";
             //los combo se validan en la vista en teoria no pueden estar vacios
             if (string.IsNullOrWhiteSpace(emp.numeroPension)) return "Numero afiliado " + v;
+            if (emp.numeroPension.Length != 9) return "Numero de afiliado " + i;
+
             if (string.IsNullOrWhiteSpace(emp.numeroISSS)) return "Numero de ISSS " + v;
+            if (emp.numeroISSS.Length != 12) return "Numero de ISSS " + i;
+
             try { emp.sueldo = decimal.Parse(sueldo); }
             catch (Exception) { return "sueldo " + v; }
             if (!string.IsNullOrWhiteSpace(tel))
@@ -94,10 +102,10 @@ namespace BanBan.Controls
         }
         public string save(string nombre, string apellido, string DUI, string NIT, DateTime fechaC, DateTime? fechaD, string afiliadoA,
             string nAfiliado, string ISSS, string sucursal, string cargo, string sueldo, string telefono, bool estado,
-            List<string> sucursales, List<string> atenciones)
+            List<string> sucursales, List<AtencionesModel> atenciones, bool edit)
         {
-
-            emp = Pages.Empleados.cargarEdit ? cargarEmpleado(Pages.Empleados.idEdit) : new empleado();
+            this.edit = edit;
+            emp = edit ? cargarEmpleado(Pages.Empleados.idEdit) : new empleado();
 
             emp.nombre = nombre;
             emp.apellido = apellido;
@@ -107,6 +115,7 @@ namespace BanBan.Controls
             emp.numeroPension = nAfiliado;
             emp.numeroISSS = ISSS;
             emp.estado = estado;
+            emp.fechaSalida = fechaD;
             //sueldo se asigna en la validacion
             var valid = isValid(sueldo, telefono);
 
@@ -115,15 +124,20 @@ namespace BanBan.Controls
             emp.idSistemaPension = getIdSistemaPensiones(afiliadoA);
             emp.idCargo = getIdCargo(cargo);
 
-            sb.empleado.Add(emp);
-            sb.SaveChangesAsync();
+            if (!edit)
+            {
+                sb.empleado.Add(emp);
+                sb.SaveChangesAsync();
+            }
 
             guardarTrabajo(emp.idEmpleado, getIdSucursal(sucursal));
-            sucursales.Remove(sucursal);
+            if (!sucursales.Contains(sucursal)) sucursales.Add(sucursal);
+
+            sb.SaveChangesAsync();
 
             if (!string.IsNullOrEmpty(telefono)) guardarTelefonos(telefono);
-            if (sucursales.Count > 0) guardarSucursalesA(sucursales, emp.idEmpleado);
-            if (atenciones.Count > 0) guardarAtenciones(atenciones, emp.idEmpleado);
+            guardarSucursalesA(sucursales);
+            if (atenciones.Count > 0) guardarAtenciones(atenciones);
             try
             {
                 sb.SaveChanges();
@@ -142,48 +156,136 @@ namespace BanBan.Controls
                     select em).Single() ?? new empleado();
         }
 
-        private void guardarAtenciones(List<string> atenciones, int idEmpleado)
+        public void guardarAtenciones(List<AtencionesModel> atenciones)
         {
+            if (edit)
+            {
+                foreach (var at in atenciones.Reverse<AtencionesModel>())
+                {
+                    int idAtencion = getIdAtencion(at.Atencion);
+                    var ad = (from adt in sb.atenciondetalle where adt.idEmpleado.Equals(emp.idEmpleado) && adt.idAtencion.Equals(idAtencion) select adt).FirstOrDefault() ?? null;
+                    if (ad != null)
+                    {
+                        ad.estado = at.Activa;
+                        atenciones.Remove(at);
+                    }
+                }
+            }
             foreach (var atencion in atenciones)
             {
                 atenciondetalle atd = new atenciondetalle()
                 {
-                    idAtencion = getIdAtencion(atencion),
-                    idEmpleado = idEmpleado,
+                    idAtencion = getIdAtencion(atencion.Atencion),
+                    idEmpleado = emp.idEmpleado,
                     estado = true
                 };
                 sb.atenciondetalle.Add(atd);
             }
         }
 
-        public void guardarSucursalesA(List<string> sucursales, int idEmpleado)
+        private void guardarSucursalesA(List<string> SucursalesASupervisar)
         {
-            foreach (var sucursal in sucursales)
+            if (edit)
             {
-                guardarTrabajo(idEmpleado, getIdSucursal(sucursal));
+                var SucursalesBD = (from tb in sb.trabajo.Include("sucursal") where tb.idEmpleado.Equals(emp.idEmpleado) select tb).ToList();
+                List<string> SucursalesAconservar = new List<string>();
+                foreach (var sc in SucursalesBD)
+                {
+                    if (SucursalesASupervisar.Contains(sc.sucursal.sucursal1))
+                    {
+                        SucursalesASupervisar.Remove(sc.sucursal.sucursal1);
+                        SucursalesAconservar.Add(sc.sucursal.sucursal1);
+                    }
+                }
+                guardarSucursalA(SucursalesASupervisar);
+                try { sb.SaveChanges(); }
+                catch (Exception ex) { MessageBox.Show(ex.Message); throw; }
+                SucursalesBD = (from tb in sb.trabajo.Include("sucursal") where tb.idEmpleado.Equals(emp.idEmpleado) select tb).ToList();
+                foreach (var sc in SucursalesBD)
+                {
+                    if (!SucursalesAconservar.Contains(sc.sucursal.sucursal1) && !SucursalesASupervisar.Contains(sc.sucursal.sucursal1))
+                    {
+                        sb.trabajo.Remove(sc);
+                    }
+                }
+            }
+            else
+            {
+                guardarSucursalA(SucursalesASupervisar);
+            }
+        }
+
+        private void guardarSucursalA(List<string> sucursalesASupervisar)
+        {
+            foreach (var sc in sucursalesASupervisar)
+            {
+                trabajo trabajo = new trabajo()
+                {
+                    idSucursal = getIdSucursal(sc),
+                    idEmpleado = emp.idEmpleado
+                };
+                sb.trabajo.Add(trabajo);
             }
         }
 
         private void guardarTelefonos(string telefono)
         {
-            foreach (var tel in telefono.Split(','))
+            if (edit)
             {
-                telefono tele = new telefono()
+                var telefonos = telefono.Split(',').Select(p => p.Trim()).ToList();
+                var telefonosBD = (from t in sb.telefono where t.idEmpleado.Equals(emp.idEmpleado) select t).ToList();
+                List<string> telefonosConservar = new List<string>();
+                //Comparamos que telefonos se encuentan en la DB si existe se remueve de la lista del form para evitar duplicados
+                foreach (var tel in telefonosBD)
                 {
-                    idEmpleado = emp.idEmpleado,
-                    telefono1 = tel.Trim()
-                };
-                sb.telefono.Add(tele);
+                    if (telefonos.Contains(tel.telefono1))
+                    {
+                        telefonos.Remove(tel.telefono1);
+                        telefonosConservar.Add(tel.telefono1);
+                    }
+                }
+                //Guardamos los telefonos nuevos
+                foreach (var tel in telefonos)
+                {
+                    guardarTelefono(tel);
+                }
+                try { sb.SaveChanges(); }
+                catch (Exception ex) { MessageBox.Show(ex.Message); throw; }
+                //Removemos los telefonos que no se encuentran en la lista del form ni en la lista de tel a conservar
+                telefonosBD = (from t in sb.telefono where t.idEmpleado.Equals(emp.idEmpleado) select t).ToList();
+                foreach (var tel in telefonosBD)
+                {
+                    if (!telefonos.Contains(tel.telefono1) && !telefonosConservar.Contains(tel.telefono1))
+                    {
+                        sb.telefono.Remove(tel);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var tel in telefono.Split(',').Select(p => p.Trim()).ToList())
+                {
+                    guardarTelefono(tel);
+                }
             }
         }
+
+        private void guardarTelefono(string tel)
+        {
+            telefono tele = new telefono()
+            {
+                idEmpleado = emp.idEmpleado,
+                telefono1 = tel
+            };
+            sb.telefono.Add(tele);
+        }
+
         private void guardarTrabajo(int idEmpleado, int idSucursal)
         {
-            trabajo tb = new trabajo()
-            {
-                idEmpleado = idEmpleado,
-                idSucursal = idSucursal
-            };
-            sb.trabajo.Add(tb);
+            trabajo tb = edit ? (from trb in sb.trabajo where trb.idEmpleado.Equals(idEmpleado) select trb).First() : new trabajo();
+            tb.idEmpleado = idEmpleado;
+            tb.idSucursal = idSucursal;
+            if (!edit) sb.trabajo.Add(tb);
         }
 
         public EmpleadosModel getEmpleado(int idEmpleado)
@@ -201,7 +303,7 @@ namespace BanBan.Controls
                            NIT = emple.nit,
                            FechaContrato = emple.fechaIngreso,
                            FechaDespido = emple.fechaSalida,
-                           AfiliadoA = sp.sistemaP, 
+                           AfiliadoA = sp.sistemaP,
                            NumeroAfiliado = emple.numeroPension,
                            ISSS = emple.numeroISSS,
                            Cargo = cg.cargo1,
