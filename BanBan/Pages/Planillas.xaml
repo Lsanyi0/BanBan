@@ -59,11 +59,12 @@
                         <DataGridTextColumn Header="Sueldo" Width="50"/>
                         <DataGridTextColumn Header="Horas" Width="40"/>
                         <DataGridTextColumn Header="Nocturnas" Width="65"/>
-                        <DataGridTextColumn Header="% Nocturnidad" Width="90"/>
+                        <DataGridTextColumn Header="Nocturnidad" Width="90" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Total Horas extra" Width="100"/>
                         <DataGridTextColumn Header="Asuetos" Width="52"/>
                         <DataGridTextColumn Header="Total Horas extra nocturnas" Width="155"/>
                         <DataGridTextColumn Header="Horas Nocturnas" Width="100"/>
+                        <DataGridTextColumn Header="Total asueto" Width="45"/>
                         <DataGridTextColumn Header="Total devengado" Width="100"/>
                         <DataGridTextColumn Header="Seguro empleado" Width="110"/>
                         <DataGridTextColumn Header="AFP empleado" Width="100"/>
@@ -77,8 +78,27 @@
                     </DataGrid.ContextMenu>
                 </DataGrid>
             </TabItem>
-            <TabItem x:Name="tbAtenciones" Header="Atenciones">
+            <TabItem x:Name="tbAtenciones" Header="Atenciones y descuentos">
                 <DataGrid x:Name="dgvAtenciones"                   
+                          ScrollViewer.CanContentScroll="True"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto,Mode=OneWay}" Width="110"/>
+                        <DataGridTextColumn Header="Atenciones" Width="70"/>
+                        <DataGridTextColumn Header="Total Atenciones" Width="100"/>
+                        <DataGridTextColumn Header="% de cargo" Width="70"/>
+                        <DataGridTextColumn Header="Total Neto" Width="65"/>
+                        <DataGridTextColumn Header="Descuentos" Width="70"/>
+                        <DataGridTextColumn Header="Total Desucento" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="Editar" Header="Editar">
+                <DataGrid x:Name="dgvEditar"                   
                           ScrollViewer.CanContentScroll="True"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
@@ -86,18 +106,13 @@
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
-                        <DataGridTextColumn Header="Comida" Width="50"/>
-                        <DataGridTextColumn Header="Atenciones" Width="70"/>
-                        <DataGridTextColumn Header="% de Cajas" Width="70"/>
-                        <DataGridTextColumn Header="Total Atenciones" Width="100"/>
-                        <DataGridTextColumn Header="Numero de factura" Width="110"/>
-                        <DataGridTextColumn Header="Monto" Width="45"/>
-                        <DataGridTextColumn Header="Total Neto" Width="65"/>
+                        <DataGridTextColumn Header="Horas Extra Normales" Width="125"/>
+                        <DataGridTextColumn Header="Horas Extra Nocturnas" Width="130"/>
+                        <DataGridTextColumn Header="Dias asueto" Width="70"/>
+                        <DataGridTextColumn Header="Horas asueto" Width="80"/>
+                        <DataGridTextColumn Header="Descuentos" Width="70"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </TabItem>
-            <TabItem x:Name="MAS" Header="+">
-                <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
         <Grid.RowDefinitions>
