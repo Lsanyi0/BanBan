@@ -23,6 +23,11 @@ namespace BanBan.Pages
         public Sucursales()
         {
             InitializeComponent();
+            llenarDatos();
+        }
+
+        private void llenarDatos()
+        {
             lista = new List<string>();
             var mn = from muni in sb.ciudad select muni.ciudad1;
             var dp = from dep in sb.departamento select dep.departamento1;
@@ -59,6 +64,7 @@ namespace BanBan.Pages
             if (val.Equals("OK"))
             {
                 MessageBox.Show("Sucursal almacenada con exito");
+                llenarDatos();
             }
             else
             {
