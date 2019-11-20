@@ -11,7 +11,7 @@ namespace BanBan.Controls
         public BindingList<PlanillaModel> getEmpleados()
         {
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension") select em).ToList();
-            return getPlanillaModels(empleados);
+            return getPlanillaModels();
         }
         public BindingList<PlanillaModel> getEmpleados(string sucursal)
         {
@@ -24,23 +24,46 @@ namespace BanBan.Controls
                                         ).ToList();
             return getPlanillaModels(empleados);
         }
-        //private List<PlanillaModel> getPlanillaModels()
-        //{
-        //    List<PlanillaModel> pm = new List<PlanillaModel>();
-        //    pm.Add(new PlanillaModel()
-        //    {
-        //        Nombre = "Alejandra Carolina",
-        //        Apellido = "Alegria Jandres",
-        //        NumeroDias = 15,
-        //        Horas = (15 * 8),
-        //        SueldoBase = 1.267375m,
-        //        HorasNocturnas = 2,
-        //        HorasExtra = 5,
-        //        HorasAsueto = 8,
-        //        AFPEmpleado = 7.25M,
-        //    });
-        //     return pm;
-        //}
+        private BindingList<PlanillaModel> getPlanillaModels()
+        {
+            BindingList<PlanillaModel> pm = new BindingList<PlanillaModel>();
+            pm.Add(new PlanillaModel()
+            {
+                Nombre = "Carolina",
+                Apellido = "Alegria",
+                NumeroDias = 15,
+                Horas = (15 * 8),
+                SueldoBase = 1.267375m,
+                HorasNocturnas = 2,
+                HorasExtra = 5,
+                HorasAsueto = 8,
+                AFPEmpleado = 7.25M,
+            });
+            pm.Add(new PlanillaModel()
+            {
+                Nombre = "Ernesto",
+                Apellido = "Ramirez",
+                NumeroDias = 14,
+                Horas = (14 * 8),
+                SueldoBase = 1.267375m,
+                HorasNocturnas = 5,
+                HorasAsueto = 8,
+                AFPEmpleado = 7.25M
+            });
+            pm.Add(new PlanillaModel
+            {
+                Nombre = "Gerardo",
+                Apellido = "Flores",
+                NumeroDias = 12,
+                Horas = (12 * 8),
+                SueldoBase = 1.267375m,
+                HorasNocturnas = 5,
+                HorasExtra = 37,
+                HorasAsueto = 8,
+                AFPEmpleado = 7.25M
+            }) ;
+            return pm;
+        }
         private BindingList<PlanillaModel> getPlanillaModels(List<empleado> empleados)
         {
             if (empleados != null)
@@ -59,7 +82,7 @@ namespace BanBan.Controls
                     };
                     List<TimeSpan?> Inicio = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.entrada).ToList();
                     List<TimeSpan?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
-                    pm.Horas = getHorasTrabajadas(Inicio,Fin);
+                    pm.Horas = getHorasTrabajadas(Inicio, Fin);
                     planillaModels.Add(pm);
                 }
                 return planillaModels;
@@ -71,7 +94,7 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-              Horas += decimal.Parse((Finales[i] - Iniciales[i]).ToString().Split(':')[0]);
+                Horas += decimal.Parse((Finales[i] - Iniciales[i]).ToString().Split(':')[0]);
             }
             return Horas;
         }
