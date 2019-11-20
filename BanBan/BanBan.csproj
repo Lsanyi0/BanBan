@@ -146,6 +146,7 @@
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\AtencionesModel.cs" />
+    <Compile Include="Model\AtencionesPlanillaModel.cs" />
     <Compile Include="Model\EmpleadosModel.cs" />
     <Compile Include="Model\PlanillaModel.cs" />
     <Compile Include="Model\SucursalesASupervisarModel.cs" />

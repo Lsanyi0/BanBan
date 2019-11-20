@@ -199,7 +199,6 @@
                     MinWidth="100" Height="30" 
                     Margin="10,0,0,0" Click="btGuardarClick"/>
         </StackPanel>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="315,9.6,0,0" Grid.Row="10" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>

@@ -148,10 +148,5 @@ namespace BanBan.Pages
             }
             return true;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (dpFechaContrato.SelectedDate > dpSalidaEmpresa.SelectedDate) MessageBox.Show("-_-");
-        }
     }
 }
