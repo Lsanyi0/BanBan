@@ -145,6 +145,7 @@ namespace BanBan
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
+            frPpal.Content = new HorasExtra();
         }
         private void activarTodos()
         {

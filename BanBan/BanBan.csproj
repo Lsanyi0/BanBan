@@ -148,9 +148,13 @@
     <Compile Include="Model\AtencionesModel.cs" />
     <Compile Include="Model\AtencionesPlanillaModel.cs" />
     <Compile Include="Model\EmpleadosModel.cs" />
+    <Compile Include="Model\HorasExtraModel.cs" />
     <Compile Include="Model\PlanillaModel.cs" />
     <Compile Include="Model\SucursalesASupervisarModel.cs" />
     <Compile Include="Model\SucursalModel.cs" />
+    <Compile Include="Pages\HorasExtra.xaml.cs">
+      <DependentUpon>HorasExtra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
@@ -215,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Empleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HorasExtra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
