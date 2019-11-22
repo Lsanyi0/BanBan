@@ -18,5 +18,6 @@ namespace BanBan.Model
         public List<DateTime> DiasAsueto { get; set; }
         public int IdEmpleado { get; set; }
         public string NombreEmpleado { get; set; }
+        public string Supervisor { get; set; }
     }
 }

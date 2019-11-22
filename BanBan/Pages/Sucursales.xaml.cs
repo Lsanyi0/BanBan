@@ -33,7 +33,7 @@ namespace BanBan.Pages
             var dp = from dep in sb.departamento select dep.departamento1;
             var sup = from emp in sb.empleado
                       join cg in sb.cargo on emp.idCargo equals cg.idCargo
-                      where cg.cargo1 == "supervisor"
+                      where cg.cargo1.Contains("supervisor")
                       select emp.nombre;
             cbEditarSucursal.ItemsSource = sc.getSucursales();
             if (cbEditarSucursal.Items.Count > 0) cbEditarSucursal.SelectedIndex = 0;
@@ -69,6 +69,7 @@ namespace BanBan.Pages
             else
             {
                 MessageBox.Show(val);
+
             }
         }
 
@@ -198,6 +199,7 @@ namespace BanBan.Pages
                     cbDepartamento.SelectedItem = suc.Departamento;
                     cbMunicipio.SelectedItem = suc.Municipio;
                     tbDireccion.Text = suc.Direccion;
+                    lsAsuetos.Items.Clear();
                     foreach (var asu in suc.DiasAsueto) lsAsuetos.Items.Add(asu);
                     cbSupervisor.SelectedItem = suc.NombreEmpleado;
                 }
