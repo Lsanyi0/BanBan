@@ -43,6 +43,8 @@ namespace BanBan
             tiposUsuario.Add("Administrador");
             tiposUsuario.Add("Supervisor");
             tiposUsuario.Add("Root");
+            System.Windows.Input.NavigationCommands.BrowseBack.InputGestures.Clear();
+            System.Windows.Input.NavigationCommands.BrowseForward.InputGestures.Clear();
         }
 
         //Usado como trigger para la animacion de fade-out del login
@@ -145,7 +147,10 @@ namespace BanBan
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
-            frPpal.Content = new HorasExtra();
+            if (LoginControl.tipoUsuario == tiposUsuario[1])
+            {
+                frPpal.Content = new HorasExtra();
+            }
         }
         private void activarTodos()
         {

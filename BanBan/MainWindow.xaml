@@ -36,6 +36,10 @@
                 <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
                 <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="True"/>
             </BooleanAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="stpOpciones">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="stbLoginCorrecto">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="borderLogin">
