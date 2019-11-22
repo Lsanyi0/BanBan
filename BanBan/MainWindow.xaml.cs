@@ -145,6 +145,7 @@ namespace BanBan
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
+            frPpal.Content = new HorasExtra();
         }
         private void activarTodos()
         {
@@ -165,6 +166,7 @@ namespace BanBan
 
         private async void frPpal_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (frPpal.Content == null) { contador = 0; return; }
             if (frPpal.Content.GetType() == typeof(Planillas) && contador < 1)
             {
                 contador += 1;

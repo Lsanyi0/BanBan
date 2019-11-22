@@ -45,31 +45,31 @@
             <Label x:Name="lbNumero" Content=""/>
         </StackPanel>
         <Button x:Name="btCerrarPlanilla" Height="30" MaxWidth="130" Content="Cerrar planilla" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
-        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4"/>
+        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btGuardar_Click"/>
         <TabControl x:Name="tcData"  Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5" >
             <TabItem x:Name="tbPlanilla" Header="Planilla">
                 <DataGrid x:Name="dgvPlanilla"
                           ScrollViewer.CanContentScroll="True"
-                          CanUserAddRows="False"
+                          CanUserAddRows="False" CanUserDeleteRows="False"
                           AlternatingRowBackground="LightSkyBlue"
-                          AutoGenerateColumns="False">
+                          AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
-                        <DataGridTextColumn Header="Numero de dias" Width="100"/>
-                        <DataGridTextColumn Header="Sueldo" Width="50"/>
-                        <DataGridTextColumn Header="Horas" Width="40"/>
-                        <DataGridTextColumn Header="Nocturnas" Width="65"/>
+                        <DataGridTextColumn Header="Numero de dias" Binding="{Binding NumeroDias}" Width="100"/>
+                        <DataGridTextColumn Header="Sueldo"  Binding="{Binding Sueldo}" Width="50"/>
+                        <DataGridTextColumn Header="Horas" Binding="{Binding Horas}" Width="40"/>
+                        <DataGridTextColumn Header="Nocturnas" Binding="{Binding HorasNocturnas}" Width="65"/>
                         <DataGridTextColumn Header="Nocturnidad" Width="90" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Total Horas extra" Width="100"/>
-                        <DataGridTextColumn Header="Asuetos" Width="52"/>
-                        <DataGridTextColumn Header="Total Horas extra nocturnas" Width="155"/>
-                        <DataGridTextColumn Header="Horas Nocturnas" Width="100"/>
-                        <DataGridTextColumn Header="Total asueto" Width="45"/>
-                        <DataGridTextColumn Header="Total devengado" Width="100"/>
-                        <DataGridTextColumn Header="Seguro empleado" Width="110"/>
-                        <DataGridTextColumn Header="AFP empleado" Width="100"/>
-                        <DataGridTextColumn Header="Total deduccion" Width="100"/>
-                        <DataGridTextColumn Header="Neto a pagar" Width="80"/>
+                        <DataGridTextColumn Header="Total Horas extra" Binding="{Binding TotalHorasExtra}" Width="100"/>
+                        <DataGridTextColumn Header="Asuetos" Binding="{Binding HorasAsueto}" Width="55"/>
+                        <DataGridTextColumn Header="Total Horas extra nocturnas" Binding="{Binding TotalHorasExtraNocturnas}" Width="155"/>
+                        <DataGridTextColumn Header="Horas Nocturnas" Binding="{Binding TotalHorasNocturnas}" Width="100"/>
+                        <DataGridTextColumn Header="Total asueto" Binding="{Binding TotalAsuetos}" Width="90"/>
+                        <DataGridTextColumn Header="Total devengado" Binding="{Binding TotalDevengado}" Width="100"/>
+                        <DataGridTextColumn Header="Seguro empleado" Binding="{Binding TotalSeguroEmpleado}" Width="110"/>
+                        <DataGridTextColumn Header="AFP empleado" Binding="{Binding TotalAFPEmpleado}" Width="100"/>
+                        <DataGridTextColumn Header="Total deduccion" Binding="{Binding TotalDeduccion}" Width="100"/>
+                        <DataGridTextColumn Header="Neto a pagar" Binding="{Binding NetoAPagar}" Width="80"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -83,17 +83,17 @@
                           ScrollViewer.CanContentScroll="True"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          CanUserAddRows="False"
+                          CanUserAddRows="False" CanUserDeleteRows="False"
                           AutoGenerateColumns="False"
-                          IsReadOnly="True">
+                          IsReadOnly="True" AlternatingRowBackground="LightSkyBlue">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto,Mode=OneWay}" Width="110"/>
-                        <DataGridTextColumn Header="Atenciones" Width="70"/>
-                        <DataGridTextColumn Header="Total Atenciones" Width="100"/>
-                        <DataGridTextColumn Header="% de cargo" Width="70"/>
-                        <DataGridTextColumn Header="Total Neto" Width="65"/>
-                        <DataGridTextColumn Header="Descuentos" Width="70"/>
-                        <DataGridTextColumn Header="Total Desucento" Width="100"/>
+                        <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110"/>
+                        <DataGridTextColumn Header="Atenciones" Binding="{Binding Atenciones}" Width="70"/>
+                        <DataGridTextColumn Header="Total Atenciones" Binding="{Binding TotalAtenciones}" Width="100"/>
+                        <DataGridTextColumn Header="% de cargo" Binding="{Binding PorcentajeCargo}" Width="70"/>
+                        <DataGridTextColumn Header="Total Neto" Binding="{Binding TotalNeto}" Width="65"/>
+                        <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuentos}" Width="70"/>
+                        <DataGridTextColumn Header="Total Descuento" Binding="{Binding TotalDescuento}" Width="100"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -102,14 +102,13 @@
                           ScrollViewer.CanContentScroll="True"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          CanUserAddRows="False"
-                          AutoGenerateColumns="False">
+                          CanUserAddRows="False" CanUserDeleteRows="False"
+                          AutoGenerateColumns="False"  AlternatingRowBackground="LightSkyBlue">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
-                        <DataGridTextColumn Header="Horas Extra Normales" Width="125"/>
-                        <DataGridTextColumn Header="Horas Extra Nocturnas" Width="130"/>
-                        <DataGridTextColumn Header="Dias asueto" Width="70"/>
-                        <DataGridTextColumn Header="Horas asueto" Width="80"/>
+                        <DataGridTextColumn Header="Horas Extra Normales" Binding="{Binding HorasExtra, Mode=TwoWay}" Width="125"/>
+                        <DataGridTextColumn Header="Horas Extra Nocturnas" Binding="{Binding HorasNocturnasExtra, Mode=TwoWay}" Width="130"/>
+                        <DataGridTextColumn Header="Horas asueto" Binding="{Binding HorasAsueto, Mode=TwoWay}" Width="80"/>
                         <DataGridTextColumn Header="Descuentos" Width="70"/>
                     </DataGrid.Columns>
                 </DataGrid>
