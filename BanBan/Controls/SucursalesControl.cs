@@ -212,7 +212,7 @@ namespace BanBan.Controls
             int idSucursal = getIdSucursal(sucursal);
             SucursalModel ssuc = (from ssc in sb.sucursal
                                   join cd in sb.ciudad on ssc.idCiudad equals cd.idCiudad
-                                  join dp in sb.departamento on cd.idCiudad equals dp.idDepartamento
+                                  join dp in sb.departamento on cd.idDepartamento equals dp.idDepartamento
                                   join asu in sb.diapatronal on cd.idCiudad equals asu.idCiudad
                                   join tr in sb.trabajo on ssc.idSucursal equals tr.idSucursal
                                   join emp in sb.empleado on tr.idEmpleado equals emp.idEmpleado
