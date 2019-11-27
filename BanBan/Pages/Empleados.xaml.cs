@@ -34,7 +34,6 @@ namespace BanBan.Pages
             cbAfiliacion.ItemsSource = emp.getSistemaPensiones();
             cbEditarEmpleado.ItemsSource = emp.getEmpleados();
 
-
             cbCargo.SelectedIndex = 0;
             cbSucursal.SelectedIndex = 0;
             cbAfiliacion.SelectedIndex = 0;
@@ -48,11 +47,11 @@ namespace BanBan.Pages
             string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
                      dpFechaContrato.SelectedDate.Value, dpSalidaEmpresa.SelectedDate, cbAfiliacion.Text,
                      tbNumeroAfiliado.Text, tbISSS.Text, cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text,
-                     tbTelefono.Text, cbxActivo.IsChecked.Value, getASupervisar(), getAtenciones(),editState);
+                     tbTelefono.Text, cbxActivo.IsChecked.Value, getASupervisar(), getAtenciones(), editState);
 
             if (val != "OK") MessageBox.Show("Advertencia: " + val,
                 "Advertencia!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            else _ = editState ? MessageBox.Show("Registro modificado correctamente","OK",MessageBoxButton.OK, MessageBoxImage.Information) 
+            else _ = editState ? MessageBox.Show("Registro modificado correctamente", "OK", MessageBoxButton.OK, MessageBoxImage.Information)
                                : MessageBox.Show("Registro guardado correctamente", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -116,7 +115,7 @@ namespace BanBan.Pages
             List<AtencionesModel> atenciones = new List<AtencionesModel>();
             var ats = lsAtenciones.SelectedItems;
             var at = lsAtenciones.Items;
-            foreach (var ate in at) 
+            foreach (var ate in at)
             {
                 AtencionesModel atencion = new AtencionesModel()
                 {

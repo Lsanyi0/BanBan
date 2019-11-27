@@ -26,11 +26,6 @@ namespace BanBan
         public MainWindow()
         {
             InitializeComponent();
-            empleados = new Empleados();
-            planillas = new Planillas();
-            sucursales = new Sucursales();
-            pruebaDatos = new pruebaDatos();
-            lgc = new LoginControl();
             anims = new List<Storyboard>
             {
                 FindResource("stbLoginCorrecto") as Storyboard,
@@ -38,11 +33,11 @@ namespace BanBan
                 FindResource("stbOcultarOpciones") as Storyboard,
                 FindResource("stbLoginLoad") as Storyboard
             };
-            anim = true;
             //para configurar en caso de que no se utilicen estos nombres
             tiposUsuario.Add("Administrador");
             tiposUsuario.Add("Supervisor");
             tiposUsuario.Add("Root");
+
             System.Windows.Input.NavigationCommands.BrowseBack.InputGestures.Clear();
             System.Windows.Input.NavigationCommands.BrowseForward.InputGestures.Clear();
         }
@@ -50,13 +45,19 @@ namespace BanBan
         //Usado como trigger para la animacion de fade-out del login
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            lgc = new LoginControl();
             _ = await lgc.verificarUsuario();
             anims[0].Begin();
-            if (LoginControl.tipoUsuario != null) configuracion = new Configuracion();
-            else Close();
+            if (LoginControl.tipoUsuario == null) Close();
+
+            anim = true;
 
             if (LoginControl.tipoUsuario == tiposUsuario[0])
             {
+                empleados = new Empleados();
+                planillas = new Planillas();
+                sucursales = new Sucursales();
+                pruebaDatos = new pruebaDatos();
                 activarTodos();
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[1])
@@ -65,6 +66,7 @@ namespace BanBan
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[2])
             {
+                configuracion = new Configuracion();
                 activarIT();
             }
             frPpal.IsEnabled = true;

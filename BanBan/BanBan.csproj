@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="Controls\ConfiguracionControl.cs" />
     <Compile Include="Controls\EmpleadosControl.cs" />
+    <Compile Include="Controls\HorasExtraCommonControl.cs" />
+    <Compile Include="Controls\HorasExtraControl.cs" />
+    <Compile Include="Controls\HorasExtraOfflineControl.cs" />
     <Compile Include="Controls\PlanillasControl.cs" />
     <Compile Include="Controls\SucursalesControl.cs" />
     <Compile Include="Controls\Utilidades.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="Model\PlanillaModel.cs" />
     <Compile Include="Model\SucursalesASupervisarModel.cs" />
     <Compile Include="Model\SucursalModel.cs" />
+    <Compile Include="Model\HorasExtraOfflineModel.cs" />
     <Compile Include="Pages\HorasExtra.xaml.cs">
       <DependentUpon>HorasExtra.xaml</DependentUpon>
     </Compile>
