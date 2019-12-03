@@ -103,7 +103,7 @@
           <Property Name="fechaIngreso" Type="date" Nullable="false" />
           <Property Name="fechaSalida" Type="date" />
           <Property Name="estado" Type="bool" Nullable="false" />
-          <Property Name="sueldo" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="sueldo" Type="decimal" Precision="5" Scale="4" />
           <Property Name="idSistemaPension" Type="int" Nullable="false" />
           <Property Name="idCargo" Type="int" Nullable="false" />
         </EntityType>
@@ -113,13 +113,6 @@
           </Key>
           <Property Name="idFiesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fiesta" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="hangar">
-          <Key>
-            <PropertyRef Name="idHangar" />
-          </Key>
-          <Property Name="idHangar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="hangar" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="horario">
           <Key>
@@ -136,10 +129,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="horaInicio" Type="time" Precision="0" Nullable="false" />
-          <Property Name="horaFinal" Type="time" Precision="0" Nullable="false" />
+          <Property Name="horaInicio" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="horaFinal" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="comentarios" Type="varchar" MaxLength="100" />
-          <Property Name="fecha" Type="date" Nullable="false" />
           <Property Name="idTipoHora" Type="int" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idPlanilla" Type="int" Nullable="false" />
@@ -168,9 +160,8 @@
             <PropertyRef Name="idPlanillaHorario" />
           </Key>
           <Property Name="idPlanillaHorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="entrada" Type="time" Precision="0" />
-          <Property Name="salida" Type="time" Precision="0" />
-          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="entrada" Type="datetime" Precision="0" />
+          <Property Name="salida" Type="datetime" Precision="0" />
           <Property Name="comentario" Type="varchar" MaxLength="50" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idPlanilla" Type="int" Nullable="false" />
@@ -180,7 +171,7 @@
             <PropertyRef Name="idRegistroS" />
           </Key>
           <Property Name="idRegistroS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="sueldoAumentado" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="sueldoAumentado" Type="decimal" Precision="5" Scale="4" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sistemapension">
@@ -199,7 +190,6 @@
           <Property Name="sucursal" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="direccion" Type="varchar" MaxLength="50" />
           <Property Name="idCiudad" Type="int" Nullable="false" />
-          <Property Name="idHangar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="telefono">
           <Key>
@@ -495,18 +485,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SucursalxHangar">
-          <End Role="hangar" Type="Self.hangar" Multiplicity="1" />
-          <End Role="sucursal" Type="Self.sucursal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hangar">
-              <PropertyRef Name="idHangar" />
-            </Principal>
-            <Dependent Role="sucursal">
-              <PropertyRef Name="idHangar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_TelefonoxEmpleado">
           <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
           <End Role="telefono" Type="Self.telefono" Multiplicity="*" />
@@ -580,7 +558,6 @@
           <EntitySet Name="dispositivo" EntityType="Self.dispositivo" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="empleado" EntityType="Self.empleado" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="fiestanacional" EntityType="Self.fiestanacional" Schema="sbanban" store:Type="Tables" />
-          <EntitySet Name="hangar" EntityType="Self.hangar" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horario" EntityType="Self.horario" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horarioextra" EntityType="Self.horarioextra" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horariosucursal" EntityType="Self.horariosucursal" Schema="sbanban" store:Type="Tables" />
@@ -678,10 +655,6 @@
             <End Role="ciudad" EntitySet="ciudad" />
             <End Role="sucursal" EntitySet="sucursal" />
           </AssociationSet>
-          <AssociationSet Name="fk_SucursalxHangar" Association="Self.fk_SucursalxHangar">
-            <End Role="hangar" EntitySet="hangar" />
-            <End Role="sucursal" EntitySet="sucursal" />
-          </AssociationSet>
           <AssociationSet Name="fk_TelefonoxEmpleado" Association="Self.fk_TelefonoxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
             <End Role="telefono" EntitySet="telefono" />
@@ -720,7 +693,6 @@
           <EntitySet Name="dispositivo" EntityType="sql3307115Model.dispositivo" />
           <EntitySet Name="empleado" EntityType="sql3307115Model.empleado" />
           <EntitySet Name="fiestanacional" EntityType="sql3307115Model.fiestanacional" />
-          <EntitySet Name="hangar" EntityType="sql3307115Model.hangar" />
           <EntitySet Name="horario" EntityType="sql3307115Model.horario" />
           <EntitySet Name="horarioextra" EntityType="sql3307115Model.horarioextra" />
           <EntitySet Name="horariosucursal" EntityType="sql3307115Model.horariosucursal" />
@@ -813,10 +785,6 @@
           <AssociationSet Name="fk_UsuarioxEmpleado" Association="sql3307115Model.fk_UsuarioxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
             <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <AssociationSet Name="fk_SucursalxHangar" Association="sql3307115Model.fk_SucursalxHangar">
-            <End Role="hangar" EntitySet="hangar" />
-            <End Role="sucursal" EntitySet="sucursal" />
           </AssociationSet>
           <AssociationSet Name="fk_HExtraxPlanilla" Association="sql3307115Model.fk_HExtraxPlanilla">
             <End Role="planilla" EntitySet="planilla" />
@@ -980,14 +948,6 @@
           <Property Name="fiesta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="dianacional" Relationship="sql3307115Model.fk_DiaNacionalxFiestaNacional" FromRole="fiestanacional" ToRole="dianacional" />
         </EntityType>
-        <EntityType Name="hangar">
-          <Key>
-            <PropertyRef Name="idHangar" />
-          </Key>
-          <Property Name="idHangar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="hangar1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="sucursal" Relationship="sql3307115Model.fk_SucursalxHangar" FromRole="hangar" ToRole="sucursal" />
-        </EntityType>
         <EntityType Name="horario">
           <Key>
             <PropertyRef Name="id" />
@@ -1004,10 +964,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="horaInicio" Type="Time" Nullable="false" />
-          <Property Name="horaFinal" Type="Time" Nullable="false" />
+          <Property Name="horaInicio" Type="DateTime" Nullable="false" />
+          <Property Name="horaFinal" Type="DateTime" Nullable="false" />
           <Property Name="comentarios" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" />
           <Property Name="idTipoHora" Type="Int32" Nullable="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <Property Name="idPlanilla" Type="Int32" Nullable="false" />
@@ -1044,9 +1003,8 @@
             <PropertyRef Name="idPlanillaHorario" />
           </Key>
           <Property Name="idPlanillaHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="entrada" Type="Time" />
-          <Property Name="salida" Type="Time" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="entrada" Type="DateTime" />
+          <Property Name="salida" Type="DateTime" />
           <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <Property Name="idPlanilla" Type="Int32" Nullable="false" />
@@ -1079,10 +1037,8 @@
           <Property Name="sucursal1" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idCiudad" Type="Int32" Nullable="false" />
-          <Property Name="idHangar" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ciudad" Relationship="sql3307115Model.fk_SucursalxCiudad" FromRole="sucursal" ToRole="ciudad" />
           <NavigationProperty Name="dispositivo" Relationship="sql3307115Model.fk_DispositivoxSucursal" FromRole="sucursal" ToRole="dispositivo" />
-          <NavigationProperty Name="hangar" Relationship="sql3307115Model.fk_SucursalxHangar" FromRole="sucursal" ToRole="hangar" />
           <NavigationProperty Name="horariosucursal" Relationship="sql3307115Model.fk_HorarioSxSucursal" FromRole="sucursal" ToRole="horariosucursal" />
           <NavigationProperty Name="trabajo" Relationship="sql3307115Model.fk_TrabajoxSucursal" FromRole="sucursal" ToRole="trabajo" />
         </EntityType>
@@ -1375,18 +1331,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SucursalxHangar">
-          <End Type="sql3307115Model.hangar" Role="hangar" Multiplicity="1" />
-          <End Type="sql3307115Model.sucursal" Role="sucursal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hangar">
-              <PropertyRef Name="idHangar" />
-            </Principal>
-            <Dependent Role="sucursal">
-              <PropertyRef Name="idHangar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_HExtraxPlanilla">
           <End Type="sql3307115Model.planilla" Role="planilla" Multiplicity="1" />
           <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
@@ -1586,14 +1530,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="hangar">
-            <EntityTypeMapping TypeName="sql3307115Model.hangar">
-              <MappingFragment StoreEntitySet="hangar">
-                <ScalarProperty Name="hangar1" ColumnName="hangar" />
-                <ScalarProperty Name="idHangar" ColumnName="idHangar" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="horario">
             <EntityTypeMapping TypeName="sql3307115Model.horario">
               <MappingFragment StoreEntitySet="horario">
@@ -1611,7 +1547,6 @@
                 <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="comentarios" ColumnName="comentarios" />
                 <ScalarProperty Name="horaFinal" ColumnName="horaFinal" />
                 <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
@@ -1646,7 +1581,6 @@
                 <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="salida" ColumnName="salida" />
                 <ScalarProperty Name="entrada" ColumnName="entrada" />
                 <ScalarProperty Name="idPlanillaHorario" ColumnName="idPlanillaHorario" />
@@ -1674,7 +1608,6 @@
           <EntitySetMapping Name="sucursal">
             <EntityTypeMapping TypeName="sql3307115Model.sucursal">
               <MappingFragment StoreEntitySet="sucursal">
-                <ScalarProperty Name="idHangar" ColumnName="idHangar" />
                 <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="sucursal1" ColumnName="sucursal" />

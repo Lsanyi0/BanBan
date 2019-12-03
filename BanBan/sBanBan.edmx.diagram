@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e94edcbc406142cd91590e06afd29f14" Name="Diagram1" ZoomLevel="62">
+      <Diagram DiagramId="e94edcbc406142cd91590e06afd29f14" Name="Diagram1" ZoomLevel="62" ShowGrid="true" DisplayType="false">
         <EntityTypeShape EntityType="sql3307115Model.atencion" Width="1.5" PointX="2.625" PointY="3.75" />
         <EntityTypeShape EntityType="sql3307115Model.atenciondetalle" Width="1.5" PointX="4.5" PointY="3.75" />
         <EntityTypeShape EntityType="sql3307115Model.cargo" Width="1.5" PointX="2.625" PointY="8.25" />
@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="sql3307115Model.dispositivo" Width="1.5" PointX="13" PointY="12.625" />
         <EntityTypeShape EntityType="sql3307115Model.empleado" Width="1.5" PointX="6.375" PointY="3.75" />
         <EntityTypeShape EntityType="sql3307115Model.fiestanacional" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="sql3307115Model.hangar" Width="1.5" PointX="8.625" PointY="14.625" />
         <EntityTypeShape EntityType="sql3307115Model.horario" Width="1.5" PointX="6.625" PointY="10" />
         <EntityTypeShape EntityType="sql3307115Model.horarioextra" Width="1.5" PointX="10.75" PointY="6.5" />
         <EntityTypeShape EntityType="sql3307115Model.horariosucursal" Width="1.5" PointX="10.75" PointY="12.75" />
@@ -56,16 +55,13 @@
         <AssociationConnector Association="sql3307115Model.fk_HorarioxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_PHorarioxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_RegistroxEmpleado" ManuallyRouted="true" >
-          <ConnectorPoint PointX="6.46875" PointY="9.5763151041666674" />
-          <ConnectorPoint PointX="6.46875" PointY="10.974491291197918" />
-          <ConnectorPoint PointX="6.2268145660580005" PointY="10.974491291197918" />
-          <ConnectorPoint PointX="6.2268145660580005" PointY="13.813212640625004" />
-          <ConnectorPoint PointX="6" PointY="13.813212640625004" />
+          <ConnectorPoint PointX="6.46875" PointY="9.5763151041666656" />
+          <ConnectorPoint PointX="6.46875" PointY="13.813212640625" />
+          <ConnectorPoint PointX="6" PointY="13.813212640625" />
         </AssociationConnector>
         <AssociationConnector Association="sql3307115Model.fk_TelefonoxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_TrabajoxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_UsuarioxEmpleado" />
-        <AssociationConnector Association="sql3307115Model.fk_SucursalxHangar" />
         <AssociationConnector Association="sql3307115Model.fk_HExtraxPlanilla" />
         <AssociationConnector Association="sql3307115Model.fk_HExtraxTipo" />
         <AssociationConnector Association="sql3307115Model.fk_HorarioSxSucursal" />

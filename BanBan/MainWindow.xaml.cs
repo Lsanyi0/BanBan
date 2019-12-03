@@ -58,6 +58,7 @@ namespace BanBan
                 planillas = new Planillas();
                 sucursales = new Sucursales();
                 pruebaDatos = new pruebaDatos();
+                configuracion = new Configuracion();
                 activarTodos();
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[1])

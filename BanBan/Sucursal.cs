@@ -26,12 +26,10 @@ namespace BanBan
         public string sucursal1 { get; set; }
         public string direccion { get; set; }
         public int idCiudad { get; set; }
-        public int idHangar { get; set; }
     
         public virtual ciudad ciudad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dispositivo> dispositivo { get; set; }
-        public virtual hangar hangar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<horariosucursal> horariosucursal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

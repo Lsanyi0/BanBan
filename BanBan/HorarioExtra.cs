@@ -15,10 +15,9 @@ namespace BanBan
     public partial class horarioextra
     {
         public int id { get; set; }
-        public System.TimeSpan horaInicio { get; set; }
-        public System.TimeSpan horaFinal { get; set; }
+        public System.DateTime horaInicio { get; set; }
+        public System.DateTime horaFinal { get; set; }
         public string comentarios { get; set; }
-        public System.DateTime fecha { get; set; }
         public int idTipoHora { get; set; }
         public int idEmpleado { get; set; }
         public int idPlanilla { get; set; }

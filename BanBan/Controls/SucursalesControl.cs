@@ -35,7 +35,7 @@ namespace BanBan.Controls
                     var sup = from sp in sb.empleado where sp.nombre==supervisor select sp.idEmpleado;
                     suc.sucursal1 = sucursal;
                     suc.direccion = direccion;
-                    suc.idHangar = 1;
+                    
                     foreach (var item in id)
                     {
                         suc.idCiudad = int.Parse(item.ToString());
@@ -62,7 +62,7 @@ namespace BanBan.Controls
                     var sup = from sp in sb.empleado where sp.nombre.Equals(supervisor) select sp.idEmpleado;
                     suc.sucursal1 = sucursal;
                     suc.direccion = direccion;
-                    suc.idHangar = 1;
+                    
                     foreach (var item in id)
                     {
                         suc.idCiudad = int.Parse(item.ToString());

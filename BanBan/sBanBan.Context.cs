@@ -37,7 +37,6 @@ namespace BanBan
         public virtual DbSet<dispositivo> dispositivo { get; set; }
         public virtual DbSet<empleado> empleado { get; set; }
         public virtual DbSet<fiestanacional> fiestanacional { get; set; }
-        public virtual DbSet<hangar> hangar { get; set; }
         public virtual DbSet<horario> horario { get; set; }
         public virtual DbSet<horarioextra> horarioextra { get; set; }
         public virtual DbSet<horariosucursal> horariosucursal { get; set; }

@@ -55,4 +55,10 @@ namespace BanBan.Model
         public int idEmpleado { get; set; }
         public int idSucursal { get; set; }
     }
+    public class Dispositivo
+    {
+        public int idDispositivo { get; set; }
+        public string ip { get; set; }
+        public int idSucursal { get; set; }
+    }
 }

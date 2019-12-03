@@ -35,7 +35,7 @@ namespace BanBan.Model
         }
         //Cantidad de Horas trabajadas redondeadas al digito inferior
         public decimal Horas { get; set; }
-        //Cantidad de horas despues de la hora de trabajo normal aprovadas
+        //Cantidad de horas despues de la hora de trabajo normal aprobadas
         private decimal _HorasExtra;
         public decimal HorasExtra
         {

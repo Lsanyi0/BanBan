@@ -37,17 +37,27 @@ namespace BanBan.Controls
         {
             XmlSerializer xml = new XmlSerializer(typeof(HorasExtraOfflineModel));
             HorasExtraOfflineModel HoraExtraOffline;
-            using (FileStream fileStream = new FileStream(filename, FileMode.Open))
+            try
             {
-                HoraExtraOffline = (HorasExtraOfflineModel)xml.Deserialize(fileStream);
+                using (FileStream fileStream = new FileStream(filename, FileMode.Open))
+                {
+                    HoraExtraOffline = (HorasExtraOfflineModel)xml.Deserialize(fileStream);
+                }
+            }
+            catch (System.Exception)
+            {
+                HoraExtraOffline = null;
+                System.Windows.MessageBox.Show("No se encontro el archivo de base de datos local, " +
+                    "porfavor contacte con administrador de sistemas","Error",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             heom = HoraExtraOffline;
             return heom;
         }
         public bool OfflineLogin(string usuario, string clave)
         {
-            CargarBDOffline();
-            return (from us in heom.Usuarios where us.contrasena.Equals(clave) && us.usuario.Equals(usuario) select us).Any();
+            CargarBDOffline();            
+            return heom == null ? false : (from us in heom.Usuarios where us.contrasena.Equals(clave) && us.usuario.Equals(usuario) select us).Any();
         }
     }
 }

@@ -80,8 +80,8 @@ namespace BanBan.Controls
                         AFPEmpleado = empleado.sistemapension.descuento,
                         PorcentajeCargo = empleado.cargo.atenciones ?? 0,
                     };
-                    List<TimeSpan?> Inicio = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.entrada).ToList();
-                    List<TimeSpan?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
+                    List<DateTime?> Inicio = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.entrada).ToList();
+                    List<DateTime?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
                     pm.Horas = getHorasTrabajadas(Inicio, Fin);
                     planillaModels.Add(pm);
                 }
@@ -89,12 +89,12 @@ namespace BanBan.Controls
             }
             return new BindingList<PlanillaModel>();
         }
-        public decimal getHorasTrabajadas(List<TimeSpan?> Iniciales, List<TimeSpan?> Finales)
+        public decimal getHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
         {
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += decimal.Parse((Finales[i] - Iniciales[i]).ToString().Split(':')[0]);
+                Horas += (decimal)(Finales[i] - Iniciales[i]).Value.TotalHours;
             }
             return Horas;
         }
