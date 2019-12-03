@@ -1,5 +1,6 @@
 ﻿using BanBan.Controls;
 using BanBan.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace BanBan.Pages
     public partial class Sucursales : Page
     {
         sBanBan sb = new sBanBan();
+        diapatronal dp;
         SucursalesControl sc = new SucursalesControl();
         private string date = "";
         private int ind = 0;
@@ -68,8 +70,43 @@ namespace BanBan.Pages
             }
             else
             {
-                MessageBox.Show(val);
+                if (val.Equals("sucursal existente"))
+                {
+                    List<string> listaA = new List<string>();
+                    listaA= sc.DeterminarAsuetos(cbMunicipio.Text);
+                    if (listaA.Count()==lsAsuetos.Items.Count)
+                    {
+                        MessageBox.Show(val);
+                    }
+                    else
+                    {
+                        //Aqui prro
+                        foreach (var item in lsAsuetos.Items)
+                        {
+                            DateTime dia = Convert.ToDateTime(item);
+                            var mn = from muni in sb.ciudad where muni.ciudad1.Equals(cbMunicipio.Text) select muni.idCiudad;
+                            int id = mn.FirstOrDefault();
+                            var asut = from asu in sb.diapatronal
+                                       join cd in sb.ciudad on asu.idCiudad equals cd.idCiudad
+                                       where asu.dia == dia && asu.idCiudad == id
+                                       select asu.idDiaPatronal;
+                            foreach (var asuetos in asut)
+                            {
+                                var diaD = new diapatronal { idDiaPatronal = int.Parse(asuetos.ToString())};
+                                sb.Entry(diaD).State = System.Data.Entity.EntityState.Deleted;
+                                sb.SaveChangesAsync();
+                            }
+                                dp = new diapatronal();
+                                dp.dia = dia;
+                                dp.idCiudad = id;
+                                sb.diapatronal.Add(dp);
+                                sb.SaveChangesAsync();
+                            
 
+                        }
+                        MessageBox.Show("datos actualizados");
+                    }
+                }
             }
         }
 

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BanBan.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="820"
+      d:DesignHeight="450" d:DesignWidth="2000"
       Title="Planillas">
     <!--Cancelar por usuario individual-->
     <Grid>
@@ -59,12 +59,11 @@
                         <DataGridTextColumn Header="Sueldo"  Binding="{Binding Sueldo}" Width="50"/>
                         <DataGridTextColumn Header="Horas" Binding="{Binding Horas}" Width="40"/>
                         <DataGridTextColumn Header="Nocturnas" Binding="{Binding HorasNocturnas}" Width="65"/>
-                        <DataGridTextColumn Header="Nocturnidad" Width="90" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Nocturnidad"  Binding="{Binding TotalHorasNocturnas}" Width="90"/>
                         <DataGridTextColumn Header="Total Horas extra" Binding="{Binding TotalHorasExtra}" Width="100"/>
-                        <DataGridTextColumn Header="Asuetos" Binding="{Binding HorasAsueto}" Width="55"/>
                         <DataGridTextColumn Header="Total Horas extra nocturnas" Binding="{Binding TotalHorasExtraNocturnas}" Width="155"/>
-                        <DataGridTextColumn Header="Horas Nocturnas" Binding="{Binding TotalHorasNocturnas}" Width="100"/>
                         <DataGridTextColumn Header="Total asueto" Binding="{Binding TotalAsuetos}" Width="90"/>
+                        <DataGridTextColumn Header="Total descanso" Binding="{Binding TotaDescanso}" Width="90"/>
                         <DataGridTextColumn Header="Total devengado" Binding="{Binding TotalDevengado}" Width="100"/>
                         <DataGridTextColumn Header="Seguro empleado" Binding="{Binding TotalSeguroEmpleado}" Width="110"/>
                         <DataGridTextColumn Header="AFP empleado" Binding="{Binding TotalAFPEmpleado}" Width="100"/>
@@ -109,6 +108,7 @@
                         <DataGridTextColumn Header="Horas Extra Normales" Binding="{Binding HorasExtra, Mode=TwoWay}" Width="125"/>
                         <DataGridTextColumn Header="Horas Extra Nocturnas" Binding="{Binding HorasNocturnasExtra, Mode=TwoWay}" Width="130"/>
                         <DataGridTextColumn Header="Horas asueto" Binding="{Binding HorasAsueto, Mode=TwoWay}" Width="80"/>
+                        <DataGridTextColumn Header="Total descuento" Binding="{Binding TotalDescanso}" Width="90"/>
                         <DataGridTextColumn Header="Descuentos" Width="70"/>
                     </DataGrid.Columns>
                 </DataGrid>
