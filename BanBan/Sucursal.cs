@@ -17,9 +17,9 @@ namespace BanBan
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public sucursal()
         {
-            this.dispositivo = new HashSet<dispositivo>();
             this.horariosucursal = new HashSet<horariosucursal>();
             this.trabajo = new HashSet<trabajo>();
+            this.dispositivo = new HashSet<dispositivo>();
         }
     
         public int idSucursal { get; set; }
@@ -29,10 +29,10 @@ namespace BanBan
     
         public virtual ciudad ciudad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dispositivo> dispositivo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<horariosucursal> horariosucursal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<trabajo> trabajo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dispositivo> dispositivo { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace BanBan.Pages
         private string date = "";
         private int ind = 0;
         private List<string> lista;
-        private bool edit;
+
         public Sucursales()
         {
             InitializeComponent();
@@ -39,7 +39,6 @@ namespace BanBan.Pages
                       select emp.nombre;
             cbEditarSucursal.ItemsSource = sc.getSucursales();
             if (cbEditarSucursal.Items.Count > 0) cbEditarSucursal.SelectedIndex = 0;
-            edit = false;
             if (mn != null)
             {
                 cbMunicipio.ItemsSource = mn.ToList();
@@ -229,7 +228,6 @@ namespace BanBan.Pages
             {
                 if (MessageBox.Show($"Editar {cbEditarSucursal.Text}, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    edit = true;
                     lsAsuetos.Items.Clear();
                     SucursalModel suc = sc.getSucursal(cbEditarSucursal.Text);
                     tbNombreSucursal.Text = suc.NombreSucursal ?? "";

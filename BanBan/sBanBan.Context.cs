@@ -34,7 +34,6 @@ namespace BanBan
         public virtual DbSet<descuentos> descuentos { get; set; }
         public virtual DbSet<dianacional> dianacional { get; set; }
         public virtual DbSet<diapatronal> diapatronal { get; set; }
-        public virtual DbSet<dispositivo> dispositivo { get; set; }
         public virtual DbSet<empleado> empleado { get; set; }
         public virtual DbSet<fiestanacional> fiestanacional { get; set; }
         public virtual DbSet<horario> horario { get; set; }
@@ -50,5 +49,6 @@ namespace BanBan
         public virtual DbSet<tipousuario> tipousuario { get; set; }
         public virtual DbSet<trabajo> trabajo { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<dispositivo> dispositivo { get; set; }
     }
 }
