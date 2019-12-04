@@ -30,6 +30,7 @@ namespace BanBan.Pages
                 hec = new HorasExtraControl();
             }
             cbEmpleado.ItemsSource = hec.GetCBEmplados();
+            cbEmpleado.SelectedIndex = cbEmpleado.HasItems ? 0 : -1;
         }
 
         private void btCancelar_Click(object sender, RoutedEventArgs e)
@@ -42,12 +43,12 @@ namespace BanBan.Pages
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
         {
-            he.Add(new HorasExtraModel { Nombre = "Name", Apellido = "Kusei" });
+            he.Add(new HorasExtraModel { Nombre = cbEmpleado.Text , Apellido = "", HoraInicio = System.DateTime.Now});
         }
 
         private void btEnviarDatos_Click(object sender, RoutedEventArgs e)
         {
-
+            heoc = new HorasExtraOfflineControl();
             heoc.CrearBDOffline();
         }
 

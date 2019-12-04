@@ -58,7 +58,17 @@ namespace BanBan.Controls
                     {
                         idTrabajo = tb.idTrabajo,
                         idEmpleado = tb.idEmpleado,
-                        idSucursal = tb.idEmpleado
+                        idSucursal = tb.idSucursal
+                    }).ToList() ?? null;
+        }
+        private protected List<Dispositivo> GetDispositivos()
+        {
+            return (from dp in sb.dispositivo
+                    select new Dispositivo
+                    {
+                        idDispositivo = dp.idDispositivo,
+                        ip = dp.ip,
+                        idSucursal = dp.idSucursal
                     }).ToList() ?? null;
         }
     }

@@ -41,12 +41,12 @@
         <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
-                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Hora Inicio" Binding="{Binding HoraInicio, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Hora Final" Binding="{Binding HoraFinal, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Hora Inicio" Binding="{Binding HoraInicio, Mode=TwoWay, StringFormat=\{0:dd/MM/yy hh:mm tt\}}"/>
+                <DataGridTextColumn Header="Hora Final" Binding="{Binding HoraFinal, Mode=TwoWay, StringFormat=\{0:dd/MM/yy hh:mm tt\}}"/>
                 <DataGridTextColumn Header="Hora Extra Normal" Binding="{Binding HoraExtra, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Hora Extra Nocturna" Binding="{Binding HoraExtraNocturna, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Horas Dia asueto" Binding="{Binding HoraAsueto, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Horas Dia descanso" Binding="{Binding HoraDescanso, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuento, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Comentario" Binding="{Binding Comentario, Mode=TwoWay}"/>
             </DataGrid.Columns>

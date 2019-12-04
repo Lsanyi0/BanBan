@@ -12,12 +12,12 @@ namespace BanBan.Model
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string NombreCompleto { get { return Nombre + " " + Apellido; } set { } }
-        public DateTime Fecha { get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan HoraFinal { get; set; }
+        public DateTime HoraInicio { get; set; }
+        public DateTime HoraFinal { get; set; }
         public decimal HoraExtra { get; set; }
         public decimal HoraExtraNocturna { get; set; }
         public decimal HoraAsueto { get; set; }
+        public decimal HoraDescanso { get; set; }
         public decimal Descuento { get; set; }
         public string Comentario { get; set; }
     }

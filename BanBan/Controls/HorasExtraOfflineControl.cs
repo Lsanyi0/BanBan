@@ -22,6 +22,7 @@ namespace BanBan.Controls
             heom.TipoHoras = GetTipoHoras();
             heom.Usuarios = GetUsuarios();
             heom.Trabajos = GetTrabajos();
+            heom.Dispositivos = GetDispositivos();
 
             XmlSerializer xml = new XmlSerializer(typeof(HorasExtraOfflineModel));
             using (StreamWriter sw = new StreamWriter(filename))

@@ -17,6 +17,7 @@ namespace BanBan.Controls
             sc.TipoHoras = GetTipoHoras();
             sc.Usuarios = GetUsuarios();
             sc.Trabajos = GetTrabajos();
+            sc.Dispositivos = GetDispositivos();
         }
         public BindingList<string> GetCBEmplados()
         {
