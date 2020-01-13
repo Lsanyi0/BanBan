@@ -11,7 +11,7 @@
           </Key>
           <Property Name="idAtencion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="atencion" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="montoBase" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="montoBase" Type="decimal" Precision="6" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="atenciondetalle">
           <Key>
@@ -28,7 +28,7 @@
           </Key>
           <Property Name="idCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cargo" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="atenciones" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="atenciones" Type="decimal" Precision="6" Scale="4" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -61,7 +61,7 @@
           <Property Name="idDescuentos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descuento" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
-          <Property Name="monto" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="6" Scale="4" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idPlanilla" Type="int" Nullable="false" />
         </EntityType>
@@ -85,7 +85,7 @@
           <Key>
             <PropertyRef Name="idDispositivo" />
           </Key>
-          <Property Name="idDispositivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDispositivo" Type="varchar" MaxLength="16" Nullable="false" />
           <Property Name="ip" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="idSucursal" Type="int" Nullable="false" />
         </EntityType>
@@ -103,7 +103,7 @@
           <Property Name="fechaIngreso" Type="date" Nullable="false" />
           <Property Name="fechaSalida" Type="date" />
           <Property Name="estado" Type="bool" Nullable="false" />
-          <Property Name="sueldo" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="sueldo" Type="decimal" Precision="6" Scale="4" />
           <Property Name="idSistemaPension" Type="int" Nullable="false" />
           <Property Name="idCargo" Type="int" Nullable="false" />
         </EntityType>
@@ -171,7 +171,7 @@
             <PropertyRef Name="idRegistroS" />
           </Key>
           <Property Name="idRegistroS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="sueldoAumentado" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="sueldoAumentado" Type="decimal" Precision="6" Scale="4" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sistemapension">
@@ -180,7 +180,7 @@
           </Key>
           <Property Name="idSistemaPension" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sistemaP" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="descuento" Type="decimal" Precision="5" Scale="3" Nullable="false" />
+          <Property Name="descuento" Type="decimal" Precision="5" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="sucursal">
           <Key>
@@ -205,7 +205,7 @@
           </Key>
           <Property Name="idTipoHora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipo" Type="varchar" MaxLength="20" />
-          <Property Name="costo" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="costo" Type="decimal" Precision="6" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="tipousuario">
           <Key>
@@ -690,7 +690,6 @@
           <EntitySet Name="descuentos" EntityType="sql3307115Model.descuentos" />
           <EntitySet Name="dianacional" EntityType="sql3307115Model.dianacional" />
           <EntitySet Name="diapatronal" EntityType="sql3307115Model.diapatronal" />
-          <EntitySet Name="dispositivo" EntityType="sql3307115Model.dispositivo" />
           <EntitySet Name="empleado" EntityType="sql3307115Model.empleado" />
           <EntitySet Name="fiestanacional" EntityType="sql3307115Model.fiestanacional" />
           <EntitySet Name="horario" EntityType="sql3307115Model.horario" />
@@ -750,10 +749,6 @@
             <End Role="fiestanacional" EntitySet="fiestanacional" />
             <End Role="dianacional" EntitySet="dianacional" />
           </AssociationSet>
-          <AssociationSet Name="fk_DispositivoxSucursal" Association="sql3307115Model.fk_DispositivoxSucursal">
-            <End Role="sucursal" EntitySet="sucursal" />
-            <End Role="dispositivo" EntitySet="dispositivo" />
-          </AssociationSet>
           <AssociationSet Name="fk_EmpleadoxSPension" Association="sql3307115Model.fk_EmpleadoxSPension">
             <End Role="sistemapension" EntitySet="sistemapension" />
             <End Role="empleado" EntitySet="empleado" />
@@ -809,6 +804,11 @@
           <AssociationSet Name="fk_UsuarioxTipo" Association="sql3307115Model.fk_UsuarioxTipo">
             <End Role="tipousuario" EntitySet="tipousuario" />
             <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <EntitySet Name="dispositivo" EntityType="sql3307115Model.dispositivo" />
+          <AssociationSet Name="fk_DispositivoxSucursal" Association="sql3307115Model.fk_DispositivoxSucursal">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="dispositivo" EntitySet="dispositivo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="atencion">
@@ -900,15 +900,6 @@
           <Property Name="dia" Type="DateTime" Nullable="false" />
           <Property Name="idCiudad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ciudad" Relationship="sql3307115Model.fk_PatronalxCiudad" FromRole="diapatronal" ToRole="ciudad" />
-        </EntityType>
-        <EntityType Name="dispositivo">
-          <Key>
-            <PropertyRef Name="idDispositivo" />
-          </Key>
-          <Property Name="idDispositivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ip" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="idSucursal" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="sucursal" Relationship="sql3307115Model.fk_DispositivoxSucursal" FromRole="dispositivo" ToRole="sucursal" />
         </EntityType>
         <EntityType Name="empleado">
           <Key>
@@ -1038,9 +1029,9 @@
           <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idCiudad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ciudad" Relationship="sql3307115Model.fk_SucursalxCiudad" FromRole="sucursal" ToRole="ciudad" />
-          <NavigationProperty Name="dispositivo" Relationship="sql3307115Model.fk_DispositivoxSucursal" FromRole="sucursal" ToRole="dispositivo" />
           <NavigationProperty Name="horariosucursal" Relationship="sql3307115Model.fk_HorarioSxSucursal" FromRole="sucursal" ToRole="horariosucursal" />
           <NavigationProperty Name="trabajo" Relationship="sql3307115Model.fk_TrabajoxSucursal" FromRole="sucursal" ToRole="trabajo" />
+          <NavigationProperty Name="dispositivo" Relationship="sql3307115Model.fk_DispositivoxSucursal" FromRole="sucursal" ToRole="dispositivo" />
         </EntityType>
         <EntityType Name="telefono">
           <Key>
@@ -1223,18 +1214,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_DispositivoxSucursal">
-          <End Type="sql3307115Model.sucursal" Role="sucursal" Multiplicity="1" />
-          <End Type="sql3307115Model.dispositivo" Role="dispositivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sucursal">
-              <PropertyRef Name="idSucursal" />
-            </Principal>
-            <Dependent Role="dispositivo">
-              <PropertyRef Name="idSucursal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_EmpleadoxSPension">
           <End Type="sql3307115Model.sistemapension" Role="sistemapension" Multiplicity="1" />
           <End Type="sql3307115Model.empleado" Role="empleado" Multiplicity="*" />
@@ -1403,6 +1382,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="dispositivo">
+          <Key>
+            <PropertyRef Name="idDispositivo" />
+          </Key>
+          <Property Name="idDispositivo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sucursal" Relationship="sql3307115Model.fk_DispositivoxSucursal" FromRole="dispositivo" ToRole="sucursal" />
+        </EntityType>
+        <Association Name="fk_DispositivoxSucursal">
+          <End Type="sql3307115Model.sucursal" Role="sucursal" Multiplicity="1" />
+          <End Type="sql3307115Model.dispositivo" Role="dispositivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="dispositivo">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1491,15 +1491,6 @@
                 <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
                 <ScalarProperty Name="dia" ColumnName="dia" />
                 <ScalarProperty Name="idDiaPatronal" ColumnName="idDiaPatronal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dispositivo">
-            <EntityTypeMapping TypeName="sql3307115Model.dispositivo">
-              <MappingFragment StoreEntitySet="dispositivo">
-                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-                <ScalarProperty Name="idDispositivo" ColumnName="idDispositivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1659,6 +1650,15 @@
                 <ScalarProperty Name="contrasena" ColumnName="contrasena" />
                 <ScalarProperty Name="usuario1" ColumnName="usuario" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dispositivo">
+            <EntityTypeMapping TypeName="sql3307115Model.dispositivo">
+              <MappingFragment StoreEntitySet="dispositivo">
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="idDispositivo" ColumnName="idDispositivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

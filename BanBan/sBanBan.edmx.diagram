@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="sql3307115Model.descuentos" Width="1.5" PointX="6.375" PointY="0.75" />
         <EntityTypeShape EntityType="sql3307115Model.dianacional" Width="1.5" PointX="3" PointY="0.875" />
         <EntityTypeShape EntityType="sql3307115Model.diapatronal" Width="1.5" PointX="2.625" PointY="10.375" />
-        <EntityTypeShape EntityType="sql3307115Model.dispositivo" Width="1.5" PointX="13" PointY="12.625" />
         <EntityTypeShape EntityType="sql3307115Model.empleado" Width="1.5" PointX="6.375" PointY="3.75" />
         <EntityTypeShape EntityType="sql3307115Model.fiestanacional" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="sql3307115Model.horario" Width="1.5" PointX="6.625" PointY="10" />
@@ -49,7 +48,6 @@
         <AssociationConnector Association="sql3307115Model.fk_DescuentosxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_DescuentosxPlanilla" />
         <AssociationConnector Association="sql3307115Model.fk_DiaNacionalxFiestaNacional" />
-        <AssociationConnector Association="sql3307115Model.fk_DispositivoxSucursal" />
         <AssociationConnector Association="sql3307115Model.fk_EmpleadoxSPension" />
         <AssociationConnector Association="sql3307115Model.fk_HExtraxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_HorarioxEmpleado" />
@@ -68,6 +66,8 @@
         <AssociationConnector Association="sql3307115Model.fk_PHorarioxPlanilla" />
         <AssociationConnector Association="sql3307115Model.fk_TrabajoxSucursal" />
         <AssociationConnector Association="sql3307115Model.fk_UsuarioxTipo" />
+        <EntityTypeShape EntityType="sql3307115Model.dispositivo" Width="1.5" PointX="13.125" PointY="12.5" />
+        <AssociationConnector Association="sql3307115Model.fk_DispositivoxSucursal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

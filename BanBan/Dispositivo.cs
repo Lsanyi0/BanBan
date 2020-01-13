@@ -14,7 +14,7 @@ namespace BanBan
     
     public partial class dispositivo
     {
-        public int idDispositivo { get; set; }
+        public string idDispositivo { get; set; }
         public string ip { get; set; }
         public int idSucursal { get; set; }
     

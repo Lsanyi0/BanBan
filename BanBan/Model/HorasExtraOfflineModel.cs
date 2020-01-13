@@ -15,12 +15,14 @@ namespace BanBan.Model
             Sucursales = new List<Sucursal>();
             TipoHoras = new List<TipoHora>();
             Trabajos = new List<Trabajo>();
+            Dispositivos = new List<Dispositivo>();
         }
         public List<Usuario> Usuarios { get; set; }
         public List<Empleado> Empleados { get; set; }
         public List<Sucursal> Sucursales { get; set; }
         public List<TipoHora> TipoHoras { get; set; }
         public List<Trabajo> Trabajos { get; set; }
+        public List<Dispositivo> Dispositivos { get; set; }
     }
     public class Usuario
     {
@@ -57,7 +59,7 @@ namespace BanBan.Model
     }
     public class Dispositivo
     {
-        public int idDispositivo { get; set; }
+        public string idDispositivo { get; set; }
         public string ip { get; set; }
         public int idSucursal { get; set; }
     }
