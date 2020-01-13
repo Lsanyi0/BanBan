@@ -156,6 +156,9 @@
     <Compile Include="Pages\HorasExtra.xaml.cs">
       <DependentUpon>HorasExtra.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Reportes.xaml.cs">
+      <DependentUpon>Reportes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Reportes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
