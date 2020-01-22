@@ -54,7 +54,8 @@ namespace BanBan.Pages
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
         {
-
+            heoc = new HorasExtraOfflineControl();
+            heoc.CargarDB();
         }
     }
 }

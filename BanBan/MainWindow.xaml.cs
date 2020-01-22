@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Animation;
 using BanBan.Pages;
-
+using System.Windows.Forms;
 
 namespace BanBan
 {
@@ -133,12 +133,11 @@ namespace BanBan
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(pruebaDatos))
-            {
-                frPpal.Content = pruebaDatos;
-                btPrueba.Visibility = Visibility.Hidden;
-            }
+
+            frPpal.Content = pruebaDatos;
+            btPrueba.Visibility = Visibility.Hidden;
         }
+
         private void btCerrarSesionClick(object sender, RoutedEventArgs e)
         {
             cerrarSesion();

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Forms;
 using BanBan.Controls;
 
 namespace BanBan.Pages
@@ -63,6 +64,21 @@ namespace BanBan.Pages
         private void btGuardarAdmin_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             cc.updateCargo(cbCargo.Text, decimal.Parse(tbMontoCargo.Text));
+        }
+
+        private void btSeleccionarCarpeta_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string path = Properties.Settings.Default.Dropbox;
+            FolderBrowserDialog fd = new FolderBrowserDialog();
+            fd.ShowNewFolderButton = false;
+            fd.Description = "Seleccione la carpeta de dropbox";
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                path = fd.SelectedPath;
+                System.Console.WriteLine(path);
+                Properties.Settings.Default.Dropbox = path;
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

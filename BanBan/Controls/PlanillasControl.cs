@@ -8,6 +8,7 @@ namespace BanBan.Controls
 {
     class PlanillasControl : Utilidades
     {
+        private const int HorasQuincena = 96;
         public BindingList<PlanillaModel> getEmpleados()
         {
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension") select em).ToList();
@@ -33,7 +34,7 @@ namespace BanBan.Controls
                 Apellido = "Alegria",
                 NumeroDias = 15,
                 Horas = (15 * 8),
-                SueldoBase = 1.267375m,
+                SueldoBase = 10.1390m,
                 HorasNocturnas = 2,
                 HorasExtra = 5,
                 HorasAsueto = 8,
@@ -45,7 +46,7 @@ namespace BanBan.Controls
                 Apellido = "Ramirez",
                 NumeroDias = 14,
                 Horas = (14 * 8),
-                SueldoBase = 1.267375m,
+                SueldoBase = 10.1390M,
                 HorasNocturnas = 5,
                 HorasAsueto = 8,
                 AFPEmpleado = 7.25M
@@ -56,12 +57,12 @@ namespace BanBan.Controls
                 Apellido = "Flores",
                 NumeroDias = 12,
                 Horas = (12 * 8),
-                SueldoBase = 1.267375m,
+                SueldoBase = 10.1390M,
                 HorasNocturnas = 5,
                 HorasExtra = 37,
                 HorasAsueto = 8,
                 AFPEmpleado = 7.25M
-            }) ;
+            });
             return pm;
         }
         private BindingList<PlanillaModel> getPlanillaModels(List<empleado> empleados)
@@ -82,14 +83,19 @@ namespace BanBan.Controls
                     };
                     List<DateTime?> Inicio = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.entrada).ToList();
                     List<DateTime?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
-                    pm.Horas = getHorasTrabajadas(Inicio, Fin);
+                    pm.Horas = GetHorasTrabajadas(Inicio, Fin);
+                    pm.NumeroDias = GetDiasTrabajados(Inicio);
                     planillaModels.Add(pm);
                 }
                 return planillaModels;
             }
             return new BindingList<PlanillaModel>();
         }
-        public decimal getHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        private int GetDiasTrabajados(List<DateTime?> Dias)
+        {
+            return Dias.Count;
+        }
+        private decimal GetHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
         {
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
@@ -98,9 +104,40 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        //TimeSpan x = new TimeSpan(9, 0, 0);
-        //TimeSpan y = new TimeSpan(17, 0, 0);
-        public string getDetalle(List<string> Detalle, List<double> Monto)
+        private decimal GetHorasExtra(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        {
+            decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
+            if (Horas > HorasQuincena)
+            {
+                return Horas - HorasQuincena;
+            }
+            return 0M;
+        }
+        //Horas > 7:00 pm
+        private decimal GetNocturnidad(List<DateTime?> Finales)
+        {
+            TimeSpan HoraNocturna = DateTime.Parse("7:00 pm").TimeOfDay;
+            decimal Horas = 0;
+            foreach (DateTime fin in Finales)
+            {
+                if (fin.TimeOfDay > HoraNocturna)
+                {
+                    Horas += (fin.TimeOfDay - HoraNocturna).Hours;
+                }
+            }
+            return Horas;
+        }
+        private decimal GetHorasAusente(List<DateTime?> Iniciales, List<DateTime?> Finales) 
+        {
+            decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
+            if (Horas < HorasQuincena)
+            {
+                return HorasQuincena - Horas;
+            }
+            return 0M;
+        }
+        //Funcion par obtener detalle de descuentos o atenciones
+        public string GetDetalle(List<string> Detalle, List<double> Monto)
         {
             string Detalles = "";
             for (int i = 0; i < Detalle.Count; i++)

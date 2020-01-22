@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using zkemkeeper;
 
 namespace BanBan.Pages
@@ -8,7 +9,6 @@ namespace BanBan.Pages
 
     public class UserInfo
     {
-
         public int MachineNumber { get; set; }
         public string EnrollNumber { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,7 @@ namespace BanBan.Pages
         public int Privelage { get; set; }
         public string Password { get; set; }
         public bool Enabled { get; set; }
-        public string iFlag { get; set; }
-
+        public string iFlag { get; set; } 
     }
     /// <summary>
     /// Interaction logic for pruebaDatos.xaml
@@ -118,6 +117,15 @@ namespace BanBan.Pages
             }
             return lstFPTemplates;
         }
+        private void btn_WriteData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SSR_SetUserInfo(int machineNumber, string enrollNumber, string name, string password, int privilege, bool enabled)
+        {
+            System.Windows.MessageBox.Show("" + objCZKEM.SSR_SetUserInfo(machineNumber, enrollNumber, name, password, privilege, enabled));
+        }
 
         public bool ReadAllUserID(int dwMachineNumber)
         {
@@ -139,7 +147,7 @@ namespace BanBan.Pages
         private void btGetDatos_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
-            {               
+            {
                 ICollection<UserInfo> lstFingerPrintTemplates = GetAllUserInfo(this, 1);
                 if (lstFingerPrintTemplates != null && lstFingerPrintTemplates.Count > 0)
                 {
@@ -152,6 +160,28 @@ namespace BanBan.Pages
             {
                 lbConexion.Content = (ex.Message);
             }
+        }
+
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ICollection<UserInfo> lstFingerPrintTemplates;
+            try
+            {
+                 lstFingerPrintTemplates = GetAllUserInfo(this, 1);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            int MachineNumber = 1;
+            string EnrollNumber = (int.Parse((from asd in lstFingerPrintTemplates select asd.EnrollNumber).Last())+1).ToString();
+            string Name = "xDD";
+            string Password = "1153";
+            int Privilege = 1;
+            bool Enabled = true;
+
+            SSR_SetUserInfo(MachineNumber, EnrollNumber, Name, Password, Privilege, Enabled);
         }
     }
 }

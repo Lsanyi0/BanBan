@@ -15,6 +15,7 @@ namespace BanBan.Model
             Descuento = new List<decimal>();
             Atencion = new List<decimal>();
         }
+        public const decimal JornadaLaboral = 8;
         public int IdEmpleado { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }
@@ -30,12 +31,18 @@ namespace BanBan.Model
         //Sueldo basico sin prestaciones ni Horas extra
         public decimal Sueldo
         {
-            get { return decimal.Round(decimal.Floor(Horas) * SueldoBase, Decimales); }
+            get { return (Horas / JornadaLaboral) * SueldoBase; }
             set { }
         }
-        //Cantidad de Horas trabajadas redondeadas al digito inferior ♠♠♠
+        public decimal DescuentoAusencia
+        {
+            get { return HorasAusencia * (SueldoBase / JornadaLaboral); }
+            set { }
+        }
+        public decimal HorasAusencia { get; set; }
+        //Cantidad de Horas trabajadas
         public decimal Horas { get; set; }
-        //Cantidad de horas despues de la hora de trabajo normal aprobadas
+        //Cantidad de horas despues de la hora de trabajo normal 
         private decimal _HorasExtra;
         public decimal HorasExtra
         {
@@ -46,8 +53,6 @@ namespace BanBan.Model
                 OnPropertyChanged("HorasExtra");
             }
         }
-        //???
-        public decimal Nocturnidad { get; set; } //falta
         //Indica la cantidad de Horas trabajadas en horario nocturno rutinarias
         public decimal HorasNocturnas { get; set; }
         //Indica la cantidad de Horas extra trabajadas de noche
@@ -64,19 +69,19 @@ namespace BanBan.Model
         //Monto por horas rutinarias trabajadas de noche 
         public decimal TotalHorasNocturnas
         {
-            get { return decimal.Round(decimal.Floor(HorasNocturnas) * (1.25M * 0.25M), Decimales); }
+            get { return HorasNocturnas * (1.25M * 0.25M); }
             set { }
         }
         //Monto por las horas trabajadas despues del horario normal
         public decimal TotalHorasExtra
         {
-            get { return decimal.Round(HorasExtra * 1.25M, 2); }
+            get { return HorasExtra * 1.25M; }
             set { }
         }
         //Indica la cantidad de dinero por las horas nocturnas trabajadas
         public decimal TotalHorasExtraNocturnas
         {
-            get { return decimal.Round(HorasNocturnasExtra * (3.125M), Decimales); }
+            get { return HorasNocturnasExtra * (3.125M); }
             set { }
         }
         //Horas trabajadas en dia de asueto
@@ -90,10 +95,25 @@ namespace BanBan.Model
                 OnPropertyChanged("HorasAsueto");
             }
         }
+        public decimal _HorasDescanso { get; set; }
+        public decimal HorasDescanso
+        {
+            get { return _HorasDescanso; }
+            set
+            {
+                _HorasDescanso = value;
+                OnPropertyChanged("HorasDescanso");
+            }
+        }
+        public decimal TotalHorasDescanso
+        {
+            get { return HorasDescanso * 1.25M; }
+            set { }
+        }
         //Monto por horas trabajadas en dias de asueto
         public decimal TotalAsuetos
         {
-            get { return decimal.Round(HorasAsueto * 1.25M, Decimales); }
+            get { return HorasAsueto * 1.25M; }
             set { }
         }
         //Total sin descuentos ni prestaciones
@@ -101,11 +121,12 @@ namespace BanBan.Model
         {
             get
             {
-                return Sueldo
+                return (Sueldo - DescuentoAusencia)
                 + TotalHorasExtra
-                + TotalHorasNocturnas
+                + TotalHorasNocturnas //Nocturnidad
                 + TotalHorasExtraNocturnas
-                + TotalAsuetos;
+                + TotalAsuetos
+                + TotalHorasDescanso;
             }
             set { }
         }
@@ -114,28 +135,27 @@ namespace BanBan.Model
 
         public decimal TotalSeguroEmpleado
         {
-            get { return decimal.Round(SeguroEmpleado * TotalDevengado, Decimales); }
+            get { return SeguroEmpleado * TotalDevengado; }
             set { }
         }
         //Porcentage de retencion por AFP
         public decimal AFPEmpleado { get; set; }
-
         public decimal TotalAFPEmpleado
         {
-            get { return decimal.Round((AFPEmpleado * TotalDevengado) / 100, Decimales); }
+            get { return (AFPEmpleado * TotalDevengado) / 100; }
             set { }
         }
         public decimal Renta { get; set; } //falta
         //Total con deducciones, descuentos
         public decimal TotalDeduccion
         {
-            get { return decimal.Round(TotalSeguroEmpleado + TotalAFPEmpleado + Renta + TotalDescuento, Decimales); }
+            get { return TotalSeguroEmpleado + TotalAFPEmpleado + Renta + TotalDescuento; }
             set { }
         }
         //Total con deducciones, descuentos y prestaciones (Atenciones)
         public decimal NetoAPagar
         {
-            get { return decimal.Round(TotalDevengado - TotalDeduccion, Decimales); }
+            get { return TotalDevengado - TotalDeduccion; }
             set { }
         }
         protected void OnPropertyChanged(string name)
