@@ -112,6 +112,7 @@
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConfiguracionControl.cs" />
+    <Compile Include="Controls\Crypto.cs" />
     <Compile Include="Controls\EmpleadosControl.cs" />
     <Compile Include="Controls\HorasExtraCommonControl.cs" />
     <Compile Include="Controls\HorasExtraControl.cs" />

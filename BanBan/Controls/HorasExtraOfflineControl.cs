@@ -1,17 +1,17 @@
 ﻿using BanBan.Model;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Windows;
-
 namespace BanBan.Controls
 {
     public class HorasExtraOfflineControl : HorasExtraCommonControl
     {
         private HorasExtraOfflineModel heom;
 
-        private const string filename = "\\heom.xml";//hora extra offline model
+        private const string filename = "\\heom.no";//hora extra offline model desencriptado
+        private const string filenamex = "\\heom.xml";//hora extra offline model encriptado
         private string pathDB = Properties.Settings.Default.Dropbox;
         public HorasExtraOfflineControl()
         {
@@ -34,10 +34,13 @@ namespace BanBan.Controls
                     xml.Serialize(writer, heom);
                 }
             }
+            Crypto.Encrypt(pathDB + filename, pathDB + filenamex);
         }
 
         public HorasExtraOfflineModel CargarBDOffline()
         {
+            Crypto.Decrypt(pathDB + filenamex, pathDB + filename);
+
             XmlSerializer xml = new XmlSerializer(typeof(HorasExtraOfflineModel));
             HorasExtraOfflineModel HoraExtraOffline;
             try
@@ -55,6 +58,7 @@ namespace BanBan.Controls
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
             heom = HoraExtraOffline;
+            File.Delete(pathDB + filename);
             return heom;
         }
         public bool OfflineLogin(string usuario, string clave)
@@ -66,12 +70,11 @@ namespace BanBan.Controls
         {
             try
             {
-                File.Copy(pathDB + filename, System.Environment.CurrentDirectory + filename, true);
+                File.Copy(pathDB + filenamex, System.Environment.CurrentDirectory + filenamex, true);
             }
             catch (System.Exception)
             {
                 MessageBox.Show("El archivo de base de datos no existe, porfavor solicite que envien uno.");
-                throw;
             }
             CargarBDOffline();
         }

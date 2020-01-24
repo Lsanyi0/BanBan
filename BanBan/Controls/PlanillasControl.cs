@@ -2,21 +2,34 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace BanBan.Controls
 {
     class PlanillasControl : Utilidades
     {
         private const int HorasQuincena = 96;
+        //private List<PlanillaModel> PlanillaModelPpal;
         public BindingList<PlanillaModel> getEmpleados()
         {
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension") select em).ToList();
-            return getPlanillaModels();
+            return getPlanillaModels(empleados);
         }
         public BindingList<PlanillaModel> getEmpleados(string sucursal)
         {
+            //string xD = "Select e.nombre, s.sucursal " +
+            //    "from empleado e join trabajo t on e.idEmpleado = t.idEmpleado  " +
+            //    "join sucursal s on t.idSucursal = s.idSucursal where e.idCargo = 2;";
             int idSuc = getIdSucursal(sucursal);
+
+            //List<empleado> empleado = (from em in sb.empleado
+            //                           join tr in sb.trabajo on em.idEmpleado equals tr.idEmpleado
+            //                           join sc in sb.sucursal on tr.idSucursal equals sc.idSucursal
+            //                           where em.idCargo == 2
+            //                           select em).ToList();
+
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension")
                                         join tb in sb.trabajo on em.idEmpleado equals tb.idEmpleado
                                         join sc in sb.sucursal on tb.idSucursal equals sc.idSucursal
@@ -85,6 +98,10 @@ namespace BanBan.Controls
                     List<DateTime?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
                     pm.Horas = GetHorasTrabajadas(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
+                    pm.HorasExtra = GetHorasExtra(Inicio, Fin);
+                    pm.HorasNocturnas = GetNocturnidad(Fin);
+                    pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
+                    //pm.Descuento = GetDetalle();
                     planillaModels.Add(pm);
                 }
                 return planillaModels;
@@ -127,7 +144,7 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private decimal GetHorasAusente(List<DateTime?> Iniciales, List<DateTime?> Finales) 
+        private decimal GetHorasAusente(List<DateTime?> Iniciales, List<DateTime?> Finales)
         {
             decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
             if (Horas < HorasQuincena)
@@ -151,5 +168,16 @@ namespace BanBan.Controls
             }
             return Detalles;
         }
+        public BindingList<PlanillaModel> CargarXML(string file)
+        {
+            XmlSerializer xml = new XmlSerializer(typeof(BindingList<PlanillaModel>));
+            BindingList<PlanillaModel> planillaXML;
+            using (FileStream fileStream = new FileStream(file, FileMode.Open))
+            {
+                planillaXML = (BindingList<PlanillaModel>)xml.Deserialize(fileStream);
+            }
+            return planillaXML;
+        }
+
     }
 }

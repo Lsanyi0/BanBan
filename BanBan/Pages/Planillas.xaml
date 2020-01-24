@@ -30,21 +30,21 @@
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
                     Grid.Row="3" Grid.ColumnSpan="2">
-            <Button x:Name="btObtenerDatos" Content="Obtener datos" Height="30" MinWidth="120" Margin="60,0,0,0"/>
-            <Button x:Name="btDescartarCambios" Content="Descartar cambios" Height="30" MinWidth="120" Margin="5,0,0,0"/>
+            <Button x:Name="btObtenerDatos" Content="Obtener datos" Height="30" MinWidth="120" Margin="60,0,0,0" Click="btObtenerDatos_Click"/>
+            <Button x:Name="btDescartarCambios" Content="Descartar cambios" Height="30" MinWidth="120" Margin="5,0,0,0" Click="btDescartarCambios_Click"/>
         </StackPanel>
         <StackPanel x:Name="spBuscar"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" 
                     Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
             <Label x:Name="lbBuscar" Content="Buscar:" MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="tbBuscar" Height="30" Width="150" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="tbBuscar" Height="30" Width="150" VerticalContentAlignment="Center" KeyUp="tbBuscar_KeyUp"/>
         </StackPanel>
         <StackPanel x:Name="spEmpleadosEnPlanilla" Orientation="Horizontal" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Label Content="Empleados en planilla:"/>
             <Label x:Name="lbNumero" Content=""/>
         </StackPanel>
-        <Button x:Name="btCerrarPlanilla" Height="30" MaxWidth="130" Content="Cerrar planilla" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
+        <Button x:Name="btCerrarPlanilla" Height="30" MaxWidth="130" Content="Cerrar planilla" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btCerrarPlanilla_Click"/>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btGuardar_Click"/>
         <TabControl x:Name="tcData"  Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5" >
             <TabItem x:Name="tbPlanilla" Header="Planilla">
@@ -109,7 +109,8 @@
                         <DataGridTextColumn Header="Horas extra nocturnas" Binding="{Binding HorasNocturnasExtra, Mode=TwoWay}" Width="130"/>
                         <DataGridTextColumn Header="Horas asueto" Binding="{Binding HorasAsueto, Mode=TwoWay}" Width="80"/>
                         <DataGridTextColumn Header="Horas descanso" Binding="{Binding HorasDescanso, Mode=TwoWay}" Width="95"/>
-                        <DataGridTextColumn Header="Descuentos" Width="70"/>
+                        <DataGridTextColumn Header="Descuentos" Width="72"/>
+                        <DataGridCheckBoxColumn Header="Revisado" Binding="{Binding Revisado, Mode=TwoWay}"  Width="60"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

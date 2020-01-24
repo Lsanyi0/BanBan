@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BanBan.Model
 {
@@ -95,7 +91,7 @@ namespace BanBan.Model
                 OnPropertyChanged("HorasAsueto");
             }
         }
-        public decimal _HorasDescanso { get; set; }
+        private decimal _HorasDescanso { get; set; }
         public decimal HorasDescanso
         {
             get { return _HorasDescanso; }
@@ -158,6 +154,18 @@ namespace BanBan.Model
             get { return TotalDevengado - TotalDeduccion; }
             set { }
         }
+
+        private bool _Revisado { get; set; }
+        public bool Revisado
+        {
+            get { return _Revisado; }
+            set
+            {
+                _Revisado = value;
+                OnPropertyChanged("Revisado");
+            }
+        }
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

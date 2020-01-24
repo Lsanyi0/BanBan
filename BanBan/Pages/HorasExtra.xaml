@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BanBan.Pages"
+      
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="1376"
       Title="HorasExtra">
 
     <Grid>
@@ -36,17 +37,47 @@
             <ComboBox x:Name="cbEmpleado" Height="30" MinWidth="180" IsEditable="True"/>
             <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="100" Margin="10,0,0,0" Click="btAgregar_Click"/>
         </StackPanel>
-        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4"/>
+        <StackPanel x:Name="DatosDispositivo" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <Label Content="Desde:" Height="30"  Margin="60,0,0,0"/>
+            <DatePicker x:Name="dpDesde" Height="30"/>
+            <Label Content="Hasta:" Height="30" />
+            <DatePicker x:Name="dpHasta" Height="30"/>
+            <Button x:Name="btDatosDispositivo" Content="Datos del dispositivo" Height="30" Margin="10,0,0,0" Click="btDatosDispositivo_Click"/>
+        </StackPanel>
+        <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
+        <Button x:Name="btfiltrar" Height="30" MaxWidth="130" Content="Filtrar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="3" Click="btfiltrar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
         <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
-                <DataGridTextColumn Header="Hora Inicio" Binding="{Binding HoraInicio, Mode=TwoWay, StringFormat=\{0:dd/MM/yy hh:mm tt\}}"/>
-                <DataGridTextColumn Header="Hora Final" Binding="{Binding HoraFinal, Mode=TwoWay, StringFormat=\{0:dd/MM/yy hh:mm tt\}}"/>
-                <DataGridTextColumn Header="Hora Extra Normal" Binding="{Binding HoraExtra, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Hora Extra Nocturna" Binding="{Binding HoraExtraNocturna, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Horas Dia asueto" Binding="{Binding HoraAsueto, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Horas Dia descanso" Binding="{Binding HoraDescanso, Mode=TwoWay}"/>
+                <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:MMMM/dd/yyyy hh:mm tt\}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePickerTextBox Text="{Binding HoraInicio, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Hora final" x:Name="HoraFinal" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:MMMM/dd/yyyy hh:mm tt\}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePickerTextBox Text="{Binding HoraFinal, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn Header="Hora extra normal" Binding="{Binding HoraExtra, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn Header="Hora extra nocturna" Binding="{Binding HoraExtraNocturna, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn Header="Horas dia asueto" Binding="{Binding HoraAsueto, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn Header="Horas dia descanso" Binding="{Binding HoraDescanso, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuento, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Comentario" Binding="{Binding Comentario, Mode=TwoWay}"/>
             </DataGrid.Columns>
