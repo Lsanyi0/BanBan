@@ -13,9 +13,9 @@
         <TextBox x:Name="tbIP" HorizontalAlignment="Left" Height="23" Margin="425,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Conexion:" HorizontalAlignment="Left" Margin="649,39,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbConexion" Content="" HorizontalAlignment="Left" Margin="716,39,0,0" VerticalAlignment="Top"/>
-        <Button Content="Conectar" HorizontalAlignment="Left" Margin="561,41,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button x:Name="btGetDatos" Content="Obtener datos" HorizontalAlignment="Left" Margin="871,41,0,0" VerticalAlignment="Top" Width="82" RenderTransformOrigin="-0.644,0.368" Click="btGetDatos_Click"/>
-        <Button Content="Nombre" HorizontalAlignment="Left" Margin="202,46,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Conectar" HorizontalAlignment="Left" Margin="561,41,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btGetDatos" Content="Obtener datos" HorizontalAlignment="Left" Margin="871,41,0,0" VerticalAlignment="Top" Width="82" RenderTransformOrigin="-0.644,0.368" />
+        <Button Content="Nombre" HorizontalAlignment="Left" Margin="202,46,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Page>

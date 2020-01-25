@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Controls\ConfiguracionControl.cs" />
     <Compile Include="Controls\Crypto.cs" />
+    <Compile Include="Controls\DispositivoControl.cs" />
     <Compile Include="Controls\EmpleadosControl.cs" />
     <Compile Include="Controls\HorasExtraCommonControl.cs" />
     <Compile Include="Controls\HorasExtraControl.cs" />
@@ -152,6 +153,7 @@
     </Compile>
     <Compile Include="Model\AtencionesModel.cs" />
     <Compile Include="Model\AtencionesPlanillaModel.cs" />
+    <Compile Include="Model\InfoDispositivo.cs" />
     <Compile Include="Model\EmpleadosModel.cs" />
     <Compile Include="Model\HorasExtraModel.cs" />
     <Compile Include="Model\PlanillaModel.cs" />

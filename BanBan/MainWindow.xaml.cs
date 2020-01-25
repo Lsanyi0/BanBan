@@ -131,13 +131,6 @@ namespace BanBan
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            frPpal.Content = pruebaDatos;
-            btPrueba.Visibility = Visibility.Hidden;
-        }
-
         private void btCerrarSesionClick(object sender, RoutedEventArgs e)
         {
             cerrarSesion();
