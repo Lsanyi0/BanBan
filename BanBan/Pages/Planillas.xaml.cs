@@ -2,12 +2,10 @@
 using System.Windows.Controls;
 using System.Windows;
 using BanBan.Model;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
-using System;
 
 namespace BanBan.Pages
 {
@@ -16,8 +14,9 @@ namespace BanBan.Pages
     /// </summary>
     public partial class Planillas : Page
     {
-        PlanillasControl pc = new PlanillasControl();
-        BindingList<PlanillaModel> pm;
+        private PlanillasControl pc = new PlanillasControl();
+        private BindingList<PlanillaModel> pm;
+        private const string file = "planilla.xml";
 
         public Planillas()
         {
@@ -26,7 +25,7 @@ namespace BanBan.Pages
             cbSucursal.ItemsSource = pc.getSucursales();
             cbSucursal.SelectedIndex = 0;
 
-            pm = File.Exists("planilla.xml") ? CargarXML() : pc.getEmpleados() ;
+            pm = File.Exists(file) ? pc.CargarXML(file) : pc.getEmpleados();
 
             pm.ListChanged += Actualizar;
 
@@ -37,16 +36,6 @@ namespace BanBan.Pages
             lbNumero.Content = dgvPlanilla.Items.Count;
         }
 
-        private BindingList<PlanillaModel> CargarXML()
-        {
-            XmlSerializer xml = new XmlSerializer(typeof(BindingList<PlanillaModel>));
-            BindingList<PlanillaModel> planillaXML;
-            using (FileStream fileStream = new FileStream("planilla.xml", FileMode.Open))
-            {
-                planillaXML = (BindingList<PlanillaModel>)xml.Deserialize(fileStream);
-            }
-            return planillaXML;
-        }
 
         private void Actualizar(object sender, ListChangedEventArgs e)
         {
@@ -78,25 +67,53 @@ namespace BanBan.Pages
 
         private void ActualizarModelo()
         {
-            dgvPlanilla.ItemsSource = null;
-            dgvAtenciones.ItemsSource = null;
             dgvPlanilla.ItemsSource = pm;
             dgvAtenciones.ItemsSource = pm;
+            dgvEditar.ItemsSource = pm;
         }
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
         {
-           
+
             if (pm != null)
-            { 
+            {
                 XmlSerializer xml = new XmlSerializer(typeof(BindingList<PlanillaModel>));
-                using (StreamWriter sw = new StreamWriter("planilla.xml"))
+                using (StreamWriter sw = new StreamWriter(file))
                 {
-                    using (XmlWriter writer = XmlWriter.Create(sw)) 
+                    using (XmlWriter writer = XmlWriter.Create(sw))
                     {
                         xml.Serialize(writer, pm);
                     }
                 }
+            }
+        }
+
+        private void btCerrarPlanilla_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btDescartarCambios_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(file)) File.Delete(file);
+
+            pm = pc.getEmpleados();
+
+            dgvEditar.ItemsSource = pm;
+
+            ActualizarModelo();
+        }
+
+        private void tbBuscar_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (tbBuscar.Text.Length>3)
+            {
+                
             }
         }
     }

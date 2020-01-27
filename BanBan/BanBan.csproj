@@ -75,6 +75,9 @@
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
+    <Reference Include="SharpAESCrypt, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpAESCrypt.dll.1.3.4\lib\netstandard2.0\SharpAESCrypt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -124,6 +127,8 @@
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConfiguracionControl.cs" />
+    <Compile Include="Controls\Crypto.cs" />
+    <Compile Include="Controls\DispositivoControl.cs" />
     <Compile Include="Controls\EmpleadosControl.cs" />
     <Compile Include="Controls\HorasExtraCommonControl.cs" />
     <Compile Include="Controls\HorasExtraControl.cs" />
@@ -171,6 +176,7 @@
     </Compile>
     <Compile Include="Model\AtencionesModel.cs" />
     <Compile Include="Model\AtencionesPlanillaModel.cs" />
+    <Compile Include="Model\InfoDispositivo.cs" />
     <Compile Include="Model\EmpleadosModel.cs" />
     <Compile Include="Model\HorasExtraModel.cs" />
     <Compile Include="Model\PlanillaModel.cs" />
@@ -207,6 +213,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>sBanBan.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="sistemapension.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
