@@ -131,7 +131,7 @@ namespace BanBan.Pages
         {
             if (cbEditarEmpleado.SelectedIndex > -1)
             {
-                if (MessageBox.Show($"Editar {cbEditarEmpleado.Text}, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Editar {cbEditarEmpleado.Text}?, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     edit = true;
                     idEdit = emp.getIdEmpleado(cbEditarEmpleado.Text);

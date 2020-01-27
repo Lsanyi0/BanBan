@@ -107,9 +107,9 @@ namespace BanBan.Pages
                 {
                     MessageBox.Show("La conexion con el dispositivo ha fallado", "Atencion"); return;
                 }
-                ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
+                //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
                 ICollection<MachineInfo> Horario = GetLogData(1);
-                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate, Usuarios, Horario);
+                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
             }
             catch (Exception)
             {
@@ -173,25 +173,7 @@ namespace BanBan.Pages
             return lstFPTemplates;
         }
 
-        private void btGetDatos_Click(object sender, RoutedEventArgs e)
-        {
-            //try
-            //{
-            //    ICollection<UserInfo> lstFingerPrintTemplates = GetAllUserInfo(this, 1);
-            //    if (lstFingerPrintTemplates != null && lstFingerPrintTemplates.Count > 0)
-            //    {
-            //        tbDatos.ItemsSource = lstFingerPrintTemplates;
-            //    }
-            //    else
-            //        lbConexion.Content = "fallo";
-            //}
-            //catch (Exception ex)
-            //{
-            //    lbConexion.Content = (ex.Message);
-            //}
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void IngresarUsuarioADispositivo()
         {
             ICollection<UserInfo> lstFingerPrintTemplates;
             try
@@ -204,10 +186,11 @@ namespace BanBan.Pages
             }
 
             int MachineNumber = 1;
-            string EnrollNumber = (int.Parse((from asd in lstFingerPrintTemplates select asd.EnrollNumber).Last()) + 1).ToString();
-            string Name = "xDD";
+            //string EnrollNumber = (int.Parse((from asd in lstFingerPrintTemplates select asd.EnrollNumber).Last()) + 1).ToString();
+            string EnrollNumber = "12";
+            string Name = "Luis Albanes";
             string Password = "1153";
-            int Privilege = 1;
+            int Privilege = 3;
             bool Enabled = true;
 
             dc.objCZKEM.SSR_SetUserInfo(MachineNumber, EnrollNumber, Name, Password, Privilege, Enabled);
@@ -246,32 +229,58 @@ namespace BanBan.Pages
             return lstEnrollData;
         }
 
-        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta, ICollection<UserInfo> Usuarios, ICollection<MachineInfo> Marcaciones)
+        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta, ICollection<MachineInfo> Marcaciones)
         {
+            List<DatosDispositivoModel> DatosDispositivo = LimpiarDatos(Marcaciones, Desde, Hasta);
+            List<int> idEmpleados = DatosDispositivo.GroupBy(x => x.idEmpleado).OrderBy(g => g.Key).Select(f => f.Key).ToList();
+            hec.GuardarDatos(DatosDispositivo);
+        }
 
-            LimpiarDatos(Marcaciones);
+        public List<DatosDispositivoModel> LimpiarDatos(ICollection<MachineInfo> Marcaciones, DateTime? Desde, DateTime? Hasta)
+        {
+            List<MachineInfo> se = new List<MachineInfo>();
+            se = Marcaciones.Where(x => x.InOutMode == 0 && Between(x.DateAndTime, Desde, Hasta))
+                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+                .Select(g => g.First()).ToList();
 
-            List<empleado> empleados = new List<empleado>();
-            foreach (var usuario in Usuarios)
+            //List<MachineInfo> ssd = new List<MachineInfo>();
+            //ssd = Marcaciones.Where(x => x.InOutMode == 2 && Between(x.DateAndTime, Desde, Hasta))
+            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+            //    .Select(g => g.Last()).ToList();
+
+            //List<MachineInfo> sed = new List<MachineInfo>();
+            //sed = Marcaciones.Where(x => x.InOutMode == 3 && Between(x.DateAndTime, Desde, Hasta))
+            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+            //    .Select(g => g.Last()).ToList();
+
+            List<MachineInfo> ss = new List<MachineInfo>();
+            ss = Marcaciones.Where(x => x.InOutMode == 1 && Between(x.DateAndTime, Desde, Hasta))
+                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+                .Select(g => g.Last()).ToList();
+
+            List<DatosDispositivoModel> phs = new List<DatosDispositivoModel>();
+            foreach (var soloEntrada in se)
             {
-                empleado emp = new empleado();
-                foreach (var Marcacion in Marcaciones)
+                foreach (var soloSalida in ss)
                 {
-                    if (Between(Marcacion.DateAndTime, Desde, Hasta))
+                    bool dia = soloEntrada.DateAndTime.Day == soloSalida.DateAndTime.Day;
+                    bool mes = soloEntrada.DateAndTime.Month == soloSalida.DateAndTime.Month;
+                    bool anio = soloEntrada.DateAndTime.Year == soloSalida.DateAndTime.Year;
+                    bool enroll = soloEntrada.EnrollNumber == soloSalida.EnrollNumber;
+                    if (dia && mes && anio && enroll)
                     {
+                        DatosDispositivoModel ph = new DatosDispositivoModel
+                        {
+                            Entradas = soloEntrada.DateAndTime,
+                            Salidas = soloSalida.DateAndTime,
+                            idEmpleado = soloEntrada.EnrollNumber
+                        };
+                        phs.Add(ph);
                     }
                 }
-                empleados.Add(emp);
             }
+            return phs;
         }
-
-        public ICollection<MachineInfo> LimpiarDatos(ICollection<MachineInfo> Marcaciones)
-        {
-            List<MachineInfo> se = Marcaciones.Where(x => x.InOutMode == 0).GroupBy(x => new {x.EnrollNumber, x.DateAndTime.Day,x.InOutMode}).Select(g => g.First()).ToList();
-            List<MachineInfo> ss = Marcaciones.Where(x => x.InOutMode == 1).GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode }).Select(g => g.Last()).ToList();
-            return Marcaciones;
-        }
-
         private bool Between(DateTime FechaAComparar, DateTime? FechaIncial, DateTime? FechaFinal)
         {
             return (FechaAComparar >= FechaIncial && FechaAComparar <= FechaFinal);

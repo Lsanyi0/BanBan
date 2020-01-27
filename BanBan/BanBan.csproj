@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Model\AtencionesModel.cs" />
     <Compile Include="Model\AtencionesPlanillaModel.cs" />
+    <Compile Include="Model\DatosDispositivoModel.cs" />
     <Compile Include="Model\InfoDispositivo.cs" />
     <Compile Include="Model\EmpleadosModel.cs" />
     <Compile Include="Model\HorasExtraModel.cs" />
