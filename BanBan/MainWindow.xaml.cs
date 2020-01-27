@@ -20,6 +20,7 @@ namespace BanBan
         private Sucursales sucursales;
         private Configuracion configuracion;
         private pruebaDatos pruebaDatos;
+        private Reportes reportes;
         public static readonly List<string> tiposUsuario = new List<string>();
         //
         private int contador = 0;
@@ -59,6 +60,7 @@ namespace BanBan
                 sucursales = new Sucursales();
                 pruebaDatos = new pruebaDatos();
                 configuracion = new Configuracion();
+                reportes = new Reportes();
                 activarTodos();
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[1])
@@ -117,10 +119,10 @@ namespace BanBan
 
         private void btReportesClick(object sender, RoutedEventArgs e)
         {
-            //if (frPpal.Content.GetType() != typeof(Configuracion))
-            //{
-            //    
-            //}
+            if (frPpal.Content.GetType() != typeof(Configuracion))
+            {
+                frPpal.Content = reportes;
+            }
         }
 
         private void btConfigurarClick(object sender, RoutedEventArgs e)

@@ -27,9 +27,8 @@
                       DropDownClosed="cbSucursalDropDownClosed">
             </ComboBox>
         </StackPanel>
-        <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
-                    HorizontalAlignment="Left" 
-                    Grid.Row="3" Grid.ColumnSpan="2">
+        <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal" 
+                    Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="305">
             <Button x:Name="btObtenerDatos" Content="Obtener datos" Height="30" MinWidth="120" Margin="60,0,0,0"/>
             <Button x:Name="btDescartarCambios" Content="Descartar cambios" Height="30" MinWidth="120" Margin="5,0,0,0"/>
         </StackPanel>
