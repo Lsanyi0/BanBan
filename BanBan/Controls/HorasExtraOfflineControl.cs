@@ -12,7 +12,7 @@ namespace BanBan.Controls
 
         private const string filename = "\\heom.no";//hora extra offline model desencriptado
         private const string filenamex = "\\heom.xml";//hora extra offline model encriptado
-        private string pathDB = Properties.Settings.Default.Dropbox;
+        public static string pathDB = Properties.Settings.Default.Dropbox;
         public HorasExtraOfflineControl()
         {
             heom = new HorasExtraOfflineModel();
@@ -29,7 +29,7 @@ namespace BanBan.Controls
             XmlSerializer xml = new XmlSerializer(typeof(HorasExtraOfflineModel));
             using (StreamWriter sw = new StreamWriter(pathDB + filename))
             {
-                using (XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { Indent = true }))
+                using (XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { Indent = false }))
                 {
                     xml.Serialize(writer, heom);
                 }
@@ -53,7 +53,7 @@ namespace BanBan.Controls
             catch (System.Exception)
             {
                 HoraExtraOffline = null;
-                MessageBox.Show("No se encontro el archivo de base de datos local, " +
+                MessageBox.Show("No se pudo cargar el archivo de base de datos local, " +
                     "porfavor contacte con administrador de sistemas", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -71,12 +71,12 @@ namespace BanBan.Controls
             try
             {
                 File.Copy(pathDB + filenamex, System.Environment.CurrentDirectory + filenamex, true);
+                CargarBDOffline();
             }
             catch (System.Exception)
             {
                 MessageBox.Show("El archivo de base de datos no existe, porfavor solicite que envien uno.");
-            }
-            CargarBDOffline();
+            }     
         }
     }
 }

@@ -85,7 +85,7 @@ namespace BanBan.Model
                 OnPropertyChanged("Actualizar");
             }
         }
-        public string _Comentario { get; set; }
+        private string _Comentario { get; set; }
         public string Comentario
         {
             get { return _Comentario; }
