@@ -10,7 +10,7 @@ namespace BanBan.Model
     public class DatosDispositivoModel
     {
         public int idEmpleado { get; set; }
-        public DateTime Entradas{ get; set; }
-        public DateTime Salidas { get; set; }
+        public DateTime Entrada { get; set; }
+        public DateTime Salida { get; set; }
     }
 }

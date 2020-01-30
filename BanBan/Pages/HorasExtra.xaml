@@ -17,23 +17,21 @@
                HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
-                    Grid.Row="2" Grid.ColumnSpan="2">
+                    Grid.Row="2" Grid.ColumnSpan="3">
             <Button x:Name="btObtenerDatos" Content="Obtener datos" Height="30" MinWidth="120" Margin="60,0,0,0" Click="btObtenerDatos_Click"/>
-            <Button x:Name="btEnviarDatos" Content="Enviar Datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="btEnviarDatos_Click"/>
+            <Label Content="Desde:" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
+            <Label Content="Hasta:" VerticalAlignment="Center" />
+            <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
+            <!--<Button x:Name="btDatosDispositivo" Content="Datos del dispositivo" Height="30" Margin="10,0,0,0" Click="btDatosDispositivo_Click"/>-->
+            <Button x:Name="btEnviarDatos" Content="Enviar Datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
         </StackPanel>
         <StackPanel x:Name="spEmpleado" Orientation="Horizontal" 
                     HorizontalAlignment="Left"
-                    Grid.Row="3" Grid.ColumnSpan="3" Margin="60,0,0,0">
+                    Grid.Row="3" Grid.ColumnSpan="3" Margin="60,0,0,0" >
             <Label Content="Empleado:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbEmpleado" Height="30" MinWidth="180" IsEditable="True"/>
-            <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="100" Margin="10,0,0,0" Click="btAgregar_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="DatosDispositivo" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-            <Label Content="Desde:" Height="30"  Margin="50,0,0,0"/>
-            <DatePicker x:Name="dpDesde" Height="30"/>
-            <Label Content="Hasta:" Height="30" />
-            <DatePicker x:Name="dpHasta" Height="30"/>
-            <Button x:Name="btDatosDispositivo" Content="Datos del dispositivo" Height="30" Margin="10,0,0,0" Click="btDatosDispositivo_Click"/>
+            <ComboBox x:Name="cbEmpleado" Height="30" MinWidth="180" VerticalContentAlignment="Center"/>
+            <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="110" Margin="10,0,0,0" Click="btAgregar_Click"/>
         </StackPanel>
         <StackPanel x:Name="spSucursal" 
                     Orientation="Horizontal" 
@@ -41,13 +39,12 @@
                     Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" 
-                      VerticalContentAlignment="Center" IsEditable="True">
+                      VerticalContentAlignment="Center" IsEditable="True" KeyUp="cbSucursal_KeyUp" SelectionChanged="cbSucursal_SelectionChanged">
             </ComboBox>
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
-        <Button x:Name="btfiltrar" Height="30" MaxWidth="130" Content="Filtrar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="3" Click="btfiltrar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
-        <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5">
+        <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5" PreviewKeyDown="dgvPlanilla_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
                 <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >

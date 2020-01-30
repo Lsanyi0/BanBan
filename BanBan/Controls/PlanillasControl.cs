@@ -17,6 +17,10 @@ namespace BanBan.Controls
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension") select em).ToList();
             return getPlanillaModels(empleados);
         }
+        public List<empleado> ObtenerEmpleados() 
+        {
+            return (from em in sb.empleado select em).ToList();
+        }
         public BindingList<PlanillaModel> getEmpleados(string sucursal)
         {
             //string xD = "Select e.nombre, s.sucursal " +
@@ -78,7 +82,7 @@ namespace BanBan.Controls
             });
             return pm;
         }
-        private BindingList<PlanillaModel> getPlanillaModels(List<empleado> empleados)
+        public BindingList<PlanillaModel> getPlanillaModels(List<empleado> empleados)
         {
             if (empleados != null)
             {
@@ -94,11 +98,11 @@ namespace BanBan.Controls
                         AFPEmpleado = empleado.sistemapension.descuento,
                         PorcentajeCargo = empleado.cargo.atenciones ?? 0,
                     };
-                    List<DateTime?> Inicio = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.entrada).ToList();
-                    List<DateTime?> Fin = (from pln in sb.planillahorario where pln.idEmpleado.Equals(pm.IdEmpleado) select pln.salida).ToList();
+                    List<DateTime?> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
+                    List<DateTime?> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
                     pm.Horas = GetHorasTrabajadas(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
-                    pm.HorasExtra = GetHorasExtra(Inicio, Fin);
+                    //pm.HorasExtra = GetHorasExtra(Inicio, Fin);
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
                     //pm.Descuento = GetDetalle();

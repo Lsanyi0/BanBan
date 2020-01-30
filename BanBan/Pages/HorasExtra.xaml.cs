@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace BanBan.Pages
 {
@@ -34,36 +35,45 @@ namespace BanBan.Pages
             {
                 hec = new HorasExtraControl();
             }
+
+            he = File.Exists(filename) ? hec.CargarDatos() : new BindingList<HorasExtraModel>();
+            dgvPlanilla.ItemsSource = he;
+
             cbEmpleado.ItemsSource = hec.GetCBEmplados();
             cbEmpleado.SelectedIndex = cbEmpleado.HasItems ? 0 : -1;
+
+            cbSucursal.ItemsSource = hec.GetCBSucursales();
+            cbSucursal.SelectedIndex = cbSucursal.HasItems ? 0 : -1;
 
             dpDesde.SelectedDate = DateTime.Now.AddDays(-15);
             dpHasta.SelectedDate = DateTime.Now;
 
-            he = File.Exists(filename) ? hec.CargarDatos() : new BindingList<HorasExtraModel>();
-            dgvPlanilla.ItemsSource = he;
+
             dc = new DispositivoControl(RaiseDeviceEvent);
         }
 
         private void btCancelar_Click(object sender, RoutedEventArgs e)
         {
-            //if (MessageBoxResult.Yes == MessageBox.Show("Test", "", MessageBoxButton.YesNo, MessageBoxImage.Question))
-            //{
-            //    he.Clear();
-            //}
-            dgvPlanilla.ItemsSource = he;
+            if (MessageBoxResult.Yes == MessageBox.Show("Se descartaran todos los cambios realizados, Continuar?", "Borrar datos", MessageBoxButton.YesNo, MessageBoxImage.Question))
+            {
+                he.Clear();
+            }
+            //dgvPlanilla.ItemsSource = he;
         }
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
         {
-            he.Add(new HorasExtraModel
+            HorasExtraModel emp = new HorasExtraModel
             {
-                IdHe = he.Count + 1,
                 Nombre = cbEmpleado.Text,
-                Apellido = "",
                 HoraInicio = DateTime.Now,
-                HoraFinal = DateTime.Now.AddHours(2),
-            });
+                HoraFinal = DateTime.Now.AddHours(2)
+            };
+            emp.IdHe = he.Select(x => x.IdHe).Last()+1;
+            emp.IdEmpleado = hec.GetIdEmpleadoByNombre(cbEmpleado.Text);
+            emp.Sucursal = hec.GetSucursalbyIdEmpleado(emp.IdEmpleado);
+            he.Add(emp);
+            dgvPlanilla.ItemsSource = he;
         }
         private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
         {
@@ -71,12 +81,6 @@ namespace BanBan.Pages
             he = (BindingList<HorasExtraModel>)he.Where(x => x.IdHe != model.IdHe);
             he.Add(model);
         }
-        private void btEnviarDatos_Click(object sender, RoutedEventArgs e)
-        {
-            //heoc = new HorasExtraOfflineControl();
-            //heoc.CrearBDOffline();
-        }
-
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
         {
             heoc = new HorasExtraOfflineControl();
@@ -88,17 +92,7 @@ namespace BanBan.Pages
             hec.GuardarDatos(he);
         }
 
-        private void btfiltrar_Click(object sender, RoutedEventArgs e)
-        {
-            BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.Comentario != "abc").ToList());
-            foreach (var hex in hem)
-            {
-                hex.PropertyChanged += ActualizarPadre;
-            }
-            dgvPlanilla.ItemsSource = hem;
-        }
-
-        private void btDatosDispositivo_Click(object sender, RoutedEventArgs e)
+        private void EnviarDatos(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -111,9 +105,9 @@ namespace BanBan.Pages
                 ICollection<MachineInfo> Horario = GetLogData(1);
                 ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show("Error: " + ex, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -232,8 +226,13 @@ namespace BanBan.Pages
         public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta, ICollection<MachineInfo> Marcaciones)
         {
             List<DatosDispositivoModel> DatosDispositivo = LimpiarDatos(Marcaciones, Desde, Hasta);
-            List<int> idEmpleados = DatosDispositivo.GroupBy(x => x.idEmpleado).OrderBy(g => g.Key).Select(f => f.Key).ToList();
-            hec.GuardarDatos(DatosDispositivo);
+            //List<int> idEmpleados = DatosDispositivo.GroupBy(x => x.idEmpleado).OrderBy(g => g.Key).Select(f => f.Key).ToList();
+            DatosSucursalModel ds = new DatosSucursalModel
+            {
+                DatosMarcacion = DatosDispositivo,
+                HorasExtra = he.ToList()
+            };
+            hec.GuardarDatos(ds, "Fabrica", Desde.Value, Hasta.Value);
         }
 
         public List<DatosDispositivoModel> LimpiarDatos(ICollection<MachineInfo> Marcaciones, DateTime? Desde, DateTime? Hasta)
@@ -271,8 +270,8 @@ namespace BanBan.Pages
                     {
                         DatosDispositivoModel ph = new DatosDispositivoModel
                         {
-                            Entradas = soloEntrada.DateAndTime,
-                            Salidas = soloSalida.DateAndTime,
+                            Entrada = soloEntrada.DateAndTime,
+                            Salida = soloSalida.DateAndTime,
                             idEmpleado = soloEntrada.EnrollNumber
                         };
                         phs.Add(ph);
@@ -284,6 +283,55 @@ namespace BanBan.Pages
         private bool Between(DateTime FechaAComparar, DateTime? FechaIncial, DateTime? FechaFinal)
         {
             return (FechaAComparar >= FechaIncial && FechaAComparar <= FechaFinal);
+        }
+
+        private void cbSucursal_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (he.Count >= 1)
+            {
+                FiltroSucursal(cbSucursal.Text);
+            }
+        }
+
+        private void cbSucursal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbSucursal.SelectedIndex != -1 && he.Count >= 1)
+            {
+                FiltroSucursal(cbSucursal.Text);
+            }
+        }
+        private void FiltroSucursal(string sucursal)
+        {
+            if (!string.IsNullOrWhiteSpace(sucursal))
+            {
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.Sucursal.Contains(sucursal)).ToList());
+                foreach (var hex in hem)
+                {
+                    hex.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = hem;
+            }
+            else dgvPlanilla.ItemsSource = he;
+        }
+
+        private void dgvPlanilla_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Key.Delete == e.Key)
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Se borrara(n) la(s) fila(s) seleccionada(s), Continuar?", "Borrar datos", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                {
+                    List<HorasExtraModel> heBorrar = new List<HorasExtraModel>();
+                    foreach (HorasExtraModel dg in dgvPlanilla.SelectedItems)
+                    {
+                        heBorrar.Add(dg);
+                    }
+                    foreach (var borrar in heBorrar)
+                    {
+                        he.Remove(borrar);
+                    }
+                    dgvPlanilla.ItemsSource = he;
+                }
+            }
         }
     }
 }

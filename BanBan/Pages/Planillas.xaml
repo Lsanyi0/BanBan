@@ -23,9 +23,7 @@
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" KeyUp="cbSucursalKeyUp">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" 
-                      VerticalContentAlignment="Center" IsEditable="True" 
-                      DropDownClosed="cbSucursalDropDownClosed">
-            </ComboBox>
+                      VerticalContentAlignment="Center" IsEditable="True"/>
         </StackPanel>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
