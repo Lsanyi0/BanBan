@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace BanBan.Controls
 {
     //Clase solo para funciones comunes para varios formularios
-    class Utilidades
+    public class Utilidades
     {
         //sb es una instancia del "contexto" de la base de datos (base de datos mapeada)
         //Instancia general para todos los formularios

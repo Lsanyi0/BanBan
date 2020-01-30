@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace BanBan.Controls
 {
-    class PlanillasControl : Utilidades
+    public class PlanillasControl : Utilidades
     {
         private const int HorasQuincena = 96;
         //private List<PlanillaModel> PlanillaModelPpal;
@@ -112,7 +112,7 @@ namespace BanBan.Controls
         {
             return Dias.Count;
         }
-        private decimal GetHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        public decimal GetHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
         {
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
