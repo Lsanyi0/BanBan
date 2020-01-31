@@ -24,7 +24,7 @@
             <Label Content="Hasta:" VerticalAlignment="Center" />
             <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
             <!--<Button x:Name="btDatosDispositivo" Content="Datos del dispositivo" Height="30" Margin="10,0,0,0" Click="btDatosDispositivo_Click"/>-->
-            <Button x:Name="btEnviarDatos" Content="Enviar Datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
+            <Button x:Name="btEnviarDatos" Content="Enviar datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
         </StackPanel>
         <StackPanel x:Name="spEmpleado" Orientation="Horizontal" 
                     HorizontalAlignment="Left"
