@@ -69,7 +69,14 @@ namespace BanBan.Pages
                 HoraInicio = DateTime.Now,
                 HoraFinal = DateTime.Now.AddHours(2)
             };
-            emp.IdHe = he.Select(x => x.IdHe).Last()+1;
+            if (he.Count == 0)
+            {
+                emp.IdHe = 1;
+            }
+            else
+            {
+                emp.IdHe = he.Select(x => x.IdHe).Last() + 1;
+            }
             emp.IdEmpleado = hec.GetIdEmpleadoByNombre(cbEmpleado.Text);
             emp.Sucursal = hec.GetSucursalbyIdEmpleado(emp.IdEmpleado);
             he.Add(emp);
