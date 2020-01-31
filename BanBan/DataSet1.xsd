@@ -40,6 +40,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="DRA" msprop:Generator_TableClassName="DRADataTable" msprop:Generator_TableVarName="tableDRA" msprop:Generator_TablePropName="DRA" msprop:Generator_RowDeletingName="DRARowDeleting" msprop:Generator_RowChangingName="DRARowChanging" msprop:Generator_RowEvHandlerName="DRARowChangeEventHandler" msprop:Generator_RowDeletedName="DRARowDeleted" msprop:Generator_UserTableName="DRA" msprop:Generator_RowChangedName="DRARowChanged" msprop:Generator_RowEvArgName="DRARowChangeEvent" msprop:Generator_RowClassName="DRARow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idEmplead" msprop:Generator_ColumnVarNameInTable="columnidEmplead" msprop:Generator_ColumnPropNameInRow="idEmplead" msprop:Generator_ColumnPropNameInTable="idEmpleadColumn" msprop:Generator_UserColumnName="idEmplead" type="xs:string" minOccurs="0" />
+              <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" type="xs:string" minOccurs="0" />
+              <xs:element name="Apellido" msprop:Generator_ColumnVarNameInTable="columnApellido" msprop:Generator_ColumnPropNameInRow="Apellido" msprop:Generator_ColumnPropNameInTable="ApellidoColumn" msprop:Generator_UserColumnName="Apellido" type="xs:string" minOccurs="0" />
+              <xs:element name="Atencion" msprop:Generator_ColumnVarNameInTable="columnAtencion" msprop:Generator_ColumnPropNameInRow="Atencion" msprop:Generator_ColumnPropNameInTable="AtencionColumn" msprop:Generator_UserColumnName="Atencion" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalAtencion" msprop:Generator_ColumnVarNameInTable="columnTotalAtencion" msprop:Generator_ColumnPropNameInRow="TotalAtencion" msprop:Generator_ColumnPropNameInTable="TotalAtencionColumn" msprop:Generator_UserColumnName="TotalAtencion" type="xs:string" minOccurs="0" />
+              <xs:element name="PCargo" msprop:Generator_ColumnVarNameInTable="columnPCargo" msprop:Generator_ColumnPropNameInRow="PCargo" msprop:Generator_ColumnPropNameInTable="PCargoColumn" msprop:Generator_UserColumnName="PCargo" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalNeto" msprop:Generator_ColumnVarNameInTable="columnTotalNeto" msprop:Generator_ColumnPropNameInRow="TotalNeto" msprop:Generator_ColumnPropNameInTable="TotalNetoColumn" msprop:Generator_UserColumnName="TotalNeto" type="xs:string" minOccurs="0" />
+              <xs:element name="Descuentos" msprop:Generator_ColumnVarNameInTable="columnDescuentos" msprop:Generator_ColumnPropNameInRow="Descuentos" msprop:Generator_ColumnPropNameInTable="DescuentosColumn" msprop:Generator_UserColumnName="Descuentos" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalDescuentos" msprop:Generator_ColumnVarNameInTable="columnTotalDescuentos" msprop:Generator_ColumnPropNameInRow="TotalDescuentos" msprop:Generator_ColumnPropNameInTable="TotalDescuentosColumn" msprop:Generator_UserColumnName="TotalDescuentos" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>
