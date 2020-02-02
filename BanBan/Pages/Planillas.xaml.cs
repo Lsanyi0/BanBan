@@ -19,6 +19,7 @@ namespace BanBan.Pages
     {
         private PlanillasControl pc = new PlanillasControl();
         private BindingList<PlanillaModel> pm;
+        private BindingList<PlanillaModel> pmInicial;
         private const string file = "planilla.xml";
 
         public Planillas()
@@ -29,19 +30,13 @@ namespace BanBan.Pages
             cbSucursal.SelectedIndex = 0;
 
             pm = File.Exists(file) ? pc.CargarXML(file) : new BindingList<PlanillaModel>();
-
-            pm.ListChanged += Actualizar;
+            pmInicial = pm;
 
             dgvEditar.ItemsSource = pm;
 
-            ActualizarModelo();
+            ActualizarModelo(pm);
 
             lbNumero.Content = dgvPlanilla.Items.Count;
-        }
-
-        private void Actualizar(object sender, ListChangedEventArgs e)
-        {
-            ActualizarModelo();
         }
 
         private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -67,11 +62,11 @@ namespace BanBan.Pages
             Empleados.cargarEdit = true;
         }
 
-        private void ActualizarModelo()
+        private void ActualizarModelo(BindingList<PlanillaModel> planillas)
         {
-            dgvPlanilla.ItemsSource = pm;
-            dgvAtenciones.ItemsSource = pm;
-            dgvEditar.ItemsSource = pm;
+            dgvPlanilla.ItemsSource = planillas;
+            dgvAtenciones.ItemsSource = planillas;
+            dgvEditar.ItemsSource = planillas;
         }
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
@@ -153,8 +148,19 @@ namespace BanBan.Pages
             }
             ofd.Dispose();
             pm = pc.getPlanillaModels(empleados);
-            ActualizarModelo();
+            foreach (var planilla in pm)
+            {
+                planilla.PropertyChanged += ActualizarPadre;
+            }
+            pmInicial = pm;
+            ActualizarModelo(pm);
             HorasExtraModel.Load = false;
+        }
+        private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
+        {
+            PlanillaModel model = (PlanillaModel)sender;
+            pm = (BindingList<PlanillaModel>)pm.Where(x => x.IdEmpleado != model.IdEmpleado);
+            pm.Add(model);
         }
         private int ObtenerTipoDeHora(HorasExtraModel extraModel)
         {
@@ -172,9 +178,7 @@ namespace BanBan.Pages
 
             pm = pc.getEmpleados();
 
-            dgvEditar.ItemsSource = pm;
-
-            ActualizarModelo();
+            ActualizarModelo(pm);
         }
 
         private void tbBuscar_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -182,6 +186,25 @@ namespace BanBan.Pages
             if (tbBuscar.Text.Length > 3)
             {
 
+            }
+        }
+        private void FiltroSucursal(string sucursal)
+        {
+            if (!string.IsNullOrWhiteSpace(sucursal))
+            {
+                int idsucursal = pc.GetIdSucursalByNombre(sucursal);
+                BindingList<PlanillaModel> fpm = new BindingList<PlanillaModel>(pm.Where(x => pc.EmpleadoInSucursal(x.IdEmpleado,idsucursal)).ToList());
+                foreach (var planilla in fpm)
+                {
+                    planilla.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = fpm;
+                ActualizarModelo(fpm);
+            }
+            else
+            {
+                dgvPlanilla.ItemsSource = pm;
+                ActualizarModelo(pm);
             }
         }
     }

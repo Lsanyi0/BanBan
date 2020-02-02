@@ -17,9 +17,17 @@ namespace BanBan.Controls
             List<empleado> empleados = (from em in sb.empleado.Include("sistemapension") select em).ToList();
             return getPlanillaModels(empleados);
         }
-        public List<empleado> ObtenerEmpleados() 
+        public List<empleado> ObtenerEmpleados()
         {
             return (from em in sb.empleado select em).ToList();
+        }
+        public bool EmpleadoInSucursal(int idempleado, int idsucursal)
+        {
+            return sb.trabajo.Where(x => x.idSucursal == idsucursal && x.idEmpleado == x.idEmpleado).Any();
+        }
+        public int GetIdSucursalByNombre(string sucursal)
+        {
+            return sb.sucursal.Where(x => x.sucursal1.Contains(sucursal)).Select(x => x.idSucursal).FirstOrDefault();
         }
         public BindingList<PlanillaModel> getEmpleados(string sucursal)
         {
