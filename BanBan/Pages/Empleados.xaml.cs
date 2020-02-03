@@ -53,6 +53,7 @@ namespace BanBan.Pages
                 "Advertencia!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             else _ = editState ? MessageBox.Show("Registro modificado correctamente", "OK", MessageBoxButton.OK, MessageBoxImage.Information)
                                : MessageBox.Show("Registro guardado correctamente", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
+            empleadosLoad();
         }
 
         private void btCancelarClick(object sender, RoutedEventArgs e)

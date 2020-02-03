@@ -105,11 +105,11 @@ namespace BanBan.Pages
                 HorasExtraModel.Load = true;
                 foreach (string file in ofd.FileNames)
                 {
-                    Crypto.Decrypt(file, file + "x");
+                    //Crypto.Decrypt(file, file + "x");
                     XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                     DatosSucursalModel ds = new DatosSucursalModel();
 
-                    using (FileStream fileStream = new FileStream(file + "x", FileMode.Open))
+                    using (FileStream fileStream = new FileStream(file, FileMode.Open))
                     {
                         ds = (DatosSucursalModel)xml.Deserialize(fileStream);
                     }

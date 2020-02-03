@@ -111,11 +111,11 @@ namespace BanBan.Pages
 
         private void CbMunicipio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var asu = from at1 in sb.diapatronal
+            var asu = (from at1 in sb.diapatronal
                       join mun in sb.ciudad
                        on at1.idCiudad equals mun.idCiudad
                       where mun.ciudad1 == cbMunicipio.Text
-                      select at1.dia;
+                      select at1.dia).ToList();
             if (asu == null)
             {
 
@@ -123,10 +123,7 @@ namespace BanBan.Pages
             else
             {
 
-                foreach (var list in asu)
-                {
-                    lsAsuetos.Items.Add(list);
-                }
+                lsAsuetos.ItemsSource = asu;
 
             }
         }
@@ -145,60 +142,86 @@ namespace BanBan.Pages
 
         public void agregarAsueto()
         {
+            List<string> list = new List<string>();
+            
+            foreach (var item in lsAsuetos.Items)
+            {
+                list.Add(item.ToString());
+            }
             lista.Clear();
-            for (int i = 0; i < lsAsuetos.Items.Count; i++)
+            foreach (var item in list)
             {
-                lista.Add(lsAsuetos.Items[i].ToString());
+                lista.Add(item);
             }
-
-            lsAsuetos.Items.Clear();
+            lsAsuetos.ItemsSource="";
             lista.Add(date.ToString());
-            for (int i = 0; i < lista.Count; i++)
-            {
-                lsAsuetos.Items.Add(lista[i]);
-            }
+            lsAsuetos.ItemsSource = lista;
+            
         }
 
-        public void eliminarAsueto()
+        public void eliminarAsueto(string asuetoL)
         {
-            lista.RemoveAt(ind);
-            if (lista.Count == 0)
+            string var = "";
+            foreach (var item in lista)
             {
-                lsAsuetos.SelectedIndex = 0;
-                lsAsuetos.Items.Clear();
-            }
-            else
-            {
-                lsAsuetos.Items.Clear();
-                for (int i = 0; i < lista.Count; i++)
+                if (item.ToString()==asuetoL)
                 {
-                    lsAsuetos.Items.Add(lista[i]);
+                    var = item;
                 }
             }
+            lista.Remove(var);
+
+            lsAsuetos.ItemsSource = "";
+            lsAsuetos.ItemsSource = lista;
+            //lista.RemoveAt(ind);
+            //if (lista.Count == 0)
+            //{
+            //    lsAsuetos.SelectedIndex = 0;
+            //    lsAsuetos.Items.Clear();
+            //}
+            //else
+            //{
+            //    lsAsuetos.Items.Clear();
+            //    for (int i = 0; i < lista.Count; i++)
+            //    {
+            //        lsAsuetos.Items.Add(lista[i]);
+            //    }
+            //}
         }
         private void btQuitar_Click(object sender, RoutedEventArgs e)
         {
+            List<string> list = new List<string>();
+
             if (lsAsuetos.SelectedItem == null)
             {
                 return;
             }
             string asuetoL = lsAsuetos.SelectedItem.ToString();
-            for (int i = 0; i < lista.Count; i++)
-            {
-                if (lista[i].ToString() == asuetoL)
-                {
-                    ind = i;
-                }
-            }
+            //foreach (var item in lsAsuetos.Items)
+            //{
+            //    list.Add(item.ToString());
+            //}
+            //lista.Clear();
+            //foreach (var item in list)
+            //{
+            //    lista.Add(item);
+            //}
+            //for (int i = 0; i < lista.Count; i++)
+            //{
+            //    if (lista[i].ToString() == asuetoL)
+            //    {
+            //        ind = i;
+            //    }
+            //}
 
-            eliminarAsueto();
+            eliminarAsueto(asuetoL);
         }
 
 
 
         private void btLimpiar_Click(object sender, RoutedEventArgs e)
         {
-            lsAsuetos.Items.Clear();
+            lsAsuetos.ItemsSource="";
             lista.Clear();
         }
 
@@ -206,18 +229,15 @@ namespace BanBan.Pages
         {
             lista.Clear();
             lista = sc.DeterminarAsuetos(cbMunicipio.Text);
-            lsAsuetos.Items.Clear();
+            lsAsuetos.ItemsSource="";
             if (lista.Count == 0)
             {
-
+                lsAsuetos.ItemsSource = lista;
             }
             else
             {
                 MessageBox.Show("El municipio seleccionado ya tiene asuetos, pero puede agregar más");
-                foreach (var item in lista)
-                {
-                    lsAsuetos.Items.Add(item);
-                }
+                lsAsuetos.ItemsSource = lista;
 
             }
 
@@ -228,14 +248,16 @@ namespace BanBan.Pages
             {
                 if (MessageBox.Show($"Editar {cbEditarSucursal.Text}, se perderan los datos actuales del formulario\n\n Desea continuar?", "Editar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    lsAsuetos.Items.Clear();
+                    lsAsuetos.ItemsSource = "";
                     SucursalModel suc = sc.getSucursal(cbEditarSucursal.Text);
                     tbNombreSucursal.Text = suc.NombreSucursal ?? "";
                     cbDepartamento.SelectedItem = suc.Departamento;
                     cbMunicipio.SelectedItem = suc.Municipio;
                     tbDireccion.Text = suc.Direccion;
-                    lsAsuetos.Items.Clear();
-                    foreach (var asu in suc.DiasAsueto) lsAsuetos.Items.Add(asu);
+                    lsAsuetos.ItemsSource = "";
+                    List<string> list = new List<string>();
+                    foreach (var asu in suc.DiasAsueto) list.Add(asu.ToString());
+                        lsAsuetos.ItemsSource=list;
                     cbSupervisor.SelectedItem = suc.NombreEmpleado;
                 }
             }
