@@ -79,7 +79,7 @@ namespace BanBan.Controls
                     xml.Serialize(writer, DatosSucursal);
                 }
                 Crypto.Encrypt(filename + ".no", HorasExtraOfflineControl.pathDB + "\\" + filename + ".sc");
-                System.Windows.MessageBox.Show("Datos guardados y colocados en la carpeta de dropbox","Guardar",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("Datos guardados y colocados en la carpeta configurada","Guardar",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

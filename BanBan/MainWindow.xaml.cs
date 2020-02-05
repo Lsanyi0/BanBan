@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using BanBan.Pages;
 using System.Windows.Forms;
+using System.Threading;
+using System.Globalization;
+using System.Windows.Markup;
 
 namespace BanBan
 {
@@ -19,7 +22,6 @@ namespace BanBan
         private Planillas planillas;
         private Sucursales sucursales;
         private Configuracion configuracion;
-        private pruebaDatos pruebaDatos;
         private Reportes reportes;
         public static readonly List<string> tiposUsuario = new List<string>();
         //
@@ -27,6 +29,12 @@ namespace BanBan
         public MainWindow()
         {
             InitializeComponent();
+
+            LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             anims = new List<Storyboard>
             {
                 FindResource("stbLoginCorrecto") as Storyboard,
@@ -41,6 +49,12 @@ namespace BanBan
 
             System.Windows.Input.NavigationCommands.BrowseBack.InputGestures.Clear();
             System.Windows.Input.NavigationCommands.BrowseForward.InputGestures.Clear();
+
+            if (Properties.Settings.Default.Dropbox == "C:\\")
+            {
+                Properties.Settings.Default.Dropbox = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonDocuments);
+                Properties.Settings.Default.Save();
+            }
         }
 
         //Usado como trigger para la animacion de fade-out del login
@@ -58,7 +72,6 @@ namespace BanBan
                 empleados = new Empleados();
                 planillas = new Planillas();
                 sucursales = new Sucursales();
-                pruebaDatos = new pruebaDatos();
                 configuracion = new Configuracion();
                 reportes = new Reportes();
                 activarTodos();

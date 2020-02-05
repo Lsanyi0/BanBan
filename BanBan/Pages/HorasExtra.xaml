@@ -28,10 +28,15 @@
         </StackPanel>
         <StackPanel x:Name="spEmpleado" Orientation="Horizontal" 
                     HorizontalAlignment="Left"
-                    Grid.Row="3" Grid.ColumnSpan="3" Margin="60,0,0,0" >
+                    Grid.Row="3" Grid.ColumnSpan="4" Margin="60,0,0,0" >
             <Label Content="Empleado:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbEmpleado" Height="30" MinWidth="180" VerticalContentAlignment="Center"/>
-            <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="110" Margin="10,0,0,0" Click="btAgregar_Click"/>
+            <ComboBox x:Name="cbEmpleado" Height="30" MaxWidth="150" VerticalContentAlignment="Center"/>
+            <Label Content="Fecha a agregar o filtro:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpAgregar" VerticalAlignment="Center"/>
+            <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="80" Margin="10,0,0,0" Click="btAgregar_Click"/>
+            <Label x:Name="lbBuscar" Content="Buscar empleado:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="tbBuscar" Height="30" MinWidth="150" VerticalContentAlignment="Center" KeyUp="tbBuscar_KeyUp"/>
+            <Button x:Name="btFiltrarFecha" Content="Filtrar fecha" Height="30" Width="80" Margin="10,0,0,0" Click="btFiltrarFecha_Click" />
         </StackPanel>
         <StackPanel x:Name="spSucursal" 
                     Orientation="Horizontal" 
@@ -50,7 +55,7 @@
                 <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:MMMM/dd/yyyy hh:mm tt\}}"/>
+                            <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
@@ -62,7 +67,7 @@
                 <DataGridTemplateColumn Header="Hora final" x:Name="HoraFinal" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:MMMM/dd/yyyy hh:mm tt\}}"/>
+                            <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>

@@ -105,11 +105,11 @@ namespace BanBan.Pages
                 HorasExtraModel.Load = true;
                 foreach (string file in ofd.FileNames)
                 {
-                    //Crypto.Decrypt(file, file + "x");
+                    Crypto.Decrypt(file, file + "x");
                     XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                     DatosSucursalModel ds = new DatosSucursalModel();
 
-                    using (FileStream fileStream = new FileStream(file, FileMode.Open))
+                    using (FileStream fileStream = new FileStream(file + "x", FileMode.Open))
                     {
                         ds = (DatosSucursalModel)xml.Deserialize(fileStream);
                     }
@@ -144,7 +144,7 @@ namespace BanBan.Pages
                         }
                     }
                 }
-                empleados = empleados.Where(x => x.planillahorario.Count > 0).Select(x => x).ToList();
+                empleados = empleados.Where(x => x.planillahorario.Count > 0).OrderByDescending(x => x.nombre).ToList();
             }
             ofd.Dispose();
             pm = pc.getPlanillaModels(empleados);
@@ -183,7 +183,11 @@ namespace BanBan.Pages
 
         private void tbBuscar_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (tbBuscar.Text.Length > 3)
+            if (!string.IsNullOrWhiteSpace(tbBuscar.Text))
+            {
+
+            }
+            else if (string.IsNullOrEmpty(tbBuscar.Text))
             {
 
             }
@@ -193,7 +197,7 @@ namespace BanBan.Pages
             if (!string.IsNullOrWhiteSpace(sucursal))
             {
                 int idsucursal = pc.GetIdSucursalByNombre(sucursal);
-                BindingList<PlanillaModel> fpm = new BindingList<PlanillaModel>(pm.Where(x => pc.EmpleadoInSucursal(x.IdEmpleado,idsucursal)).ToList());
+                BindingList<PlanillaModel> fpm = new BindingList<PlanillaModel>(pm.Where(x => pc.EmpleadoInSucursal(x.IdEmpleado, idsucursal)).ToList());
                 foreach (var planilla in fpm)
                 {
                     planilla.PropertyChanged += ActualizarPadre;

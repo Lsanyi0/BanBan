@@ -25,6 +25,7 @@ namespace BanBan.Pages
         public HorasExtra()
         {
             InitializeComponent();
+            //Language = System.Windows.Markup.XmlLanguage.GetLanguage("es-ES");
 
             if (LoginControl.offline)
             {
@@ -47,6 +48,8 @@ namespace BanBan.Pages
 
             dpDesde.SelectedDate = DateTime.Now.AddDays(-15);
             dpHasta.SelectedDate = DateTime.Now;
+            dpAgregar.SelectedDate = DateTime.Now;
+
 
 
             dc = new DispositivoControl(RaiseDeviceEvent);
@@ -66,8 +69,8 @@ namespace BanBan.Pages
             HorasExtraModel emp = new HorasExtraModel
             {
                 Nombre = cbEmpleado.Text,
-                HoraInicio = DateTime.Now,
-                HoraFinal = DateTime.Now.AddHours(2)
+                HoraInicio = dpAgregar.SelectedDate.Value.AddHours(DateTime.Now.Hour),
+                HoraFinal = dpAgregar.SelectedDate.Value.AddHours(DateTime.Now.Hour + 2)
             };
             if (he.Count == 0)
             {
@@ -110,7 +113,11 @@ namespace BanBan.Pages
                 }
                 //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
                 ICollection<MachineInfo> Horario = GetLogData(1);
-                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
+                if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
+                {
+                    ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
+                }
+                else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
             }
             catch (Exception ex)
             {
@@ -320,6 +327,32 @@ namespace BanBan.Pages
             }
             else dgvPlanilla.ItemsSource = he;
         }
+        private void FiltroEmpleado(string Nombre)
+        {
+            if (!string.IsNullOrWhiteSpace(Nombre))
+            {
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.NombreCompleto.ToLower().Contains(Nombre.ToLower())).ToList());
+                foreach (var hex in hem)
+                {
+                    hex.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = hem;
+            }
+            else dgvPlanilla.ItemsSource = he;
+        }
+        private void FiltroFecha(DateTime? fecha)
+        {
+            if (fecha.HasValue)
+            {
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.HoraInicio.Date.DayOfYear == fecha.Value.Date.DayOfYear).ToList());
+                foreach (var hex in hem)
+                {
+                    hex.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = hem;
+            }
+            else dgvPlanilla.ItemsSource = he;
+        }
 
         private void dgvPlanilla_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -338,6 +371,22 @@ namespace BanBan.Pages
                     }
                     dgvPlanilla.ItemsSource = he;
                 }
+            }
+        }
+
+        private void tbBuscar_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (he.Count >= 1)
+            {
+                FiltroEmpleado(tbBuscar.Text);
+            }
+        }
+
+        private void btFiltrarFecha_Click(object sender, RoutedEventArgs e)
+        {
+            if (he.Count >= 1)
+            {
+                FiltroFecha(dpAgregar.SelectedDate);
             }
         }
     }
