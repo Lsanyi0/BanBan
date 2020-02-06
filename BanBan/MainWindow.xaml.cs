@@ -1,12 +1,10 @@
 ﻿using BanBan.Controls;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Animation;
 using BanBan.Pages;
-using System.Windows.Forms;
-using System.Threading;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Media.Animation;
 
 namespace BanBan
 {
@@ -28,12 +26,13 @@ namespace BanBan
         private int contador = 0;
         public MainWindow()
         {
+            LanguageProperty.OverrideMetadata(
+            typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(
+            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             InitializeComponent();
 
-            LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(
-                    XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             anims = new List<Storyboard>
             {

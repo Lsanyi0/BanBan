@@ -25,7 +25,6 @@ namespace BanBan.Pages
         public HorasExtra()
         {
             InitializeComponent();
-            //Language = System.Windows.Markup.XmlLanguage.GetLanguage("es-ES");
 
             if (LoginControl.offline)
             {
@@ -49,8 +48,6 @@ namespace BanBan.Pages
             dpDesde.SelectedDate = DateTime.Now.AddDays(-15);
             dpHasta.SelectedDate = DateTime.Now;
             dpAgregar.SelectedDate = DateTime.Now;
-
-
 
             dc = new DispositivoControl(RaiseDeviceEvent);
         }

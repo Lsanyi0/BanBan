@@ -183,7 +183,7 @@
             <Button x:Name="btCargarEmpleado" Content="Editar empleado -&gt;" MinHeight="30" 
                 MinWidth="100" Margin="0,0,4,0" Click="btCargarEmpleadoClick"/>
             <ComboBox x:Name="cbEditarEmpleado" VerticalContentAlignment="Center"
-                MinWidth="200" Height="30"/>
+                MinWidth="200" Height="30" IsEditable="True" MaxDropDownHeight="300"/>
         </StackPanel>
 
         <StackPanel x:Name="spBotones" 
