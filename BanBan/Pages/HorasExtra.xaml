@@ -30,7 +30,7 @@
                     HorizontalAlignment="Left"
                     Grid.Row="3" Grid.ColumnSpan="4" Margin="60,0,0,0" >
             <Label Content="Empleado:" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbEmpleado" Height="30" MaxWidth="150" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="cbEmpleado" Height="30" MaxWidth="150" VerticalContentAlignment="Center" IsEditable="True" MaxDropDownHeight="300" MinWidth="150"/>
             <Label Content="Fecha a agregar o filtro:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpAgregar" VerticalAlignment="Center"/>
             <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="80" Margin="10,0,0,0" Click="btAgregar_Click"/>
