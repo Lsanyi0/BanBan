@@ -15,7 +15,6 @@ namespace BanBan.Pages
     public partial class HorasExtra : Page
     {
         private DispositivoControl dc;
-
         private BindingList<HorasExtraModel> he;
         public HorasExtraOfflineControl heoc;
         public HorasExtraControl hec;
@@ -142,64 +141,7 @@ namespace BanBan.Pages
             return false;
         }
 
-        public ICollection<UserInfo> GetAllUserInfo(DispositivoControl objZkeeper, int machineNumber)
-        {
-            string sdwEnrollNumber = string.Empty, sName = string.Empty, sPassword = string.Empty, sTmpData = string.Empty;
-            int iPrivilege = 0, iTmpLength = 0, iFlag = 0, idwFingerIndex;
-            bool bEnabled = false;
 
-            ICollection<UserInfo> lstFPTemplates = new List<UserInfo>();
-
-            dc.ReadAllUserID(machineNumber);
-            dc.ReadAllTemplate(machineNumber);
-
-            while (dc.objCZKEM.SSR_GetAllUserInfo(machineNumber, out sdwEnrollNumber, out sName, out sPassword, out iPrivilege, out bEnabled))
-            {
-                for (idwFingerIndex = 0; idwFingerIndex < 10; idwFingerIndex++)
-                {
-                    if (dc.objCZKEM.GetUserTmpExStr(machineNumber, sdwEnrollNumber, idwFingerIndex, out iFlag, out sTmpData, out iTmpLength))
-                    {
-                        UserInfo fpInfo = new UserInfo();
-                        fpInfo.MachineNumber = machineNumber;
-                        fpInfo.EnrollNumber = sdwEnrollNumber;
-                        fpInfo.Name = sName;
-                        fpInfo.FingerIndex = idwFingerIndex;
-                        fpInfo.TmpData = sTmpData;
-                        fpInfo.Privelage = iPrivilege;
-                        //fpInfo.Password = sPassword;
-                        fpInfo.Enabled = bEnabled;
-                        fpInfo.iFlag = iFlag.ToString();
-
-                        lstFPTemplates.Add(fpInfo);
-                    }
-                }
-
-            }
-            return lstFPTemplates;
-        }
-
-        private void IngresarUsuarioADispositivo()
-        {
-            ICollection<UserInfo> lstFingerPrintTemplates;
-            try
-            {
-                lstFingerPrintTemplates = GetAllUserInfo(dc, 1);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            int MachineNumber = 1;
-            //string EnrollNumber = (int.Parse((from asd in lstFingerPrintTemplates select asd.EnrollNumber).Last()) + 1).ToString();
-            string EnrollNumber = "12";
-            string Name = "Luis Albanes";
-            string Password = "1153";
-            int Privilege = 3;
-            bool Enabled = true;
-
-            dc.objCZKEM.SSR_SetUserInfo(MachineNumber, EnrollNumber, Name, Password, Privilege, Enabled);
-        }
         public ICollection<MachineInfo> GetLogData(int machineNumber)
         {
             string dwEnrollNumber1 = "";

@@ -22,7 +22,6 @@ namespace BanBan
         private Configuracion configuracion;
         private Reportes reportes;
         public static readonly List<string> tiposUsuario = new List<string>();
-        //
         private int contador = 0;
         public MainWindow()
         {
@@ -111,21 +110,31 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Empleados))
             {
-                frPpal.Content = empleados;
+                frPpal.Navigate(empleados);
             }
         }
         private void btPlanillasClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Planillas))
+            if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
-                frPpal.Content = planillas;
+                if (frPpal.Content.GetType() != typeof(HorasExtra))
+                {
+                    frPpal.Navigate(new HorasExtra());
+                }
+            }
+            else if (LoginControl.tipoUsuario == tiposUsuario[0])
+            {
+                if (frPpal.Content.GetType() != typeof(Planillas))
+                {
+                    frPpal.Navigate(planillas);
+                }
             }
         }
         private void btSucursalesClick(object sender, RoutedEventArgs e)
         {
             if (frPpal.Content.GetType() != typeof(Sucursales))
             {
-                frPpal.Content = sucursales;
+                frPpal.Navigate(sucursales);
             }
         }
 
@@ -133,7 +142,7 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Configuracion))
             {
-                frPpal.Content = reportes;
+                frPpal.Navigate(reportes);
             }
         }
 
@@ -141,7 +150,7 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Configuracion))
             {
-                frPpal.Content = configuracion;
+                frPpal.Navigate(configuracion);
             }
         }
 
@@ -152,13 +161,14 @@ namespace BanBan
         private void ocultarTodos()
         {
             btSucursales.Visibility = Visibility.Collapsed;
-            btPlanillas.Visibility = Visibility.Collapsed;
+            btPlanillas.Visibility = Visibility.Visible;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
+            btConfigurarHorasExtra.Visibility = Visibility.Visible;
             if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
-                frPpal.Content = new HorasExtra();
+                frPpal.Navigate(new HorasExtra());
             }
         }
         private void activarTodos()
@@ -167,7 +177,9 @@ namespace BanBan
             btPlanillas.Visibility = Visibility.Visible;
             btReportes.Visibility = Visibility.Visible;
             btAgregarEmpleados.Visibility = Visibility.Visible;
-            frPpal.Content = planillas;
+            btConfigurar.Visibility = 0;
+            btConfigurarHorasExtra.Visibility = Visibility.Collapsed;
+            frPpal.Navigate(planillas);
         }
         private void activarIT()
         {
@@ -175,7 +187,7 @@ namespace BanBan
             btPlanillas.Visibility = Visibility.Collapsed;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
-            frPpal.Content = configuracion;
+            frPpal.Navigate(configuracion);
         }
 
         private async void frPpal_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -187,9 +199,20 @@ namespace BanBan
                 await empleados.Edit();
                 Empleados.edit = true;
                 empleados.tbApellido.Focus();
-                frPpal.Content = empleados;
+                frPpal.Navigate(empleados);
                 Empleados.cargarEdit = false;
                 contador = 0;
+            }
+        }
+
+        private void btConfigurarHorasExtra_Click(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(UsuariosDispositivo))
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Se perderan los cambios no guardados, desea continuar?", "Advertencia!", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                {
+                    frPpal.Navigate(new UsuariosDispositivo());
+                }
             }
         }
     }

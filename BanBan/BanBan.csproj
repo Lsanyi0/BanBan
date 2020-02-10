@@ -229,6 +229,9 @@
     <Compile Include="Pages\Reportes.xaml.cs">
       <DependentUpon>Reportes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UsuariosDispositivo.xaml.cs">
+      <DependentUpon>UsuariosDispositivo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="planilla.cs">
       <DependentUpon>sBanBan.tt</DependentUpon>
     </Compile>
@@ -319,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Sucursales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsuariosDispositivo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
