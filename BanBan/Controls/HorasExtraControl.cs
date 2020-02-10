@@ -75,7 +75,7 @@ namespace BanBan.Controls
                 XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                 using (StreamWriter sw = new StreamWriter(filename + ".no"))
                 {
-                    using XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { Indent = false });
+                    using XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { Indent = true });
                     xml.Serialize(writer, DatosSucursal);
                 }
                 Crypto.Encrypt(filename + ".no", HorasExtraOfflineControl.pathDB + "\\" + filename + ".sc");

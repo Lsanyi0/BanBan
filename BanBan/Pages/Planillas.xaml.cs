@@ -105,6 +105,7 @@ namespace BanBan.Pages
                 HorasExtraModel.Load = true;
                 foreach (string file in ofd.FileNames)
                 {
+                    //Crypto.Encrypt(file, file.Substring(0,file.Length-1));
                     Crypto.Decrypt(file, file + "x");
                     XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                     DatosSucursalModel ds = new DatosSucursalModel();
@@ -131,15 +132,23 @@ namespace BanBan.Pages
                         {
                             if (empleado.idEmpleado == HorasExtra.IdEmpleado)
                             {
-                                empleado.horarioextra.Add(new horarioextra()
+                                if (ObtenerTipoDeHora(HorasExtra) != 0)
                                 {
-                                    horaInicio = HorasExtra.HoraInicio,
-                                    horaFinal = HorasExtra.HoraFinal,
-                                    tipohora = new tipohora()
+                                    empleado.horarioextra.Add(new horarioextra()
                                     {
-                                        idTipoHora = ObtenerTipoDeHora(HorasExtra)
-                                    }
-                                });
+                                        horaInicio = HorasExtra.HoraInicio,
+                                        horaFinal = HorasExtra.HoraFinal,
+                                        tipohora = new tipohora()
+                                        {
+                                            idTipoHora = ObtenerTipoDeHora(HorasExtra)
+                                        },
+                                        comentarios = HorasExtra.Comentario
+                                    });
+                                }
+                                else
+                                {
+
+                                }
                             }
                         }
                     }
@@ -165,7 +174,7 @@ namespace BanBan.Pages
         private int ObtenerTipoDeHora(HorasExtraModel extraModel)
         {
             int tipohora = 0;
-            if (extraModel.HoraExtra) tipohora = 1;
+            if (extraModel.HoraExtra) tipohora = 2;
             if (extraModel.HoraExtraNocturna) tipohora = 3;
             if (extraModel.HoraAsueto) tipohora = 4;
             if (extraModel.HoraDescanso) tipohora = 5;

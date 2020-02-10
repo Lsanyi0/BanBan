@@ -110,9 +110,23 @@ namespace BanBan.Controls
                     List<DateTime?> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
                     pm.Horas = GetHorasTrabajadas(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
-                    //pm.HorasExtra = GetHorasExtra(Inicio, Fin);
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
+
+                    List<decimal> horasExtra = GetTiposDeHora(empleado);
+                    try
+                    {
+                        pm.HorasExtra = horasExtra[0];
+                        pm.HorasNocturnasExtra = horasExtra[1];
+                        pm.HorasAsueto = horasExtra[2];
+                        pm.HorasDescanso = horasExtra[3];
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    pm.Atencion = (from at in sb.atencion join atd in sb.atenciondetalle on at.idAtencion equals atd.idAtencion where atd.idEmpleado == empleado.idEmpleado select at.montoBase).ToList();
+                    List<string> asd = (from at in sb.atencion join atd in sb.atenciondetalle on at.idAtencion equals atd.idAtencion where atd.idEmpleado == empleado.idEmpleado select at.atencion1).ToList();
+                    pm.Atenciones = GetDetalle(asd, pm.Atencion);
                     //pm.Descuento = GetDetalle();
                     planillaModels.Add(pm);
                 }
@@ -133,14 +147,40 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private decimal GetHorasExtra(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        public decimal GetHorasTrabajadas(List<DateTime> Iniciales, List<DateTime> Finales)
         {
-            decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
-            if (Horas > HorasQuincena)
+            decimal Horas = 0;
+            for (int i = 0; i < Iniciales.Count; i++)
             {
-                return Horas - HorasQuincena;
+                Horas += (decimal)(Finales[i] - Iniciales[i]).TotalHours;
             }
-            return 0M;
+            return Horas;
+        }
+        private List<decimal> GetTiposDeHora(empleado emp)
+        {
+            List<decimal> Horas = new List<decimal>();
+            try
+            {
+                List<DateTime> Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
+                List<DateTime> Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
+                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+
+                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
+                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
+                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+
+                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
+                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
+                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+
+                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
+                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
+                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+            }
+            catch (Exception)
+            {
+            }
+            return Horas;
         }
         //Horas > 7:00 pm
         private decimal GetNocturnidad(List<DateTime?> Finales)
@@ -166,7 +206,7 @@ namespace BanBan.Controls
             return 0M;
         }
         //Funcion par obtener detalle de descuentos o atenciones
-        public string GetDetalle(List<string> Detalle, List<double> Monto)
+        public string GetDetalle(List<string> Detalle, List<decimal> Monto)
         {
             string Detalles = "";
             for (int i = 0; i < Detalle.Count; i++)
@@ -174,9 +214,9 @@ namespace BanBan.Controls
                 Detalles += Detalle[i] + ": $";
                 if ((i + 1) != Detalle.Count)
                 {
-                    Detalles += Monto[i] + ", ";
+                    Detalles += Monto[i].ToString("0.##") + ", ";
                 }
-                else Detalles += Monto[i];
+                else Detalles += Monto[i].ToString("0.##");
             }
             return Detalles;
         }

@@ -17,10 +17,5 @@ namespace BanBan.Model
         public string Descuentos { get; set; }
         public List<decimal> Descuento { get; set; }
         public decimal TotalDescuento { get { return decimal.Round(Descuento.Sum(), Decimales); } set { } }
-        public decimal TotalNeto
-        {
-            get { return PorcentajeCargo + TotalAtenciones - TotalDescuento; }
-            set { }
-        }
     }
 }
