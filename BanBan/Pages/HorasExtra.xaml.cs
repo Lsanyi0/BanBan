@@ -62,6 +62,11 @@ namespace BanBan.Pages
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(cbEmpleado.Text) || !dpAgregar.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Fecha a agregar vacia o empleado no selecionado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
             HorasExtraModel emp = new HorasExtraModel
             {
                 Nombre = cbEmpleado.Text,
@@ -100,6 +105,10 @@ namespace BanBan.Pages
 
         private void EnviarDatos(object sender, RoutedEventArgs e)
         {
+            if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue)
+            {
+                return;
+            }
             try
             {
                 var x = Connect_Net("192.168.0.50", 4370);
@@ -325,6 +334,11 @@ namespace BanBan.Pages
         {
             if (he.Count >= 1)
             {
+                if (!dpAgregar.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Fecha de filtro vacia","Advertencia",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                    return;
+                }
                 FiltroFecha(dpAgregar.SelectedDate);
             }
         }
