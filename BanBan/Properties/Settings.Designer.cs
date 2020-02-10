@@ -34,5 +34,17 @@ namespace BanBan.Properties {
                 this["Dropbox"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SucursalActual {
+            get {
+                return ((string)(this["SucursalActual"]));
+            }
+            set {
+                this["SucursalActual"] = value;
+            }
+        }
     }
 }

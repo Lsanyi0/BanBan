@@ -58,6 +58,11 @@ namespace BanBan.Pages
 
         private void btGuardarClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(cbSupervisor.Text))
+            {
+                MessageBox.Show("Seleccione un supervisor para la sucursal");//revisar
+                return;
+            }
 
             string val = sc.GuardarSucursal(tbNombreSucursal.Text, tbDireccion.Text, cbMunicipio.Text,
                                             cbSupervisor.Text, cbDepartamento.Text, lista);

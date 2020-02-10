@@ -15,7 +15,6 @@ namespace BanBan.Pages
     public partial class HorasExtra : Page
     {
         private DispositivoControl dc;
-
         private BindingList<HorasExtraModel> he;
         public HorasExtraOfflineControl heoc;
         public HorasExtraControl hec;
@@ -47,7 +46,7 @@ namespace BanBan.Pages
 
             dpDesde.SelectedDate = DateTime.Now.AddDays(-15);
             dpHasta.SelectedDate = DateTime.Now;
-
+            dpAgregar.SelectedDate = DateTime.Now;
 
             dc = new DispositivoControl(RaiseDeviceEvent);
         }
@@ -63,11 +62,16 @@ namespace BanBan.Pages
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(cbEmpleado.Text) || !dpAgregar.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Fecha a agregar vacia o empleado no selecionado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
             HorasExtraModel emp = new HorasExtraModel
             {
                 Nombre = cbEmpleado.Text,
-                HoraInicio = DateTime.Now,
-                HoraFinal = DateTime.Now.AddHours(2)
+                HoraInicio = dpAgregar.SelectedDate.Value.AddHours(DateTime.Now.Hour),
+                HoraFinal = dpAgregar.SelectedDate.Value.AddHours(DateTime.Now.Hour + 2)
             };
             if (he.Count == 0)
             {
@@ -101,6 +105,10 @@ namespace BanBan.Pages
 
         private void EnviarDatos(object sender, RoutedEventArgs e)
         {
+            if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue)
+            {
+                return;
+            }
             try
             {
                 var x = Connect_Net("192.168.0.50", 4370);
@@ -110,7 +118,11 @@ namespace BanBan.Pages
                 }
                 //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
                 ICollection<MachineInfo> Horario = GetLogData(1);
-                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
+                if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
+                {
+                    ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
+                }
+                else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
             }
             catch (Exception ex)
             {
@@ -138,64 +150,7 @@ namespace BanBan.Pages
             return false;
         }
 
-        public ICollection<UserInfo> GetAllUserInfo(DispositivoControl objZkeeper, int machineNumber)
-        {
-            string sdwEnrollNumber = string.Empty, sName = string.Empty, sPassword = string.Empty, sTmpData = string.Empty;
-            int iPrivilege = 0, iTmpLength = 0, iFlag = 0, idwFingerIndex;
-            bool bEnabled = false;
 
-            ICollection<UserInfo> lstFPTemplates = new List<UserInfo>();
-
-            dc.ReadAllUserID(machineNumber);
-            dc.ReadAllTemplate(machineNumber);
-
-            while (dc.objCZKEM.SSR_GetAllUserInfo(machineNumber, out sdwEnrollNumber, out sName, out sPassword, out iPrivilege, out bEnabled))
-            {
-                for (idwFingerIndex = 0; idwFingerIndex < 10; idwFingerIndex++)
-                {
-                    if (dc.objCZKEM.GetUserTmpExStr(machineNumber, sdwEnrollNumber, idwFingerIndex, out iFlag, out sTmpData, out iTmpLength))
-                    {
-                        UserInfo fpInfo = new UserInfo();
-                        fpInfo.MachineNumber = machineNumber;
-                        fpInfo.EnrollNumber = sdwEnrollNumber;
-                        fpInfo.Name = sName;
-                        fpInfo.FingerIndex = idwFingerIndex;
-                        fpInfo.TmpData = sTmpData;
-                        fpInfo.Privelage = iPrivilege;
-                        //fpInfo.Password = sPassword;
-                        fpInfo.Enabled = bEnabled;
-                        fpInfo.iFlag = iFlag.ToString();
-
-                        lstFPTemplates.Add(fpInfo);
-                    }
-                }
-
-            }
-            return lstFPTemplates;
-        }
-
-        private void IngresarUsuarioADispositivo()
-        {
-            ICollection<UserInfo> lstFingerPrintTemplates;
-            try
-            {
-                lstFingerPrintTemplates = GetAllUserInfo(dc, 1);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            int MachineNumber = 1;
-            //string EnrollNumber = (int.Parse((from asd in lstFingerPrintTemplates select asd.EnrollNumber).Last()) + 1).ToString();
-            string EnrollNumber = "12";
-            string Name = "Luis Albanes";
-            string Password = "1153";
-            int Privilege = 3;
-            bool Enabled = true;
-
-            dc.objCZKEM.SSR_SetUserInfo(MachineNumber, EnrollNumber, Name, Password, Privilege, Enabled);
-        }
         public ICollection<MachineInfo> GetLogData(int machineNumber)
         {
             string dwEnrollNumber1 = "";
@@ -320,6 +275,32 @@ namespace BanBan.Pages
             }
             else dgvPlanilla.ItemsSource = he;
         }
+        private void FiltroEmpleado(string Nombre)
+        {
+            if (!string.IsNullOrWhiteSpace(Nombre))
+            {
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.NombreCompleto.ToLower().Contains(Nombre.ToLower())).ToList());
+                foreach (var hex in hem)
+                {
+                    hex.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = hem;
+            }
+            else dgvPlanilla.ItemsSource = he;
+        }
+        private void FiltroFecha(DateTime? fecha)
+        {
+            if (fecha.HasValue)
+            {
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.HoraInicio.Date.DayOfYear == fecha.Value.Date.DayOfYear).ToList());
+                foreach (var hex in hem)
+                {
+                    hex.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = hem;
+            }
+            else dgvPlanilla.ItemsSource = he;
+        }
 
         private void dgvPlanilla_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -338,6 +319,27 @@ namespace BanBan.Pages
                     }
                     dgvPlanilla.ItemsSource = he;
                 }
+            }
+        }
+
+        private void tbBuscar_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (he.Count >= 1)
+            {
+                FiltroEmpleado(tbBuscar.Text);
+            }
+        }
+
+        private void btFiltrarFecha_Click(object sender, RoutedEventArgs e)
+        {
+            if (he.Count >= 1)
+            {
+                if (!dpAgregar.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Fecha de filtro vacia","Advertencia",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                    return;
+                }
+                FiltroFecha(dpAgregar.SelectedDate);
             }
         }
     }

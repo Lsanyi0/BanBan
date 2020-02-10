@@ -75,6 +75,12 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <SolidColorBrush x:Name="foregroundGlobal" x:Key="foregroundGlobal2" Color="White"/>
+        <SolidColorBrush x:Name="backGroundGlobal" x:Key="backGroundGlobal2" Color="CadetBlue"/>
+        <SolidColorBrush x:Name="isEnabledGral" x:Key="isEnabledGral2" Color="#FF213738"/>
+        <SolidColorBrush x:Name="isEnabledGralFore" x:Key="isEnabledGralFore2" Color="#FFCBCBCB"/>
+        <SolidColorBrush x:Name="isEnabledGralBorder" x:Key="isEnabledGralBorder2" Color="{Binding Color, ElementName=isEnabledGralFore}"/>
+        <SolidColorBrush x:Name="mouseOverGlobal" x:Key="mouseOverGlobal2" Color="#BC3D6364"/>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger x:Name="eventTrigger" RoutedEvent="FrameworkElement.Loaded">
@@ -351,6 +357,79 @@
                             </Rectangle.RenderTransform>
                         </Rectangle>
                         <Rectangle x:Name="rcGear6" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal}" Canvas.Bottom="0" Canvas.Left="11" />
+                    </Canvas>
+                </Grid>
+            </Button>
+            <Button x:Name="btConfigurarHorasExtra" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch" Visibility="Collapsed"
+                ToolTip="Despliega el formulario de configuracion" Style="{DynamicResource btNormal}" Click="btConfigurarHorasExtra_Click">
+                <Grid x:Name="gdConfigurar1"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btConfigurarHorasExtra}"
+                    Margin="-2" Background="{Binding Background, ElementName=btConfigurarHorasExtra}">
+                    <Label x:Name="lbConfigurar1" 
+                        Content="Configurar" 
+                        Foreground="{DynamicResource foregroundGlobal2}"
+                        Width="122"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgConfigurar1"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Ellipse x:Name="elCirculo1" Width="24" Height="24" StrokeThickness="6" Stroke="{DynamicResource foregroundGlobal2}" Canvas.Top="3" Canvas.Left="3"/>
+                        <Rectangle x:Name="rcGear7" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="11" Canvas.Left="11" Canvas.Top="0"/>
+                        <Rectangle x:Name="rcGear8" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="11" Canvas.Left="2" Canvas.Top="5" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear9" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="11" Canvas.Left="21" Canvas.Top="5" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear10" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="11" Canvas.Left="20" Canvas.Top="19" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear11" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="11" Canvas.Left="2" Canvas.Top="19" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="rcGear12" Width="8" Height="6" Fill="{DynamicResource foregroundGlobal2}" Canvas.Bottom="0" Canvas.Left="11" />
                     </Canvas>
                 </Grid>
             </Button>

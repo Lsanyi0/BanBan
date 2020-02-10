@@ -1,9 +1,10 @@
 ﻿using BanBan.Controls;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media.Animation;
 using BanBan.Pages;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Media.Animation;
 
 namespace BanBan
 {
@@ -19,14 +20,19 @@ namespace BanBan
         private Planillas planillas;
         private Sucursales sucursales;
         private Configuracion configuracion;
-        private pruebaDatos pruebaDatos;
         private Reportes reportes;
         public static readonly List<string> tiposUsuario = new List<string>();
-        //
         private int contador = 0;
         public MainWindow()
         {
+            LanguageProperty.OverrideMetadata(
+            typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(
+            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             InitializeComponent();
+
+
             anims = new List<Storyboard>
             {
                 FindResource("stbLoginCorrecto") as Storyboard,
@@ -41,6 +47,12 @@ namespace BanBan
 
             System.Windows.Input.NavigationCommands.BrowseBack.InputGestures.Clear();
             System.Windows.Input.NavigationCommands.BrowseForward.InputGestures.Clear();
+
+            if (Properties.Settings.Default.Dropbox == "C:\\")
+            {
+                Properties.Settings.Default.Dropbox = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonDocuments);
+                Properties.Settings.Default.Save();
+            }
         }
 
         //Usado como trigger para la animacion de fade-out del login
@@ -58,7 +70,6 @@ namespace BanBan
                 empleados = new Empleados();
                 planillas = new Planillas();
                 sucursales = new Sucursales();
-                pruebaDatos = new pruebaDatos();
                 configuracion = new Configuracion();
                 reportes = new Reportes();
                 activarTodos();
@@ -99,21 +110,31 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Empleados))
             {
-                frPpal.Content = empleados;
+                frPpal.Navigate(empleados);
             }
         }
         private void btPlanillasClick(object sender, RoutedEventArgs e)
         {
-            if (frPpal.Content.GetType() != typeof(Planillas))
+            if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
-                frPpal.Content = planillas;
+                if (frPpal.Content.GetType() != typeof(HorasExtra))
+                {
+                    frPpal.Navigate(new HorasExtra());
+                }
+            }
+            else if (LoginControl.tipoUsuario == tiposUsuario[0])
+            {
+                if (frPpal.Content.GetType() != typeof(Planillas))
+                {
+                    frPpal.Navigate(planillas);
+                }
             }
         }
         private void btSucursalesClick(object sender, RoutedEventArgs e)
         {
             if (frPpal.Content.GetType() != typeof(Sucursales))
             {
-                frPpal.Content = sucursales;
+                frPpal.Navigate(sucursales);
             }
         }
 
@@ -121,7 +142,7 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Configuracion))
             {
-                frPpal.Content = reportes;
+                frPpal.Navigate(reportes);
             }
         }
 
@@ -129,7 +150,7 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(Configuracion))
             {
-                frPpal.Content = configuracion;
+                frPpal.Navigate(configuracion);
             }
         }
 
@@ -140,13 +161,14 @@ namespace BanBan
         private void ocultarTodos()
         {
             btSucursales.Visibility = Visibility.Collapsed;
-            btPlanillas.Visibility = Visibility.Collapsed;
+            btPlanillas.Visibility = Visibility.Visible;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
+            btConfigurarHorasExtra.Visibility = Visibility.Visible;
             if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
-                frPpal.Content = new HorasExtra();
+                frPpal.Navigate(new HorasExtra());
             }
         }
         private void activarTodos()
@@ -155,7 +177,9 @@ namespace BanBan
             btPlanillas.Visibility = Visibility.Visible;
             btReportes.Visibility = Visibility.Visible;
             btAgregarEmpleados.Visibility = Visibility.Visible;
-            frPpal.Content = planillas;
+            btConfigurar.Visibility = 0;
+            btConfigurarHorasExtra.Visibility = Visibility.Collapsed;
+            frPpal.Navigate(planillas);
         }
         private void activarIT()
         {
@@ -163,7 +187,7 @@ namespace BanBan
             btPlanillas.Visibility = Visibility.Collapsed;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
-            frPpal.Content = configuracion;
+            frPpal.Navigate(configuracion);
         }
 
         private async void frPpal_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -175,9 +199,20 @@ namespace BanBan
                 await empleados.Edit();
                 Empleados.edit = true;
                 empleados.tbApellido.Focus();
-                frPpal.Content = empleados;
+                frPpal.Navigate(empleados);
                 Empleados.cargarEdit = false;
                 contador = 0;
+            }
+        }
+
+        private void btConfigurarHorasExtra_Click(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(UsuariosDispositivo))
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Se perderan los cambios no guardados, desea continuar?", "Advertencia!", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                {
+                    frPpal.Navigate(new UsuariosDispositivo());
+                }
             }
         }
     }

@@ -19,6 +19,7 @@ namespace BanBan.Pages
     {
         private PlanillasControl pc = new PlanillasControl();
         private BindingList<PlanillaModel> pm;
+        private BindingList<PlanillaModel> pmInicial;
         private const string file = "planilla.xml";
 
         public Planillas()
@@ -29,19 +30,13 @@ namespace BanBan.Pages
             cbSucursal.SelectedIndex = 0;
 
             pm = File.Exists(file) ? pc.CargarXML(file) : new BindingList<PlanillaModel>();
-
-            pm.ListChanged += Actualizar;
+            pmInicial = pm;
 
             dgvEditar.ItemsSource = pm;
 
-            ActualizarModelo();
+            ActualizarModelo(pm);
 
             lbNumero.Content = dgvPlanilla.Items.Count;
-        }
-
-        private void Actualizar(object sender, ListChangedEventArgs e)
-        {
-            ActualizarModelo();
         }
 
         private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -67,11 +62,11 @@ namespace BanBan.Pages
             Empleados.cargarEdit = true;
         }
 
-        private void ActualizarModelo()
+        private void ActualizarModelo(BindingList<PlanillaModel> planillas)
         {
-            dgvPlanilla.ItemsSource = pm;
-            dgvAtenciones.ItemsSource = pm;
-            dgvEditar.ItemsSource = pm;
+            dgvPlanilla.ItemsSource = planillas;
+            dgvAtenciones.ItemsSource = planillas;
+            dgvEditar.ItemsSource = planillas;
         }
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
@@ -110,6 +105,7 @@ namespace BanBan.Pages
                 HorasExtraModel.Load = true;
                 foreach (string file in ofd.FileNames)
                 {
+                    //Crypto.Encrypt(file, file.Substring(0,file.Length-1));
                     Crypto.Decrypt(file, file + "x");
                     XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                     DatosSucursalModel ds = new DatosSucursalModel();
@@ -136,30 +132,49 @@ namespace BanBan.Pages
                         {
                             if (empleado.idEmpleado == HorasExtra.IdEmpleado)
                             {
-                                empleado.horarioextra.Add(new horarioextra()
+                                if (ObtenerTipoDeHora(HorasExtra) != 0)
                                 {
-                                    horaInicio = HorasExtra.HoraInicio,
-                                    horaFinal = HorasExtra.HoraFinal,
-                                    tipohora = new tipohora()
+                                    empleado.horarioextra.Add(new horarioextra()
                                     {
-                                        idTipoHora = ObtenerTipoDeHora(HorasExtra)
-                                    }
-                                });
+                                        horaInicio = HorasExtra.HoraInicio,
+                                        horaFinal = HorasExtra.HoraFinal,
+                                        tipohora = new tipohora()
+                                        {
+                                            idTipoHora = ObtenerTipoDeHora(HorasExtra)
+                                        },
+                                        comentarios = HorasExtra.Comentario
+                                    });
+                                }
+                                else
+                                {
+
+                                }
                             }
                         }
                     }
                 }
-                empleados = empleados.Where(x => x.planillahorario.Count > 0).Select(x => x).ToList();
+                empleados = empleados.Where(x => x.planillahorario.Count > 0).OrderByDescending(x => x.nombre).ToList();
             }
             ofd.Dispose();
             pm = pc.getPlanillaModels(empleados);
-            ActualizarModelo();
+            foreach (var planilla in pm)
+            {
+                planilla.PropertyChanged += ActualizarPadre;
+            }
+            pmInicial = pm;
+            ActualizarModelo(pm);
             HorasExtraModel.Load = false;
+        }
+        private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
+        {
+            PlanillaModel model = (PlanillaModel)sender;
+            pm = (BindingList<PlanillaModel>)pm.Where(x => x.IdEmpleado != model.IdEmpleado);
+            pm.Add(model);
         }
         private int ObtenerTipoDeHora(HorasExtraModel extraModel)
         {
             int tipohora = 0;
-            if (extraModel.HoraExtra) tipohora = 1;
+            if (extraModel.HoraExtra) tipohora = 2;
             if (extraModel.HoraExtraNocturna) tipohora = 3;
             if (extraModel.HoraAsueto) tipohora = 4;
             if (extraModel.HoraDescanso) tipohora = 5;
@@ -172,16 +187,37 @@ namespace BanBan.Pages
 
             pm = pc.getEmpleados();
 
-            dgvEditar.ItemsSource = pm;
-
-            ActualizarModelo();
+            ActualizarModelo(pm);
         }
 
         private void tbBuscar_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (tbBuscar.Text.Length > 3)
+            if (!string.IsNullOrWhiteSpace(tbBuscar.Text))
             {
 
+            }
+            else if (string.IsNullOrEmpty(tbBuscar.Text))
+            {
+
+            }
+        }
+        private void FiltroSucursal(string sucursal)
+        {
+            if (!string.IsNullOrWhiteSpace(sucursal))
+            {
+                int idsucursal = pc.GetIdSucursalByNombre(sucursal);
+                BindingList<PlanillaModel> fpm = new BindingList<PlanillaModel>(pm.Where(x => pc.EmpleadoInSucursal(x.IdEmpleado, idsucursal)).ToList());
+                foreach (var planilla in fpm)
+                {
+                    planilla.PropertyChanged += ActualizarPadre;
+                }
+                dgvPlanilla.ItemsSource = fpm;
+                ActualizarModelo(fpm);
+            }
+            else
+            {
+                dgvPlanilla.ItemsSource = pm;
+                ActualizarModelo(pm);
             }
         }
     }

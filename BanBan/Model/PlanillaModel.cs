@@ -154,7 +154,11 @@ namespace BanBan.Model
             get { return TotalDevengado - TotalDeduccion; }
             set { }
         }
-
+        public decimal TotalNeto
+        {
+            get { return PorcentajeCargo + (TotalAtenciones * NumeroDias) - TotalDescuento; }
+            set { }
+        }
         private bool _Revisado { get; set; }
         public bool Revisado
         {

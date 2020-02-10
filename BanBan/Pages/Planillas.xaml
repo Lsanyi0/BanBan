@@ -61,7 +61,7 @@
                         <DataGridTextColumn Header="Total horas extra" Binding="{Binding TotalHorasExtra, StringFormat=N2}" Width="100"/>
                         <DataGridTextColumn Header="Total horas extra nocturnas" Binding="{Binding TotalHorasExtraNocturnas, StringFormat=N2}" Width="155"/>
                         <DataGridTextColumn Header="Total asueto" Binding="{Binding TotalAsuetos, StringFormat=N2}" Width="75"/>
-                        <DataGridTextColumn Header="Total descanso" Binding="{Binding TotaDescanso, StringFormat=N2}" Width="90"/>
+                        <DataGridTextColumn Header="Total descanso" Binding="{Binding TotalHorasDescanso, StringFormat=N2}" Width="90"/>
                         <DataGridTextColumn Header="Total devengado" Binding="{Binding TotalDevengado, StringFormat=N2}" Width="100"/>
                         <DataGridTextColumn Header="Seguro empleado" Binding="{Binding TotalSeguroEmpleado, StringFormat=N2}" Width="110"/>
                         <DataGridTextColumn Header="AFP empleado" Binding="{Binding TotalAFPEmpleado, StringFormat=N2}" Width="90"/>

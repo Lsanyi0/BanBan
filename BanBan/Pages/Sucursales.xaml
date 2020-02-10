@@ -118,7 +118,7 @@
                 MinWidth="100" Height="30"
                 HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSupervisor"  
-                MinWidth="200" Height="30"/>
+                MinWidth="200" Height="30" MaxDropDownHeight="300" IsEditable="True"/>
         </StackPanel>
         <StackPanel x:Name="spEditarSucursal" Grid.Row="6" 
                     Orientation="Horizontal" 
@@ -127,7 +127,7 @@
             <Button x:Name="btCargarSucursales" Content="Editar sucursal ->" MinHeight="30" 
                     MinWidth="100" Margin="0,0,4,0" Click="btCargarSucursalesClick"/>
             <ComboBox x:Name="cbEditarSucursal" 
-                      MinWidth="200" Height="30"/>
+                      MinWidth="200" Height="30" MaxDropDownHeight="300" IsEditable="True"/>
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
