@@ -62,7 +62,7 @@ namespace BanBan.Pages
 
         private void btAgregar_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(cbEmpleado.Text) || !dpAgregar.SelectedDate.HasValue)
+            if (!dpAgregar.SelectedDate.HasValue || cbEmpleado.SelectedItem == null)
             {
                 MessageBox.Show("Fecha a agregar vacia o empleado no selecionado", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;

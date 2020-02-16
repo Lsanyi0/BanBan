@@ -19,12 +19,6 @@
                     HorizontalAlignment="Left" 
                     Grid.Row="2" Grid.ColumnSpan="3">
             <Button x:Name="btObtenerDatos" Content="Obtener datos" Height="30" MinWidth="120" Margin="60,0,0,0" Click="btObtenerDatos_Click"/>
-            <Label Content="Desde:" VerticalAlignment="Center" Margin="0,0,0,0"/>
-            <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
-            <Label Content="Hasta:" VerticalAlignment="Center" />
-            <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
-            <!--<Button x:Name="btDatosDispositivo" Content="Datos del dispositivo" Height="30" Margin="10,0,0,0" Click="btDatosDispositivo_Click"/>-->
-            <Button x:Name="btEnviarDatos" Content="Enviar datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
         </StackPanel>
         <StackPanel x:Name="spEmpleado" Orientation="Horizontal" 
                     HorizontalAlignment="Left"
@@ -49,7 +43,7 @@
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
-        <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,45" Grid.Row="4" Grid.ColumnSpan="5" PreviewKeyDown="dgvPlanilla_PreviewKeyDown">
+        <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,10" Grid.Row="4" Grid.ColumnSpan="5" PreviewKeyDown="dgvPlanilla_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
                 <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
@@ -84,12 +78,23 @@
                 <DataGridTextColumn Header="Comentario" Binding="{Binding Comentario, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel x:Name="spEnviarDatos" Orientation="Horizontal"
+                    Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" 
+                    HorizontalAlignment="Right" Margin="0,0,40,0">
+            <Label Content="Desde:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
+            <Label Content="Hasta:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
+            <Button x:Name="btEnviarDatos" Content="Enviar datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
+        </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="35*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

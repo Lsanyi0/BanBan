@@ -35,13 +35,18 @@
             <Button x:Name="btSeleccionarSucursal" Height="30" Content="Seleccionar sucursal" Click="btSeleccionarSucursal_Click"/>
         </StackPanel>
         <StackPanel x:Name="spUsuariosDispositivo" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3"  Margin="0,0,10,0">
-            <Label x:Name="lbSeleccionarEmpleado" Height="30" Content="Seleccionar empleado:"/>
+            <Label x:Name="lbSeleccionarEmpleado" Height="30" Content="Empleado:"/>
             <ComboBox x:Name="cbEmpleado" MinWidth="200" Height="30" MaxDropDownHeight="400" MaxWidth="100" IsEditable="True" SelectionChanged="cbEmpleado_SelectionChanged" />
         </StackPanel>
-        <StackPanel x:Name="spUsuariosDispositivoB" Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1"  Margin="10,0,0,0" >
-            <ComboBox x:Name="cbNombreEnDispositivo" MinWidth="100" Height="30" MaxWidth="100"  MaxDropDownHeight="400" IsEditable="False" />
-            <ComboBox x:Name="cbNombreEnDispositivoB" MinWidth="100" Height="30" MaxWidth="100" MaxDropDownHeight="400" IsEditable="True" />
-            <Button x:Name="btSeleccionarEmpleado" Height="30" Content="Insertar a dispositivo" Click="btSeleccionarEmpleado_Click"/>
+        <StackPanel x:Name="spUsuariosDispositivoB" Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1">
+            <StackPanel x:Name="spStack">
+                <Label x:Name="lbNombreDispositivo" Height="30" Content="Seleccione nombre para usuario en dispositivo:"/>
+                <StackPanel x:Name="spStack1" Orientation="Horizontal">
+                    <ComboBox x:Name="cbNombreEnDispositivo" MinWidth="100" Height="30" MaxDropDownHeight="400" IsEditable="False" />
+                    <ComboBox x:Name="cbNombreEnDispositivoB" MinWidth="100" Height="30" MaxWidth="100" MaxDropDownHeight="400" IsEditable="True" />
+                    <Button x:Name="btSeleccionarEmpleado" Height="30" Content="Ingresar a dispositivo" Click="btSeleccionarEmpleado_Click" Margin="0,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
         <StackPanel x:Name="spSeleccionarCarpeta" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4"  Margin="0,0,10,0">
             <Button x:Name="btSeleccionarCarpeta" Height="30" Content="Seleccionar carpeta" Click="btSeleccionarCarpeta_Click"/>

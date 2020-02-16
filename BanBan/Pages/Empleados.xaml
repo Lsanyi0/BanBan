@@ -131,7 +131,7 @@
                 HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="cbCargo" 
                       MinWidth="200" Height="30" 
-                      VerticalContentAlignment="Center" DropDownClosed="cbCargoDropDownClosed"/>
+                      VerticalContentAlignment="Center" SelectionChanged="cbCargo_SelectionChanged"/>
         </StackPanel>
         <StackPanel x:Name="spSueldo" Grid.Row="7" 
             Orientation="Horizontal" 
@@ -157,8 +157,8 @@
         </StackPanel>
 
         <StackPanel x:Name="spSucursalesSupervisor" Orientation="Horizontal" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Right">
-            <Label x:Name="lbSucursalesSupervisor" Content="Sucursales a supervisar:"/>
-            <ListBox x:Name="lsSucursalesSupervisor" Width="200" IsEnabled="False" SelectionMode="Multiple"/>
+            <Label x:Name="lbSucursalesSupervisor" Content="Sucursales a supervisar:" Visibility="Collapsed"/>
+            <ListBox x:Name="lsSucursalesSupervisor" Width="200" IsEnabled="False" SelectionMode="Multiple" Visibility="Collapsed"/>
         </StackPanel>
 
         <StackPanel x:Name="spAtenciones" Orientation="Horizontal" Grid.Column="1" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left">
