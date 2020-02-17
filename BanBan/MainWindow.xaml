@@ -178,6 +178,41 @@
                     </Canvas>
                 </Grid>
             </Button>
+            <Button x:Name="btPlanillasHE" 
+                Height="52"
+                VerticalAlignment="Top"
+                Margin="4,0,0,0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ToolTip="Despliega el formulario para enviar datos a sucursal principal" Style="{DynamicResource btNormal}" Click="btPlanillasHE_Click" Visibility="Visible">
+                <Grid x:Name="gdPlanillasHE"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Width="{Binding ActualWidth, ElementName=btOpciones}"
+                    Margin="-2" Background="{Binding Background, ElementName=btPlanillasHE}">
+                    <Label x:Name="lbPlanillasHE" 
+                        Content="Supervisor" 
+                        Foreground="{DynamicResource foregroundGlobal}"
+                        Width="121"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"  
+                        FontFamily="Century Schoolbook"
+                        FontSize="22"
+                        VerticalContentAlignment="Center" Height="52" Grid.ColumnSpan="2"/>
+                    <Canvas x:Name="imgPlanillasHE"
+                        Height="30" Width="30"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,11,5,11"
+                        ClipToBounds="True" Grid.Column="1">
+                        <Rectangle x:Name="rtBordeHE" Width="20" Height="24" StrokeThickness="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="3" Canvas.Left="6"/>
+                        <Rectangle x:Name="rtlineaHE" Width="14" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="7" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea1HE" Width="12" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="10" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea2HE" Width="5" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="13" Canvas.Left="9"/>
+                        <Rectangle x:Name="rtlinea3HE" Width="14" Height="2" Stroke="{DynamicResource foregroundGlobal}" Canvas.Top="21" Canvas.Left="9"/>
+                    </Canvas>
+                </Grid>
+            </Button>
             <Button x:Name="btReportes" 
                 Height="52"
                 VerticalAlignment="Top"

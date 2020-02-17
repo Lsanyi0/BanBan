@@ -44,7 +44,7 @@ namespace BanBan.Pages
         {
             if (!dpFechaContrato.SelectedDate.HasValue) { dpFechaContrato.IsDropDownOpen = true; return; }
 
-            string val = emp.save(tbNombre.Text, tbApellido.Text, tbDUI.Text, tbNIT.Text,
+            string val = emp.save(tbNombre.Text.Trim(), tbApellido.Text.Trim(), tbDUI.Text, tbNIT.Text,
                      dpFechaContrato.SelectedDate.Value, dpSalidaEmpresa.SelectedDate, cbAfiliacion.Text,
                      tbNumeroAfiliado.Text, tbISSS.Text, cbSucursal.Text, cbCargo.Text, tbSueldoBase.Text,
                      tbTelefono.Text, cbxActivo.IsChecked.Value, getASupervisar(), getAtenciones(), editState);
@@ -59,12 +59,6 @@ namespace BanBan.Pages
         private void btCancelarClick(object sender, RoutedEventArgs e)
         {
             emp.ClearTextboxes(this);
-        }
-
-        private void cbCargoDropDownClosed(object sender, System.EventArgs e)
-        {
-            if (cbCargo.Text == "Supervisor") lsSucursalesSupervisor.IsEnabled = true;
-            else { lsSucursalesSupervisor.IsEnabled = false; lsSucursalesSupervisor.SelectedIndex = -1; }
         }
 
         private void PageGotFocus(object sender, RoutedEventArgs e)
@@ -98,7 +92,7 @@ namespace BanBan.Pages
                 lsAtenciones.SelectedItems.Clear();
                 foreach (var at in em.Atenciones) lsAtenciones.SelectedItems.Add(at);
                 cbxActivo.IsChecked = em.Activo;
-                cbCargo.IsDropDownOpen = true;
+                cbEditarEmpleado.SelectedIndex = default;
                 editState = true;
                 edit = false;
             }
@@ -147,6 +141,27 @@ namespace BanBan.Pages
                 await Task.Delay(100);
             }
             return true;
+        }
+
+        private void cbCargo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbCargo.SelectedItem == null)
+            {
+                return;
+            }
+            if (cbCargo.SelectedValue.ToString() == "Supervisor")
+            {
+                lbSucursalesSupervisor.Visibility = Visibility.Visible;
+                lsSucursalesSupervisor.IsEnabled = true;
+                lsSucursalesSupervisor.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbSucursalesSupervisor.Visibility = Visibility.Collapsed;
+                lsSucursalesSupervisor.IsEnabled = false;
+                lsSucursalesSupervisor.Visibility = Visibility.Collapsed;
+                lsSucursalesSupervisor.SelectedIndex = -1;
+            }
         }
     }
 }

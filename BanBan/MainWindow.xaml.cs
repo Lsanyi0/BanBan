@@ -21,6 +21,8 @@ namespace BanBan
         private Sucursales sucursales;
         private Configuracion configuracion;
         private Reportes reportes;
+        private HorasExtra HorasExtra;
+        private UsuariosDispositivo UsuariosDispositivo;
         public static readonly List<string> tiposUsuario = new List<string>();
         private int contador = 0;
         public MainWindow()
@@ -76,6 +78,8 @@ namespace BanBan
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
+                HorasExtra = new HorasExtra();
+                UsuariosDispositivo = new UsuariosDispositivo();
                 ocultarTodos();
             }
             else if (LoginControl.tipoUsuario == tiposUsuario[2])
@@ -115,19 +119,9 @@ namespace BanBan
         }
         private void btPlanillasClick(object sender, RoutedEventArgs e)
         {
-            if (LoginControl.tipoUsuario == tiposUsuario[1])
+            if (frPpal.Content.GetType() != typeof(Planillas))
             {
-                if (frPpal.Content.GetType() != typeof(HorasExtra))
-                {
-                    frPpal.Navigate(new HorasExtra());
-                }
-            }
-            else if (LoginControl.tipoUsuario == tiposUsuario[0])
-            {
-                if (frPpal.Content.GetType() != typeof(Planillas))
-                {
-                    frPpal.Navigate(planillas);
-                }
+                frPpal.Navigate(planillas);
             }
         }
         private void btSucursalesClick(object sender, RoutedEventArgs e)
@@ -161,20 +155,22 @@ namespace BanBan
         private void ocultarTodos()
         {
             btSucursales.Visibility = Visibility.Collapsed;
-            btPlanillas.Visibility = Visibility.Visible;
+            btPlanillas.Visibility = Visibility.Collapsed;
+            btPlanillasHE.Visibility = Visibility.Visible;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
             btConfigurar.Visibility = Visibility.Collapsed;
             btConfigurarHorasExtra.Visibility = Visibility.Visible;
             if (LoginControl.tipoUsuario == tiposUsuario[1])
             {
-                frPpal.Navigate(new HorasExtra());
+                frPpal.Navigate(HorasExtra);
             }
         }
         private void activarTodos()
         {
             btSucursales.Visibility = Visibility.Visible;
             btPlanillas.Visibility = Visibility.Visible;
+            btPlanillasHE.Visibility = Visibility.Collapsed;
             btReportes.Visibility = Visibility.Visible;
             btAgregarEmpleados.Visibility = Visibility.Visible;
             btConfigurar.Visibility = 0;
@@ -209,10 +205,15 @@ namespace BanBan
         {
             if (frPpal.Content.GetType() != typeof(UsuariosDispositivo))
             {
-                if (MessageBoxResult.Yes == MessageBox.Show("Se perderan los cambios no guardados, desea continuar?", "Advertencia!", MessageBoxButton.YesNo, MessageBoxImage.Question))
-                {
-                    frPpal.Navigate(new UsuariosDispositivo());
-                }
+                frPpal.Navigate(UsuariosDispositivo);
+            }
+        }
+
+        private void btPlanillasHE_Click(object sender, RoutedEventArgs e)
+        {
+            if (frPpal.Content.GetType() != typeof(HorasExtra))
+            {
+                frPpal.Navigate(HorasExtra);
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace BanBan.Pages
 {
@@ -161,11 +162,16 @@ namespace BanBan.Pages
         }
         private void cbEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbNombreEnDispositivo.ItemsSource = cbEmpleado.Text.Split(' ');
-            cbNombreEnDispositivo.SelectedIndex = cbNombreEnDispositivo.HasItems ? 0 : -1;
+            if (cbEmpleado.SelectedValue != null)
+            {
+                List<string> empleado = cbEmpleado.SelectedValue.ToString().Split(' ').ToList();
+                empleado = empleado.Where(x => x != string.Empty).ToList();
+                cbNombreEnDispositivo.ItemsSource = empleado;
+                cbNombreEnDispositivo.SelectedIndex = cbNombreEnDispositivo.HasItems ? 0 : -1;
 
-            cbNombreEnDispositivoB.ItemsSource = cbEmpleado.Text.Split(' ');
-            cbNombreEnDispositivoB.SelectedIndex = cbNombreEnDispositivoB.HasItems ? 0 : -1;
+                cbNombreEnDispositivoB.ItemsSource = empleado;
+                cbNombreEnDispositivoB.SelectedIndex = cbNombreEnDispositivoB.HasItems ? 0 : -1;
+            }
         }
 
         private void btSeleccionarSucursal_Click(object sender, RoutedEventArgs e)
