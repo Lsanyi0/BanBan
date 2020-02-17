@@ -29,15 +29,10 @@ namespace BanBan
         public virtual DbSet<atenciondetalle> atenciondetalle { get; set; }
         public virtual DbSet<cargo> cargo { get; set; }
         public virtual DbSet<ciudad> ciudad { get; set; }
-        public virtual DbSet<comentariosplanilla> comentariosplanilla { get; set; }
         public virtual DbSet<departamento> departamento { get; set; }
         public virtual DbSet<descuentos> descuentos { get; set; }
-        public virtual DbSet<dianacional> dianacional { get; set; }
-        public virtual DbSet<diapatronal> diapatronal { get; set; }
         public virtual DbSet<empleado> empleado { get; set; }
-        public virtual DbSet<fiestanacional> fiestanacional { get; set; }
         public virtual DbSet<horario> horario { get; set; }
-        public virtual DbSet<horarioextra> horarioextra { get; set; }
         public virtual DbSet<horariosucursal> horariosucursal { get; set; }
         public virtual DbSet<planilla> planilla { get; set; }
         public virtual DbSet<planillahorario> planillahorario { get; set; }
@@ -50,5 +45,6 @@ namespace BanBan
         public virtual DbSet<trabajo> trabajo { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<dispositivo> dispositivo { get; set; }
+        public virtual DbSet<horarioextra> horarioextra { get; set; }
     }
 }

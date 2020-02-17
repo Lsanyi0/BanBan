@@ -106,20 +106,20 @@ namespace BanBan.Controls
                         AFPEmpleado = empleado.sistemapension.descuento,
                         PorcentajeCargo = empleado.cargo.atenciones ?? 0,
                     };
-                    List<DateTime?> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
-                    List<DateTime?> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
+                    List<DateTime> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
+                    List<DateTime> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
                     pm.Horas = GetHorasTrabajadas(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
 
-                    List<decimal> horasExtra = GetTiposDeHora(empleado);
+                    List<double?> horasExtra = GetTiposDeHora(empleado);
                     try
                     {
-                        pm.HorasExtra = horasExtra[0];
-                        pm.HorasNocturnasExtra = horasExtra[1];
-                        pm.HorasAsueto = horasExtra[2];
-                        pm.HorasDescanso = horasExtra[3];
+                        pm.HorasExtra = (decimal)horasExtra[0];
+                        pm.HorasNocturnasExtra = (decimal)horasExtra[1];
+                        pm.HorasAsueto = (decimal)horasExtra[2];
+                        pm.HorasDescanso = (decimal)horasExtra[3];
                     }
                     catch (Exception)
                     {
@@ -134,7 +134,7 @@ namespace BanBan.Controls
             }
             return new BindingList<PlanillaModel>();
         }
-        private int GetDiasTrabajados(List<DateTime?> Dias)
+        private int GetDiasTrabajados(List<DateTime> Dias)
         {
             return Dias.Count;
         }
@@ -156,26 +156,22 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private List<decimal> GetTiposDeHora(empleado emp)
+        private List<double?> GetTiposDeHora(empleado emp)
         {
-            List<decimal> Horas = new List<decimal>();
+            List<double?> Horas = new List<double?>();
             try
             {
-                List<DateTime> Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                List<DateTime> Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                List<double?> horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horas).ToList();
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horas).ToList();             
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horas).ToList();               
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horas).ToList();              
+                Horas.AddRange(horas);
             }
             catch (Exception)
             {
@@ -183,7 +179,7 @@ namespace BanBan.Controls
             return Horas;
         }
         //Horas > 7:00 pm
-        private decimal GetNocturnidad(List<DateTime?> Finales)
+        private decimal GetNocturnidad(List<DateTime> Finales)
         {
             TimeSpan HoraNocturna = DateTime.Parse("7:00 pm").TimeOfDay;
             decimal Horas = 0;
@@ -196,7 +192,7 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private decimal GetHorasAusente(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        private decimal GetHorasAusente(List<DateTime> Iniciales, List<DateTime> Finales)
         {
             decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
             if (Horas < HorasQuincena)

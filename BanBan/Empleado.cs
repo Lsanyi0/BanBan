@@ -18,15 +18,14 @@ namespace BanBan
         public empleado()
         {
             this.atenciondetalle = new HashSet<atenciondetalle>();
-            this.comentariosplanilla = new HashSet<comentariosplanilla>();
             this.descuentos = new HashSet<descuentos>();
-            this.horarioextra = new HashSet<horarioextra>();
             this.horario = new HashSet<horario>();
             this.planillahorario = new HashSet<planillahorario>();
             this.registrosalarial = new HashSet<registrosalarial>();
             this.telefono = new HashSet<telefono>();
             this.trabajo = new HashSet<trabajo>();
             this.usuario = new HashSet<usuario>();
+            this.horarioextra = new HashSet<horarioextra>();
         }
     
         public int idEmpleado { get; set; }
@@ -47,12 +46,8 @@ namespace BanBan
         public virtual ICollection<atenciondetalle> atenciondetalle { get; set; }
         public virtual cargo cargo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentariosplanilla> comentariosplanilla { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<descuentos> descuentos { get; set; }
         public virtual sistemapension sistemapension { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<horarioextra> horarioextra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<horario> horario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -65,5 +60,7 @@ namespace BanBan
         public virtual ICollection<trabajo> trabajo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario> usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<horarioextra> horarioextra { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace BanBan.Controls
         private sucursal suc;
         private trabajo tb;
         private ciudad cd;
-        private diapatronal dp;
+        
         private string retorno, var = "";
 
         public SucursalesControl()
@@ -111,21 +111,7 @@ namespace BanBan.Controls
                 //Asuetos(asuetos, int.Parse(id.ToString()));
                 foreach (var item in asuetos)
                 {
-                    var asut = from asu in sb.diapatronal
-                               join cd in sb.ciudad on asu.idCiudad equals cd.idCiudad
-                               where asu.dia == Convert.ToDateTime(item) && asu.idCiudad == int.Parse(id.ToString())
-                    select asu.idDiaPatronal;
-                    if (asut != null)
-                    {
-
-                    }
-                    else
-                    {
-                        dp = new diapatronal();
-                        dp.dia = Convert.ToDateTime(item);
-                        dp.idCiudad = int.Parse(id.ToString());
-                        sb.diapatronal.Add(dp);
-                    }
+                    
 
                 }
                 sb.SaveChangesAsync();
@@ -139,21 +125,6 @@ namespace BanBan.Controls
         {
             foreach (var item in asuetos)
             {
-                var asut = from asu in sb.diapatronal
-                           join cd in sb.ciudad on asu.idCiudad equals cd.idCiudad
-                           where asu.dia == Convert.ToDateTime(item) && asu.idCiudad == id
-                           select asu.idDiaPatronal;
-                if (asut != null)
-                {
-
-                }
-                else
-                {
-                    dp = new diapatronal();
-                    dp.dia = Convert.ToDateTime(item);
-                    dp.idCiudad = int.Parse(id.ToString());
-                    sb.diapatronal.Add(dp);
-                }
 
             }
         }
@@ -186,34 +157,14 @@ namespace BanBan.Controls
 
         public List<string> DeterminarAsuetos(string asuetos)
         {
-            List<string> asueto = new List<string>();
-            var asu = from at1 in sb.diapatronal
-                      join mun in sb.ciudad
-                       on at1.idCiudad equals mun.idCiudad
-                      where mun.ciudad1 == asuetos
-                      select at1.dia;
-            if (asu == null)
-            {
-                return asueto;
-            }
-            else
-            {
-
-                foreach (var list in asu)
-                {
-                    asueto.Add(list.ToString());
-                }
-
-            }
-            return asueto;
+            return new List<string>();
         }
         public SucursalModel getSucursal(string sucursal)
         {
             int idSucursal = getIdSucursal(sucursal);
             SucursalModel ssuc = (from ssc in sb.sucursal
                                   join cd in sb.ciudad on ssc.idCiudad equals cd.idCiudad
-                                  join dp in sb.departamento on cd.idDepartamento equals dp.idDepartamento
-                                  join asu in sb.diapatronal on cd.idCiudad equals asu.idCiudad
+                                  join dp in sb.departamento on cd.idDepartamento equals dp.idDepartamento                                 
                                   join tr in sb.trabajo on ssc.idSucursal equals tr.idSucursal
                                   join emp in sb.empleado on tr.idEmpleado equals emp.idEmpleado
                                   where ssc.idSucursal.Equals(idSucursal)
@@ -225,8 +176,7 @@ namespace BanBan.Controls
                                       Departamento = dp.departamento1,
                                       Municipio = cd.ciudad1,
                                       IdMunicipio = cd.idCiudad,
-                                      Direccion = ssc.direccion,
-                                      DiasAsueto = (from diap in sb.diapatronal where diap.idCiudad.Equals(cd.idCiudad) select diap.dia).ToList(),
+                                      Direccion = ssc.direccion,                                     
                                       IdEmpleado = tr.idEmpleado,
                                       NombreEmpleado = emp.nombre
                                   }).FirstOrDefault() ?? new SucursalModel();

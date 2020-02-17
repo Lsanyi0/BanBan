@@ -36,7 +36,7 @@ namespace BanBan.Controls
                     }
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 UsuarioValido = new HorasExtraOfflineControl().OfflineLogin(usuario,clave);
                 tipoUsuario = "Supervisor";

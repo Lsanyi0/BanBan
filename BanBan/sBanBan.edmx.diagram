@@ -7,67 +7,49 @@
       <Diagram DiagramId="e94edcbc406142cd91590e06afd29f14" Name="Diagram1" ZoomLevel="62" ShowGrid="true" DisplayType="false">
         <EntityTypeShape EntityType="sql3307115Model.atencion" Width="1.5" PointX="2.625" PointY="3.75" />
         <EntityTypeShape EntityType="sql3307115Model.atenciondetalle" Width="1.5" PointX="4.5" PointY="3.75" />
-        <EntityTypeShape EntityType="sql3307115Model.cargo" Width="1.5" PointX="2.625" PointY="8.25" />
-        <EntityTypeShape EntityType="sql3307115Model.ciudad" Width="1.5" PointX="4.5" PointY="9.5" />
-        <EntityTypeShape EntityType="sql3307115Model.comentariosplanilla" Width="1.5" PointX="8.625" PointY="6" />
-        <EntityTypeShape EntityType="sql3307115Model.departamento" Width="1.5" PointX="0.5" PointY="10.5" />
+        <EntityTypeShape EntityType="sql3307115Model.cargo" Width="1.5" PointX="2.625" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sql3307115Model.ciudad" Width="1.5" PointX="4.5" PointY="10.25" />
+        <EntityTypeShape EntityType="sql3307115Model.departamento" Width="1.5" PointX="2.625" PointY="10.25" />
         <EntityTypeShape EntityType="sql3307115Model.descuentos" Width="1.5" PointX="6.375" PointY="0.75" />
-        <EntityTypeShape EntityType="sql3307115Model.dianacional" Width="1.5" PointX="3" PointY="0.875" />
-        <EntityTypeShape EntityType="sql3307115Model.diapatronal" Width="1.5" PointX="2.625" PointY="10.375" />
         <EntityTypeShape EntityType="sql3307115Model.empleado" Width="1.5" PointX="6.375" PointY="3.75" />
-        <EntityTypeShape EntityType="sql3307115Model.fiestanacional" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="sql3307115Model.horario" Width="1.5" PointX="6.625" PointY="10" />
-        <EntityTypeShape EntityType="sql3307115Model.horarioextra" Width="1.5" PointX="10.75" PointY="6.5" />
-        <EntityTypeShape EntityType="sql3307115Model.horariosucursal" Width="1.5" PointX="10.75" PointY="12.75" />
-        <EntityTypeShape EntityType="sql3307115Model.planilla" Width="1.5" PointX="10.625" PointY="3.75" />
-        <EntityTypeShape EntityType="sql3307115Model.planillahorario" Width="1.5" PointX="12.5" PointY="3.625" />
-        <EntityTypeShape EntityType="sql3307115Model.registrosalarial" Width="1.5" PointX="4.5" PointY="12.625" />
-        <EntityTypeShape EntityType="sql3307115Model.sistemapension" Width="1.5" PointX="8.625" PointY="3.75" />
-        <EntityTypeShape EntityType="sql3307115Model.sucursal" Width="1.5" PointX="8.625" PointY="11.25" />
-        <EntityTypeShape EntityType="sql3307115Model.telefono" Width="1.5" PointX="2.5" PointY="12.5" />
-        <EntityTypeShape EntityType="sql3307115Model.tipohora" Width="1.5" PointX="10.875" PointY="10.25" />
-        <EntityTypeShape EntityType="sql3307115Model.tipousuario" Width="1.5" PointX="2.625" PointY="6.375" />
-        <EntityTypeShape EntityType="sql3307115Model.trabajo" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="sql3307115Model.horario" Width="1.5" PointX="6.375" PointY="10.25" />
+        <EntityTypeShape EntityType="sql3307115Model.horariosucursal" Width="1.5" PointX="10.125" PointY="10.25" />
+        <EntityTypeShape EntityType="sql3307115Model.planilla" Width="1.5" PointX="10.125" PointY="0.75" />
+        <EntityTypeShape EntityType="sql3307115Model.planillahorario" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="sql3307115Model.registrosalarial" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="sql3307115Model.sistemapension" Width="1.5" PointX="8.25" PointY="5.75" />
+        <EntityTypeShape EntityType="sql3307115Model.sucursal" Width="1.5" PointX="8.25" PointY="10.25" />
+        <EntityTypeShape EntityType="sql3307115Model.telefono" Width="1.5" PointX="8.25" PointY="3.75" />
+        <EntityTypeShape EntityType="sql3307115Model.tipohora" Width="1.5" PointX="10.125" PointY="3.75" />
+        <EntityTypeShape EntityType="sql3307115Model.tipousuario" Width="1.5" PointX="2.625" PointY="6.25" />
+        <EntityTypeShape EntityType="sql3307115Model.trabajo" Width="1.5" PointX="8.25" PointY="8" />
         <EntityTypeShape EntityType="sql3307115Model.usuario" Width="1.5" PointX="4.5" PointY="6.25" />
         <AssociationConnector Association="sql3307115Model.fk_ADetallexAtencion" />
         <AssociationConnector Association="sql3307115Model.fk_ADetallexEmpleado" />
-        <AssociationConnector Association="sql3307115Model.fk_EmpleadoxCargo" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.125" PointY="8.3193497960909291" />
-          <ConnectorPoint PointX="4.4375" PointY="8.3193497960909291" />
-          <ConnectorPoint PointX="4.4375" PointY="9.2487230814987669" />
-          <ConnectorPoint PointX="6.3125" PointY="9.2487230814987669" />
-          <ConnectorPoint PointX="6.3125" PointY="9.6388151041666674" />
-          <ConnectorPoint PointX="7.125" PointY="9.6388151041666674" />
-          <ConnectorPoint PointX="7.125" PointY="9.5763151041666674" />
+        <AssociationConnector Association="sql3307115Model.fk_EmpleadoxCargo" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="sql3307115Model.fk_CiudadxDepartamento" />
-        <AssociationConnector Association="sql3307115Model.fk_PatronalxCiudad" />
         <AssociationConnector Association="sql3307115Model.fk_SucursalxCiudad" ></AssociationConnector>
-        <AssociationConnector Association="sql3307115Model.fk_CPlanillaxEmpleado" />
-        <AssociationConnector Association="sql3307115Model.fk_CPlanillaxPlanilla" />
         <AssociationConnector Association="sql3307115Model.fk_DescuentosxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_DescuentosxPlanilla" />
-        <AssociationConnector Association="sql3307115Model.fk_DiaNacionalxFiestaNacional" />
         <AssociationConnector Association="sql3307115Model.fk_EmpleadoxSPension" />
-        <AssociationConnector Association="sql3307115Model.fk_HExtraxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_HorarioxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_PHorarioxEmpleado" />
-        <AssociationConnector Association="sql3307115Model.fk_RegistroxEmpleado" ManuallyRouted="true" >
-          <ConnectorPoint PointX="6.46875" PointY="9.5763151041666656" />
-          <ConnectorPoint PointX="6.46875" PointY="13.813212640625" />
-          <ConnectorPoint PointX="6" PointY="13.813212640625" />
+        <AssociationConnector Association="sql3307115Model.fk_RegistroxEmpleado" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="sql3307115Model.fk_TelefonoxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_TrabajoxEmpleado" />
         <AssociationConnector Association="sql3307115Model.fk_UsuarioxEmpleado" />
-        <AssociationConnector Association="sql3307115Model.fk_HExtraxPlanilla" />
-        <AssociationConnector Association="sql3307115Model.fk_HExtraxTipo" />
         <AssociationConnector Association="sql3307115Model.fk_HorarioSxSucursal" />
         <AssociationConnector Association="sql3307115Model.fk_PHorarioxPlanilla" />
         <AssociationConnector Association="sql3307115Model.fk_TrabajoxSucursal" />
         <AssociationConnector Association="sql3307115Model.fk_UsuarioxTipo" />
-        <EntityTypeShape EntityType="sql3307115Model.dispositivo" Width="1.5" PointX="13.125" PointY="12.5" />
+        <EntityTypeShape EntityType="sql3307115Model.dispositivo" Width="1.5" PointX="12.375" PointY="6.875" />
         <AssociationConnector Association="sql3307115Model.fk_DispositivoxSucursal" />
+        <EntityTypeShape EntityType="sql3307115Model.horarioextra" Width="1.5" PointX="10.125" PointY="5.75" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxEmpleado" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxPlanilla" />
+        <AssociationConnector Association="sql3307115Model.fk_HExtraxTipo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
