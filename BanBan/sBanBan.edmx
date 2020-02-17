@@ -823,7 +823,7 @@
             <PropertyRef Name="idPlanillaHorario" />
           </Key>
           <Property Name="idPlanillaHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="entrada" Type="DateTime" Nullable="true" />
+          <Property Name="entrada" Type="DateTime" Nullable="false" />
           <Property Name="salida" Type="DateTime" Nullable="false" />
           <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />

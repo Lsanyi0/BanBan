@@ -15,7 +15,7 @@ namespace BanBan
     public partial class planillahorario
     {
         public int idPlanillaHorario { get; set; }
-        public Nullable<System.DateTime> entrada { get; set; }
+        public System.DateTime entrada { get; set; }
         public System.DateTime salida { get; set; }
         public string comentario { get; set; }
         public int idEmpleado { get; set; }
