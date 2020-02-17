@@ -9,6 +9,7 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BanBan.Pages
 {
@@ -134,16 +135,19 @@ namespace BanBan.Pages
                             {
                                 if (ObtenerTipoDeHora(HorasExtra) != 0)
                                 {
-                                    empleado.horarioextra.Add(new horarioextra()
-                                    {
-                                        horaInicio = HorasExtra.HoraInicio,
-                                        horaFinal = HorasExtra.HoraFinal,
+                                    horarioextra hex = new horarioextra()
+                                    {  
                                         tipohora = new tipohora()
                                         {
                                             idTipoHora = ObtenerTipoDeHora(HorasExtra)
                                         },
                                         comentarios = HorasExtra.Comentario
-                                    });
+                                    };
+                                    DateTime Inicio = HorasExtra.HoraInicio;
+                                    DateTime Fin = HorasExtra.HoraFinal;
+
+                                    hex.horas = (Fin - Inicio).TotalHours;
+                                    empleado.horarioextra.Add(hex);
                                 }
                                 else
                                 {
