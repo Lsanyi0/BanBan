@@ -66,7 +66,7 @@ namespace BanBan.Pages
         {
             dgvPlanilla.ItemsSource = planillas;
             dgvAtenciones.ItemsSource = planillas;
-            dgvEditar.ItemsSource = planillas;
+            //dgvEditar.ItemsSource = planillas;
         }
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
@@ -87,7 +87,11 @@ namespace BanBan.Pages
 
         private void btCerrarPlanilla_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var planillamodel in pm)
+            {
+                planilla planilla = new planilla();
 
+            }
         }
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
@@ -154,22 +158,25 @@ namespace BanBan.Pages
                     }
                 }
                 empleados = empleados.Where(x => x.planillahorario.Count > 0).OrderByDescending(x => x.nombre).ToList();
+                ofd.Dispose();
+                pm = pc.getPlanillaModels(empleados);
+                foreach (var planilla in pm)
+                {
+                    planilla.PropertyChanged += ActualizarPadre;
+                }
+                pmInicial = pm;
+                ActualizarModelo(pm);
+                dgvEditar.ItemsSource = pm;
+                pmInicial = pm;
             }
-            ofd.Dispose();
-            pm = pc.getPlanillaModels(empleados);
-            foreach (var planilla in pm)
-            {
-                planilla.PropertyChanged += ActualizarPadre;
-            }
-            pmInicial = pm;
-            ActualizarModelo(pm);
             HorasExtraModel.Load = false;
         }
         private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
         {
             PlanillaModel model = (PlanillaModel)sender;
-            pm = (BindingList<PlanillaModel>)pm.Where(x => x.IdEmpleado != model.IdEmpleado);
+            pm = new BindingList<PlanillaModel>((from pme in pm where pme.IdEmpleado != model.IdEmpleado select pme).ToList());
             pm.Add(model);
+            ActualizarModelo(pm);
         }
         private int ObtenerTipoDeHora(HorasExtraModel extraModel)
         {
@@ -185,8 +192,8 @@ namespace BanBan.Pages
         {
             if (File.Exists(file)) File.Delete(file);
 
-            pm = pc.getEmpleados();
-
+            pm = pmInicial;
+            dgvEditar.ItemsSource = pm;
             ActualizarModelo(pm);
         }
 
@@ -211,12 +218,12 @@ namespace BanBan.Pages
                 {
                     planilla.PropertyChanged += ActualizarPadre;
                 }
-                dgvPlanilla.ItemsSource = fpm;
+                dgvEditar.ItemsSource = fpm;
                 ActualizarModelo(fpm);
             }
             else
             {
-                dgvPlanilla.ItemsSource = pm;
+                dgvEditar.ItemsSource = pm;
                 ActualizarModelo(pm);
             }
         }
