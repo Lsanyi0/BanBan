@@ -18,11 +18,7 @@ namespace BanBan.Model
     {
         public int MachineNumber { get; set; }
         public int EnrollNumber { get; set; }
-        public string DateTimeRecord { get; set; }
         public int InOutMode { get; set; }
-        public DateTime DateAndTime
-        {
-            get { return DateTime.Parse(DateTimeRecord); }
-        }
+        public DateTime DateAndTime { get; set; }
     }
 }
