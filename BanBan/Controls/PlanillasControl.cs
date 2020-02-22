@@ -108,7 +108,7 @@ namespace BanBan.Controls
                     };
                     List<DateTime> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
                     List<DateTime> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
-                    pm.Horas = GetHorasTrabajadas(Inicio, Fin);
+                    pm.Horas = GetHorasTrabajadasMax(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
@@ -138,12 +138,16 @@ namespace BanBan.Controls
         {
             return Dias.Count;
         }
-        public decimal GetHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        public decimal GetHorasTrabajadasMax(List<DateTime> Iniciales, List<DateTime> Finales)
         {
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)(Finales[i] - Iniciales[i]).Value.TotalHours;
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
+                //if (Horas >= 96)
+                //{
+                //    return 96;
+                //}
             }
             return Horas;
         }
@@ -152,7 +156,7 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)(Finales[i] - Iniciales[i]).TotalHours;
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
             }
             return Horas;
         }
