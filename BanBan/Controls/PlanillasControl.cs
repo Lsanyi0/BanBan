@@ -143,7 +143,7 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)(Finales[i] - Iniciales[i]).Value.TotalHours;
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).Value.TotalHours);
             }
             return Horas;
         }
@@ -152,7 +152,7 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)(Finales[i] - Iniciales[i]).TotalHours;
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
             }
             return Horas;
         }

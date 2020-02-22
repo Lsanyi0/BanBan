@@ -138,7 +138,7 @@ namespace BanBan.Model
         public decimal AFPEmpleado { get; set; }
         public decimal TotalAFPEmpleado
         {
-            get { return (AFPEmpleado * TotalDevengado) / 100; }
+            get { return (AFPEmpleado * TotalDevengado) / 10; }
             set { }
         }
         public decimal Renta { get; set; } //falta
