@@ -88,11 +88,17 @@ namespace BanBan.Pages
 
         private void btCerrarPlanilla_Click(object sender, RoutedEventArgs e)
         {
+            if (DialogResult.No == System.Windows.Forms.MessageBox.Show("Los datos seran guardados en la base de datos, listos para ser utilizados en reportes y no podran ser modificados. ¿Desea continuar?", "Terminar revision", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                return;
+            }
+            int idPlanilla = pc.GetNewIdPlanilla();
             foreach (var planillamodel in pm)
             {
-                planilla planilla = new planilla();
-                
+                pc.GuardarHorariosPlanilla(idPlanilla, planillamodel);
+                pc.GuardarHorarioExtra(idPlanilla, planillamodel);
             }
+            pc.SaveChanges();
         }
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
