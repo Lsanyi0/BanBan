@@ -55,7 +55,7 @@
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110" />
                         <DataGridTextColumn Header="Numero de dias" Binding="{Binding NumeroDias}" Width="95"/>
                         <DataGridTextColumn Header="Sueldo"  Binding="{Binding Sueldo, StringFormat=N2}" Width="45"/>
-                        <DataGridTextColumn Header="Horas" Binding="{Binding Horas}" Width="40"/>
+                        <DataGridTextColumn Header="Horas" Binding="{Binding Horas}" Width="40" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Nocturnas" Binding="{Binding HorasNocturnas}" Width="65"/>
                         <DataGridTextColumn Header="Nocturnidad"  Binding="{Binding TotalHorasNocturnas, StringFormat=N2}" Width="80"/>
                         <DataGridTextColumn Header="Total horas extra" Binding="{Binding TotalHorasExtra, StringFormat=N2}" Width="100"/>
@@ -87,8 +87,8 @@
                         <DataGridTextColumn Header="Nombre completo" Binding="{Binding NombreCompleto}" Width="110"/>
                         <DataGridTextColumn Header="Atenciones" Binding="{Binding Atenciones}" Width="70"/>
                         <DataGridTextColumn Header="Total atenciones" Binding="{Binding TotalAtenciones}" Width="100"/>
-                        <DataGridTextColumn Header="% de cargo" Binding="{Binding PorcentajeCargo}" Width="70"/>
-                        <DataGridTextColumn Header="Total neto" Binding="{Binding TotalNeto}" Width="65"/>
+                        <DataGridTextColumn Header="% de cargo" Binding="{Binding PorcentajeCargo, StringFormat=N2}" Width="70"/>
+                        <DataGridTextColumn Header="Total neto" Binding="{Binding TotalNeto, StringFormat=N2}" Width="65"/>
                         <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuentos}" Width="70"/>
                         <DataGridTextColumn Header="Total descuento" Binding="{Binding TotalDescuento}" Width="100"/>
                     </DataGrid.Columns>

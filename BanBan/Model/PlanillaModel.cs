@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace BanBan.Model
@@ -10,8 +11,10 @@ namespace BanBan.Model
         {
             Descuento = new List<decimal>();
             Atencion = new List<decimal>();
+            Entradas = new List<DateTime>();
+            Salidas = new List<DateTime>();
         }
-        public const decimal JornadaLaboral = 8;
+        public const decimal JornadaLaboral = 6;
         public int IdEmpleado { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }
@@ -27,7 +30,7 @@ namespace BanBan.Model
         //Sueldo basico sin prestaciones ni Horas extra
         public decimal Sueldo
         {
-            get { return (Horas / JornadaLaboral) * SueldoBase; }
+            get { return NumeroDias * SueldoBase; }
             set { }
         }
         public decimal DescuentoAusencia
@@ -174,5 +177,7 @@ namespace BanBan.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+        public List<DateTime> Entradas { get; set; }
+        public List<DateTime> Salidas { get; set; }
     }
 }

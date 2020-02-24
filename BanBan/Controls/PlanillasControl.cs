@@ -10,7 +10,7 @@ namespace BanBan.Controls
 {
     public class PlanillasControl : Utilidades
     {
-        private const int HorasQuincena = 96;
+        private const int HorasQuincena = 90;
         //private List<PlanillaModel> PlanillaModelPpal;
         public BindingList<PlanillaModel> getEmpleados()
         {
@@ -108,7 +108,7 @@ namespace BanBan.Controls
                     };
                     List<DateTime?> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
                     List<DateTime?> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
-                    pm.Horas = GetHorasTrabajadas(Inicio, Fin);
+                    pm.Horas = GetHorasTrabajadasMax(Inicio, Fin);
                     pm.NumeroDias = GetDiasTrabajados(Inicio);
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
@@ -137,6 +137,19 @@ namespace BanBan.Controls
         private int GetDiasTrabajados(List<DateTime?> Dias)
         {
             return Dias.Count;
+        }
+        public decimal GetHorasTrabajadasMax(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        {
+            decimal Horas = 0;
+            for (int i = 0; i < Iniciales.Count; i++)
+            {
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).Value.TotalHours);
+                if (Horas >= HorasQuincena)
+                {
+                    return HorasQuincena;
+                }
+            }
+            return Horas;
         }
         public decimal GetHorasTrabajadas(List<DateTime?> Iniciales, List<DateTime?> Finales)
         {

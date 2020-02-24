@@ -43,45 +43,82 @@
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
-        <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Margin="60,10,38,10" Grid.Row="4" Grid.ColumnSpan="5" PreviewKeyDown="dgvPlanilla_PreviewKeyDown">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
-                <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <DatePickerTextBox Text="{Binding HoraInicio, Mode=TwoWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Hora final" x:Name="HoraFinal" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <DatePickerTextBox Text="{Binding HoraFinal, Mode=TwoWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn Header="Hora extra normal" Binding="{Binding HoraExtra, Mode=TwoWay}"/>
-                <DataGridCheckBoxColumn Header="Hora extra nocturna" Binding="{Binding HoraExtraNocturna, Mode=TwoWay}"/>
-                <DataGridCheckBoxColumn Header="Horas dia asueto" Binding="{Binding HoraAsueto, Mode=TwoWay}"/>
-                <DataGridCheckBoxColumn Header="Horas dia descanso" Binding="{Binding HoraDescanso, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuento, Mode=TwoWay}"/>
-                <DataGridTextColumn Header="Comentario" Binding="{Binding Comentario, Mode=TwoWay}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <TabControl x:Name="tcHoras" HorizontalAlignment="Left" Margin="60,10,38,10" Grid.Row="4" Grid.ColumnSpan="5">
+            <TabItem x:Name="HorasExtraa" Header="Horas extra">
+                <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" Width="1278">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
+                        <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePickerTextBox Text="{Binding HoraInicio, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Hora final" x:Name="HoraFinal" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePickerTextBox Text="{Binding HoraFinal, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridCheckBoxColumn Header="Hora extra normal" Binding="{Binding HoraExtra, Mode=TwoWay}"/>
+                        <DataGridCheckBoxColumn Header="Hora extra nocturna" Binding="{Binding HoraExtraNocturna, Mode=TwoWay}"/>
+                        <DataGridCheckBoxColumn Header="Horas dia asueto" Binding="{Binding HoraAsueto, Mode=TwoWay}"/>
+                        <DataGridCheckBoxColumn Header="Horas dia descanso" Binding="{Binding HoraDescanso, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Descuentos" Binding="{Binding Descuento, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Comentario" Binding="{Binding Comentario, Mode=TwoWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="HorasDispositivo" Header="Horas dispositivo">
+                <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" Width="1278">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
+                        <DataGridTemplateColumn Header="Hora entrada">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Entrada, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePickerTextBox Text="{Binding Entrada, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Hora salida">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Salida, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePickerTextBox Text="{Binding Salida, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+        </TabControl>
         <StackPanel x:Name="spEnviarDatos" Orientation="Horizontal"
                     Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" 
                     HorizontalAlignment="Right" Margin="0,0,40,0">
-            <Label Content="Desde:" VerticalAlignment="Center"/>
+            <Button x:Name="btObtenterDatos" Content="Cargar registros de dispositivo" Height="30" MinWidth="120" Margin="5,0,0,0" Click="btObtenterDatos_Click"/>
+            <Label Content="Desde:" VerticalAlignment="Bottom" Margin="0,0,0,7.8"/>
             <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
             <Label Content="Hasta:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>

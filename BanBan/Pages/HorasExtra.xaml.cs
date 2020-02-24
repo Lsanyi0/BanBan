@@ -342,5 +342,33 @@ namespace BanBan.Pages
                 FiltroFecha(dpAgregar.SelectedDate);
             }
         }
+
+        private void btObtenterDatos_Click(object sender, RoutedEventArgs e)
+        {
+            if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue)
+            {
+                return;
+            }
+            try
+            {
+                var x = Connect_Net("192.168.0.50", 4370);
+                if (!x)
+                {
+                    MessageBox.Show("La conexion con el dispositivo ha fallado", "Atencion"); return;
+                }
+                //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
+                ICollection<MachineInfo> Horario = GetLogData(1);
+                if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
+                {
+                    List<DatosDispositivoModel> DatosDispositivo = LimpiarDatos(Horario, dpDesde.SelectedDate, dpHasta.SelectedDate);
+                    dgvHorasDispositivo.ItemsSource = DatosDispositivo;
+                }
+                else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
