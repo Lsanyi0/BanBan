@@ -3,11 +3,44 @@ using System.ComponentModel;
 
 namespace BanBan.Model
 {
-    public class HorasExtraModel : INotifyPropertyChanged
+    public class HorasExtraModel : INotifyPropertyChanged, IDataErrorInfo
     {
+        public string Error { get { return null; } }
+        public string this[string name]
+        {
+            get
+            {
+                string result = null;
+                switch (name)
+                {
+                    case "HoraInicio":
+                        if (HoraInicio > HoraFinal)
+                        {
+                            result = "Hora inicial no puede ser mayor a la de salida";
+                        }
+                        if (HoraInicio.Day != HoraFinal.Day)
+                        {
+                            result = "Hora inicial y final no son de el mismo dia";
+                        }
+                        break;
+                    case "HoraFinal":
+                        if (HoraFinal < HoraInicio)
+                        {
+                            result = "Hora final no puede ser mayor a la de entrada";
+                        }
+                        if (HoraInicio.Day != HoraFinal.Day)
+                        {
+                            result = "Hora inicial y final no son de el mismo dia";
+                        }
+                        break;
+                }
+                return result;
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static bool Load;
+
         private bool AlertShown = false;
         public int IdHe { get; set; }
         public string Sucursal { get; set; }
@@ -95,7 +128,6 @@ namespace BanBan.Model
                 OnPropertyChanged("Actualizar");
             }
         }
-
         private bool CheckForCell()
         {
             bool cell = true;

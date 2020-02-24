@@ -242,6 +242,75 @@ namespace BanBan.Pages
             }
             return phs;
         }
+        public List<DatosDispositivoModel> GetMarcaciones(ICollection<MachineInfo> Marcaciones, DateTime? Desde, DateTime? Hasta)
+        {
+            List<MachineInfo> se = new List<MachineInfo>();
+            se = Marcaciones.Where(x => x.InOutMode == 0 && Between(x.DateAndTime, Desde, Hasta))
+                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+                .Select(g => g.First()).ToList();
+
+            //List<MachineInfo> ssd = new List<MachineInfo>();
+            //ssd = Marcaciones.Where(x => x.InOutMode == 2 && Between(x.DateAndTime, Desde, Hasta))
+            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+            //    .Select(g => g.Last()).ToList();
+
+            //List<MachineInfo> sed = new List<MachineInfo>();
+            //sed = Marcaciones.Where(x => x.InOutMode == 3 && Between(x.DateAndTime, Desde, Hasta))
+            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+            //    .Select(g => g.Last()).ToList();
+
+            List<MachineInfo> ss = new List<MachineInfo>();
+            ss = Marcaciones.Where(x => x.InOutMode == 1 && Between(x.DateAndTime, Desde, Hasta))
+                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
+                .Select(g => g.Last()).ToList();
+
+            List<DatosDispositivoModel> phs = new List<DatosDispositivoModel>();
+            foreach (var soloEntrada in se)
+            {
+                foreach (var soloSalida in ss)
+                {
+                    bool dia = soloEntrada.DateAndTime.Day == soloSalida.DateAndTime.Day;
+                    bool mes = soloEntrada.DateAndTime.Month == soloSalida.DateAndTime.Month;
+                    bool anio = soloEntrada.DateAndTime.Year == soloSalida.DateAndTime.Year;
+                    bool enroll = soloEntrada.EnrollNumber == soloSalida.EnrollNumber;
+                    if (dia && mes && anio && enroll)
+                    {
+                        DatosDispositivoModel ph = new DatosDispositivoModel
+                        {
+                            Entrada = soloEntrada.DateAndTime,
+                            Salida = soloSalida.DateAndTime,
+                            idEmpleado = soloEntrada.EnrollNumber
+                        };
+                        phs.Add(ph);
+                    }
+                }
+            }
+            foreach (var soloEntrada in se)
+            {
+                if (!phs.Where(x => x.Entrada == soloEntrada.DateAndTime).Any())
+                {
+                    DatosDispositivoModel ph = new DatosDispositivoModel
+                    {
+                        Entrada = soloEntrada.DateAndTime,
+                        idEmpleado = soloEntrada.EnrollNumber
+                    };
+                    phs.Add(ph);
+                }
+            }
+            foreach (var soloSalida in ss)
+            {
+                if (!phs.Where(x => x.Salida == soloSalida.DateAndTime).Any())
+                {
+                    DatosDispositivoModel ph = new DatosDispositivoModel
+                    {
+                        Salida = soloSalida.DateAndTime,
+                        idEmpleado = soloSalida.EnrollNumber
+                    };
+                    phs.Add(ph);
+                }
+            }
+            return phs;
+        }
         private bool Between(DateTime FechaAComparar, DateTime? FechaIncial, DateTime? FechaFinal)
         {
             return (FechaAComparar >= FechaIncial && FechaAComparar <= FechaFinal);
@@ -360,7 +429,7 @@ namespace BanBan.Pages
                 ICollection<MachineInfo> Horario = GetLogData(1);
                 if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
                 {
-                    List<DatosDispositivoModel> DatosDispositivo = LimpiarDatos(Horario, dpDesde.SelectedDate, dpHasta.SelectedDate);
+                    List<DatosDispositivoModel> DatosDispositivo = GetMarcaciones(Horario, dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999));
                     dgvHorasDispositivo.ItemsSource = DatosDispositivo;
                 }
                 else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }

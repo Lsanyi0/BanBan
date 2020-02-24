@@ -51,7 +51,7 @@
                         <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                    <TextBlock Text="{Binding HoraInicio, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\},ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
@@ -63,7 +63,7 @@
                         <DataGridTemplateColumn Header="Hora final" x:Name="HoraFinal" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                    <TextBlock Text="{Binding HoraFinal, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\},ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
@@ -82,13 +82,13 @@
                 </DataGrid>
             </TabItem>
             <TabItem x:Name="HorasDispositivo" Header="Horas dispositivo">
-                <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" Width="1278">
+                <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Width="1278">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding idEmpleado}"/>
                         <DataGridTemplateColumn Header="Hora entrada">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Entrada, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                    <TextBlock Text="{Binding Entrada, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\},ValidatesOnDataErrors=True}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
@@ -100,7 +100,7 @@
                         <DataGridTemplateColumn Header="Hora salida">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Salida, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\}}"/>
+                                    <TextBlock Text="{Binding Salida, StringFormat=\{0:dd/MMMM/yyyy hh:mm tt\},ValidatesOnDataErrors=True}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
