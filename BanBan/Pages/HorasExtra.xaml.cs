@@ -16,9 +16,11 @@ namespace BanBan.Pages
     {
         private DispositivoControl dc;
         private BindingList<HorasExtraModel> he;
+        private BindingList<DatosDispositivoModel> ddm;
+        private DatosSucursalModel dsm;
         public HorasExtraOfflineControl heoc;
         public HorasExtraControl hec;
-        private const string filename = "he.xml";
+        private const string filename = "ds.xml";
 
         public Action<object, string> RaiseDeviceEvent;
         public HorasExtra()
@@ -34,9 +36,12 @@ namespace BanBan.Pages
             {
                 hec = new HorasExtraControl();
             }
+            dsm = File.Exists(filename) ? hec.CargarDatos() : new DatosSucursalModel();
+            he = new BindingList<HorasExtraModel>(dsm.HorasExtra);
+            ddm = new BindingList<DatosDispositivoModel>(dsm.DatosMarcacion);
 
-            he = File.Exists(filename) ? hec.CargarDatos() : new BindingList<HorasExtraModel>();
             dgvPlanilla.ItemsSource = he;
+            dgvHorasDispositivo.ItemsSource = ddm;
 
             cbEmpleado.ItemsSource = hec.GetCBEmplados();
             cbEmpleado.SelectedIndex = cbEmpleado.HasItems ? 0 : -1;
@@ -56,6 +61,7 @@ namespace BanBan.Pages
             if (MessageBoxResult.Yes == MessageBox.Show("Se descartaran todos los cambios realizados, Continuar?", "Borrar datos", MessageBoxButton.YesNo, MessageBoxImage.Question))
             {
                 he.Clear();
+                ddm.Clear();
             }
             //dgvPlanilla.ItemsSource = he;
         }
@@ -92,6 +98,12 @@ namespace BanBan.Pages
             he = (BindingList<HorasExtraModel>)he.Where(x => x.IdHe != model.IdHe);
             he.Add(model);
         }
+        private void ActualizarPadreDDM(object sender, PropertyChangedEventArgs args)
+        {
+            DatosDispositivoModel model = (DatosDispositivoModel)sender;
+            ddm = (BindingList<DatosDispositivoModel>)ddm.Where(x => x.idDDM != model.idDDM);
+            ddm.Add(model);
+        }
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
         {
             heoc = new HorasExtraOfflineControl();
@@ -100,7 +112,9 @@ namespace BanBan.Pages
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
         {
-            hec.GuardarDatos(he);
+            dsm.DatosMarcacion = new List<DatosDispositivoModel>(ddm);
+            dsm.HorasExtra = new List<HorasExtraModel>(he);
+            hec.GuardarDatos(dsm);
         }
 
         private void EnviarDatos(object sender, RoutedEventArgs e)
@@ -109,25 +123,11 @@ namespace BanBan.Pages
             {
                 return;
             }
-            try
+            if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
             {
-                var x = Connect_Net("192.168.0.50", 4370);
-                if (!x)
-                {
-                    MessageBox.Show("La conexion con el dispositivo ha fallado", "Atencion"); return;
-                }
-                //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
-                ICollection<MachineInfo> Horario = GetLogData(1);
-                if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
-                {
-                    ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), Horario);
-                }
-                else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
+                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999));
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
         }
 
         public bool Connect_Net(string IPAdd, int Port)
@@ -185,63 +185,18 @@ namespace BanBan.Pages
             return lstEnrollData;
         }
 
-        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta, ICollection<MachineInfo> Marcaciones)
+        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta)
         {
-            List<DatosDispositivoModel> DatosDispositivo = LimpiarDatos(Marcaciones, Desde, Hasta);
+
             //List<int> idEmpleados = DatosDispositivo.GroupBy(x => x.idEmpleado).OrderBy(g => g.Key).Select(f => f.Key).ToList();
             DatosSucursalModel ds = new DatosSucursalModel
             {
-                DatosMarcacion = DatosDispositivo,
+                DatosMarcacion = ddm.ToList(),
                 HorasExtra = he.ToList()
             };
             hec.GuardarDatos(ds, "Fabrica", Desde.Value, Hasta.Value);
         }
 
-        public List<DatosDispositivoModel> LimpiarDatos(ICollection<MachineInfo> Marcaciones, DateTime? Desde, DateTime? Hasta)
-        {
-            List<MachineInfo> se = new List<MachineInfo>();
-            se = Marcaciones.Where(x => x.InOutMode == 0 && Between(x.DateAndTime, Desde, Hasta))
-                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
-                .Select(g => g.First()).ToList();
-
-            //List<MachineInfo> ssd = new List<MachineInfo>();
-            //ssd = Marcaciones.Where(x => x.InOutMode == 2 && Between(x.DateAndTime, Desde, Hasta))
-            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
-            //    .Select(g => g.Last()).ToList();
-
-            //List<MachineInfo> sed = new List<MachineInfo>();
-            //sed = Marcaciones.Where(x => x.InOutMode == 3 && Between(x.DateAndTime, Desde, Hasta))
-            //    .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
-            //    .Select(g => g.Last()).ToList();
-
-            List<MachineInfo> ss = new List<MachineInfo>();
-            ss = Marcaciones.Where(x => x.InOutMode == 1 && Between(x.DateAndTime, Desde, Hasta))
-                .GroupBy(x => new { x.EnrollNumber, x.DateAndTime.Day, x.InOutMode })
-                .Select(g => g.Last()).ToList();
-
-            List<DatosDispositivoModel> phs = new List<DatosDispositivoModel>();
-            foreach (var soloEntrada in se)
-            {
-                foreach (var soloSalida in ss)
-                {
-                    bool dia = soloEntrada.DateAndTime.Day == soloSalida.DateAndTime.Day;
-                    bool mes = soloEntrada.DateAndTime.Month == soloSalida.DateAndTime.Month;
-                    bool anio = soloEntrada.DateAndTime.Year == soloSalida.DateAndTime.Year;
-                    bool enroll = soloEntrada.EnrollNumber == soloSalida.EnrollNumber;
-                    if (dia && mes && anio && enroll)
-                    {
-                        DatosDispositivoModel ph = new DatosDispositivoModel
-                        {
-                            Entrada = soloEntrada.DateAndTime,
-                            Salida = soloSalida.DateAndTime,
-                            idEmpleado = soloEntrada.EnrollNumber
-                        };
-                        phs.Add(ph);
-                    }
-                }
-            }
-            return phs;
-        }
         public List<DatosDispositivoModel> GetMarcaciones(ICollection<MachineInfo> Marcaciones, DateTime? Desde, DateTime? Hasta)
         {
             List<MachineInfo> se = new List<MachineInfo>();
@@ -279,7 +234,7 @@ namespace BanBan.Pages
                         {
                             Entrada = soloEntrada.DateAndTime,
                             Salida = soloSalida.DateAndTime,
-                            idEmpleado = soloEntrada.EnrollNumber
+                            idEmpleado = soloEntrada.EnrollNumber,
                         };
                         phs.Add(ph);
                     }
@@ -309,7 +264,14 @@ namespace BanBan.Pages
                     phs.Add(ph);
                 }
             }
-            return phs;
+            int x = 1;
+            foreach (var ph in phs)
+            {
+                ph._NombreEmpleado = hec.GetNombreEmpleadoById(ph.idEmpleado);
+                ph.idDDM = x;
+                x++;
+            }
+            return phs.OrderBy(x => x.NombreEmpleado).ToList();
         }
         private bool Between(DateTime FechaAComparar, DateTime? FechaIncial, DateTime? FechaFinal)
         {
@@ -357,11 +319,24 @@ namespace BanBan.Pages
             }
             else dgvPlanilla.ItemsSource = he;
         }
+        private void FiltroEmpleadoDDM(string Nombre)
+        {
+            if (!string.IsNullOrWhiteSpace(Nombre))
+            {
+                BindingList<DatosDispositivoModel> ddms = new BindingList<DatosDispositivoModel>(ddm.Where(x => x.NombreEmpleado.ToLower().Contains(Nombre.ToLower())).ToList());
+                foreach (var dm in ddms)
+                {
+                    dm.PropertyChanged += ActualizarPadreDDM;
+                }
+                dgvHorasDispositivo.ItemsSource = ddms;
+            }
+            else dgvHorasDispositivo.ItemsSource = ddm;
+        }
         private void FiltroFecha(DateTime? fecha)
         {
             if (fecha.HasValue)
             {
-                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.HoraInicio.Date.DayOfYear == fecha.Value.Date.DayOfYear).ToList());
+                BindingList<HorasExtraModel> hem = new BindingList<HorasExtraModel>(he.Where(x => x.HoraInicio.DayOfYear == fecha.Value.Date.DayOfYear).ToList());
                 foreach (var hex in hem)
                 {
                     hex.PropertyChanged += ActualizarPadre;
@@ -370,7 +345,19 @@ namespace BanBan.Pages
             }
             else dgvPlanilla.ItemsSource = he;
         }
-
+        private void FiltroFechaDDM(DateTime? fecha)
+        {
+            if (fecha.HasValue)
+            {
+                BindingList<DatosDispositivoModel> ddms = new BindingList<DatosDispositivoModel>(ddm.Where(x => x.Entrada.DayOfYear == fecha.Value.Date.DayOfYear).ToList());
+                foreach (var dm in ddms)
+                {
+                    dm.PropertyChanged += ActualizarPadreDDM;
+                }
+                dgvHorasDispositivo.ItemsSource = ddms;
+            }
+            else dgvHorasDispositivo.ItemsSource = ddm;
+        }
         private void dgvPlanilla_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (Key.Delete == e.Key)
@@ -397,6 +384,10 @@ namespace BanBan.Pages
             {
                 FiltroEmpleado(tbBuscar.Text);
             }
+            if (ddm.Count >= 1)
+            {
+                FiltroEmpleadoDDM(tbBuscar.Text);
+            }
         }
 
         private void btFiltrarFecha_Click(object sender, RoutedEventArgs e)
@@ -405,10 +396,19 @@ namespace BanBan.Pages
             {
                 if (!dpAgregar.SelectedDate.HasValue)
                 {
-                    MessageBox.Show("Fecha de filtro vacia","Advertencia",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                    MessageBox.Show("Fecha de filtro vacia", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
                 FiltroFecha(dpAgregar.SelectedDate);
+            }
+            if (ddm.Count >= 1)
+            {
+                if (!dpAgregar.SelectedDate.HasValue)
+                {
+                    MessageBox.Show("Fecha de filtro vacia", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                FiltroFechaDDM(dpAgregar.SelectedDate);
             }
         }
 
@@ -425,12 +425,12 @@ namespace BanBan.Pages
                 {
                     MessageBox.Show("La conexion con el dispositivo ha fallado", "Atencion"); return;
                 }
-                //ICollection<UserInfo> Usuarios = GetAllUserInfo(dc, 1);
                 ICollection<MachineInfo> Horario = GetLogData(1);
                 if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
                 {
                     List<DatosDispositivoModel> DatosDispositivo = GetMarcaciones(Horario, dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999));
-                    dgvHorasDispositivo.ItemsSource = DatosDispositivo;
+                    ddm = AgregarRegistros(DatosDispositivo, new List<DatosDispositivoModel>(ddm));
+                    dgvHorasDispositivo.ItemsSource = ddm;
                 }
                 else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
             }
@@ -438,6 +438,49 @@ namespace BanBan.Pages
             {
                 MessageBox.Show("Error: " + ex, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private BindingList<DatosDispositivoModel> AgregarRegistros(List<DatosDispositivoModel> datosDispositivo, List<DatosDispositivoModel> ddm)
+        {
+            List<DatosDispositivoModel> dm = new List<DatosDispositivoModel>(ddm);
+            foreach (var dd in datosDispositivo)
+            {
+                if (dd.Entrada.DayOfYear == dd.Salida.DayOfYear)
+                {
+                    if (!ddm.Where(x => x.Entrada.DayOfYear == dd.Entrada.DayOfYear && x.idEmpleado == dd.idEmpleado).Any())
+                    {
+                        dm.Add(dd);
+                        continue;
+                    }
+                }
+                if (dd.Entrada == default)
+                {
+                    if (!ddm.Where(x => x.Salida.DayOfYear == dd.Salida.DayOfYear && x.idEmpleado == dd.idEmpleado).Any())
+                    {
+                        dm.Add(dd);
+                    }
+                }
+                else if (dd.Salida == default)
+                {
+                    if (!ddm.Where(x => x.Entrada.DayOfYear == dd.Entrada.DayOfYear && x.idEmpleado == dd.idEmpleado).Any())
+                    {
+                        dm.Add(dd);
+                    }
+                }
+            }
+            return new BindingList<DatosDispositivoModel>(dm);
+        }
+
+        private void HorasExtraa_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lbFiltro.Content = "Fecha a agregar o filtro:";
+            btAgregar.Visibility = Visibility.Visible;
+        }
+
+        private void HorasDispositivo_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lbFiltro.Content = "Filtro de fecha:";
+            btAgregar.Visibility = Visibility.Hidden;
         }
     }
 }

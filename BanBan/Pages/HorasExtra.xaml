@@ -25,7 +25,7 @@
                     Grid.Row="3" Grid.ColumnSpan="4" Margin="60,0,0,0" >
             <Label Content="Empleado:" VerticalAlignment="Center"/>
             <ComboBox x:Name="cbEmpleado" Height="30" MaxWidth="150" VerticalContentAlignment="Center" IsEditable="True" MaxDropDownHeight="300" MinWidth="150"/>
-            <Label Content="Fecha a agregar o filtro:" VerticalAlignment="Center"/>
+            <Label x:Name="lbFiltro" Content="Fecha a agregar o filtro:" Width="134" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpAgregar" VerticalAlignment="Center"/>
             <Button x:Name="btAgregar" Content="Agregar" Height="30" Width="80" Margin="10,0,0,0" Click="btAgregar_Click"/>
             <Label x:Name="lbBuscar" Content="Buscar empleado:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
@@ -44,7 +44,7 @@
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
         <TabControl x:Name="tcHoras" HorizontalAlignment="Left" Margin="60,10,38,10" Grid.Row="4" Grid.ColumnSpan="5">
-            <TabItem x:Name="HorasExtraa" Header="Horas extra">
+            <TabItem x:Name="HorasExtraa" Header="Horas extra" GotFocus="HorasExtraa_GotFocus">
                 <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" Width="1278">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
@@ -81,10 +81,10 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem x:Name="HorasDispositivo" Header="Horas dispositivo">
+            <TabItem x:Name="HorasDispositivo" Header="Horas dispositivo" GotFocus="HorasDispositivo_GotFocus">
                 <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Width="1278">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding idEmpleado}"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NombreEmpleado,Mode=OneWay}"/>
                         <DataGridTemplateColumn Header="Hora entrada">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -118,7 +118,7 @@
                     Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" 
                     HorizontalAlignment="Right" Margin="0,0,40,0">
             <Button x:Name="btObtenterDatos" Content="Cargar registros de dispositivo" Height="30" MinWidth="120" Margin="5,0,0,0" Click="btObtenterDatos_Click"/>
-            <Label Content="Desde:" VerticalAlignment="Bottom" Margin="0,0,0,7.8"/>
+            <Label Content="Desde:" VerticalAlignment="Center" />
             <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
             <Label Content="Hasta:" VerticalAlignment="Center"/>
             <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>

@@ -1,17 +1,18 @@
 ﻿using BanBan.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Linq;
 
 namespace BanBan.Controls
 {
     public class HorasExtraControl : HorasExtraCommonControl
     {
-        static readonly string heFN = "he.xml";
-        static readonly string heFNo = "he.no";
+        static readonly string heFN = "ds.xml";
+        static readonly string heFNo = "ds.no";
         public HorasExtraControl(HorasExtraOfflineModel heom)
         {
             sc = heom;
@@ -45,24 +46,24 @@ namespace BanBan.Controls
             return CBSucursales;
         }
         //almacena los datos de horas extra de empleado en xml
-        public void GuardarDatos(BindingList<HorasExtraModel> he)
+        public void GuardarDatos(DatosSucursalModel dsm)
         {
             try
             {
-                XmlSerializer xml = new XmlSerializer(typeof(BindingList<HorasExtraModel>));
+                XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
                 using (StreamWriter sw = new StreamWriter(heFNo))
                 {
                     using (XmlWriter writer = XmlWriter.Create(sw, new XmlWriterSettings { Indent = false }))
                     {
-                        xml.Serialize(writer, he);
+                        xml.Serialize(writer, dsm);
                     }
                 }
                 Crypto.Encrypt(heFNo, heFN);
-                System.Windows.MessageBox.Show("Se ha guardado satisfactoriamente", "Guardar",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("Se ha guardado satisfactoriamente", "Guardar", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Error: " + ex,"Error!",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Error: " + ex, "Error!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
             }
         }
@@ -79,7 +80,7 @@ namespace BanBan.Controls
                     xml.Serialize(writer, DatosSucursal);
                 }
                 Crypto.Encrypt(filename + ".no", HorasExtraOfflineControl.pathDB + "\\" + filename + ".sc");
-                System.Windows.MessageBox.Show("Datos guardados y colocados en la carpeta configurada","Guardar",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("Datos guardados y colocados en la carpeta configurada", "Guardar", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -106,6 +107,10 @@ namespace BanBan.Controls
                     where emp.idEmpleado == idEmpleado
                     select sc.sucursal1).FirstOrDefault();
         }
+        public string GetNombreEmpleadoById(int idEmpleado)
+        {
+            return sc.Empleados.Where(x => x.idEmpleado == idEmpleado).Select(x => x.nombre + " " + x.apellido).SingleOrDefault();
+        }
         public int GetIdEmpleadoByNombre(string nombre)
         {
             return (from emp in sc.Empleados where (emp.nombre + " " + emp.apellido).Trim().Contains(nombre.Trim()) select emp.idEmpleado).FirstOrDefault();
@@ -115,27 +120,30 @@ namespace BanBan.Controls
             return NombreSucursal + " " + Desde.Day + "-" + Desde.ToString("MMM").Substring(0, Desde.ToString("MMM").Length - 1) + " a " + Hasta.Day + "-" + Hasta.ToString("MMM").Substring(0, Hasta.ToString("MMM").Length - 1);
         }
 
-        public BindingList<HorasExtraModel> CargarDatos()
+        public DatosSucursalModel CargarDatos()
         {
             Crypto.Decrypt(heFN, heFNo);
             HorasExtraModel.Load = true;
-            XmlSerializer xml = new XmlSerializer(typeof(BindingList<HorasExtraModel>));
-            BindingList<HorasExtraModel> he;
+            XmlSerializer xml = new XmlSerializer(typeof(DatosSucursalModel));
+            DatosSucursalModel dsm;
             try
             {
                 using (FileStream fileStream = new FileStream(heFNo, FileMode.Open))
                 {
-                    he = (BindingList<HorasExtraModel>)xml.Deserialize(fileStream);
+                    dsm = (DatosSucursalModel)xml.Deserialize(fileStream);
                 }
             }
             catch (Exception)
             {
-                he = new BindingList<HorasExtraModel>();
+                dsm = new DatosSucursalModel();
             }
-
             File.Delete(heFNo);
+            foreach (var dm in dsm.DatosMarcacion)
+            {
+                dm._NombreEmpleado = GetNombreEmpleadoById(dm.idEmpleado);
+            }
             HorasExtraModel.Load = false;
-            return he;
+            return dsm;
         }
     }
 }
