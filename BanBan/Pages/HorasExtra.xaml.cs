@@ -51,6 +51,8 @@ namespace BanBan.Pages
 
             dpDesde.SelectedDate = DateTime.Now.AddDays(-15);
             dpHasta.SelectedDate = DateTime.Now;
+            dpDesdeHorasExtra.SelectedDate = DateTime.Now.AddDays(-15);
+            dpHastaHorasExtra.SelectedDate = DateTime.Now;
             dpAgregar.SelectedDate = DateTime.Now;
 
             dc = new DispositivoControl(RaiseDeviceEvent);

@@ -78,6 +78,9 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>banban.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -418,6 +421,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="banban.ico" />
     <Content Include="sBanBan.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>sBanBan.edmx</DependentUpon>

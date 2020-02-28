@@ -168,6 +168,7 @@ namespace BanBan.Pages
                 ActualizarModelo(pm);
                 dgvEditar.ItemsSource = pm;
                 pmInicial = pm;
+                lbNumero.Content = pm.Count;
             }
             HorasExtraModel.Load = false;
         }
