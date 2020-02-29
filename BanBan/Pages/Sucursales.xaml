@@ -64,9 +64,9 @@
             <Label x:Name="lbAsueto"                    
                 Content="Asueto:" 
                 MinWidth="100" Height="30"
-                HorizontalContentAlignment="Right"/>
+                HorizontalContentAlignment="Right" Visibility="Hidden"/>
             <DatePicker x:Name="tbAsueto"  
-                MinWidth="200" Height="30" SelectedDateChanged="tbAsueto_SelectedDateChanged"/>
+                MinWidth="200" Height="30" SelectedDateChanged="tbAsueto_SelectedDateChanged" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel x:Name="spListaAsueto" 
                     Orientation="Horizontal" 
@@ -75,9 +75,9 @@
             <Label x:Name="lbListaAsueto"             
                 Content="Dias de asueto:"              
                 MinWidth="100" Height="30"
-                HorizontalContentAlignment="Right" VerticalAlignment="Top"/>
+                HorizontalContentAlignment="Right" VerticalAlignment="Top" Visibility="Hidden"/>
             <ListBox x:Name="lsAsuetos" 
-                MinWidth="200" VerticalAlignment="Stretch"/>
+                MinWidth="200" VerticalAlignment="Stretch" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel x:Name="spBotonesAsueto" 
                 Orientation="Horizontal" 
@@ -86,20 +86,20 @@
             <Button x:Name="btLimpiar"
                     Content="Limpiar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0" Click="btLimpiar_Click"/>
+                    Margin="10,0,10,0" Click="btLimpiar_Click" Visibility="Hidden"/>
             <Button x:Name="btQuitar"
                     Content="Quitar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0" Click="btQuitar_Click"/>
+                    Margin="10,0,10,0" Click="btQuitar_Click" Visibility="Hidden"/>
             <Button x:Name="btAgregar" 
                     Content="Agregar"
                     MinWidth="100" Height="30" 
-                    Margin="10,0,10,0" Click="btAgregar_Click"/>
+                    Margin="10,0,10,0" Click="btAgregar_Click" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel x:Name="spBotones" 
             Orientation="Horizontal" 
             VerticalAlignment="Center" HorizontalAlignment="Left"
-            Grid.Row="6" Grid.Column="1" Margin="70,0,0,0">
+            Grid.Row="4" Grid.Column="1" Margin="70,0,0,0">
             <Button x:Name="btCancelar"
                 Content="Cancelar"
                 MinWidth="100" Height="30" 
@@ -109,7 +109,7 @@
                 MinWidth="100" Height="30" 
                 Margin="10,0,10,0" Click="btGuardarClick"/>
         </StackPanel>
-        <StackPanel x:Name="spSupervisor" Grid.Row="5" 
+        <StackPanel x:Name="spSupervisor" Grid.Row="3" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right" 
             VerticalAlignment="Center">
@@ -120,7 +120,7 @@
             <ComboBox x:Name="cbSupervisor"  
                 MinWidth="200" Height="30" MaxDropDownHeight="300" IsEditable="True"/>
         </StackPanel>
-        <StackPanel x:Name="spEditarSucursal" Grid.Row="6" 
+        <StackPanel x:Name="spEditarSucursal" Grid.Row="4" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center">
@@ -131,8 +131,6 @@
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
