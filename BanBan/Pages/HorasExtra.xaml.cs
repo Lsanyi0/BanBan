@@ -121,13 +121,29 @@ namespace BanBan.Pages
 
         private void EnviarDatos(object sender, RoutedEventArgs e)
         {
-            if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue)
+            if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue || !dpDesdeHorasExtra.SelectedDate.HasValue || !dpHastaHorasExtra.SelectedDate.HasValue)
             {
+                MessageBox.Show("Una de las fechas se encuentra vacía, porfavor asegurese que se todas las fechas se encuentran seleccionadas", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (dpDesde.SelectedDate <= dpHasta.SelectedDate)
             {
-                ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999));
+                //if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SucursalActual))
+                //{
+                //    MessageBox.Show("Sucursal actual no se encuentra configurada, porfavor configurar.","Alerta",MessageBoxButton.OK,MessageBoxImage.Warning);
+                //}
+                string[] fechas = {
+                    dpDesdeHorasExtra.SelectedDate.Value.ToString("dd/MMMM/yy"),
+                    dpHastaHorasExtra.SelectedDate.Value.ToString("dd/MMMM/yy"),
+                    dpDesde.SelectedDate.Value.ToString("dd/MMMM/yy"),
+                    dpHasta.SelectedDate.Value.ToString("dd/MMMM/yy")
+                };
+                var alerta = string.Format("Se enviaran los datos de horas extra de {0} a {1} y datos de dispositivo de {2} a {3}, " +
+                    "se enviaran y borraran los datos en los rangos seleccionados y se conservaran los que no. Desea continuar?", fechas);
+                if (MessageBoxResult.Yes == MessageBox.Show(alerta, "Enviar datos", MessageBoxButton.YesNo, MessageBoxImage.Information))
+                {
+                    ConsolidarDatosDispositivo(dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999), dpDesdeHorasExtra.SelectedDate.Value, dpHastaHorasExtra.SelectedDate.Value.AddHours(23.9999));
+                }
             }
             else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
         }
@@ -187,14 +203,14 @@ namespace BanBan.Pages
             return lstEnrollData;
         }
 
-        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta)
+        public void ConsolidarDatosDispositivo(DateTime? Desde, DateTime? Hasta, DateTime? DesdeHE, DateTime? HastaHE)
         {
 
             //List<int> idEmpleados = DatosDispositivo.GroupBy(x => x.idEmpleado).OrderBy(g => g.Key).Select(f => f.Key).ToList();
             DatosSucursalModel ds = new DatosSucursalModel
             {
                 DatosMarcacion = ddm.ToList(),
-                HorasExtra = he.ToList()
+                HorasExtra = he.ToList().Where(x => Between(x.HoraInicio, DesdeHE, HastaHE)).ToList()
             };
             hec.GuardarDatos(ds, "Fabrica", Desde.Value, Hasta.Value);
         }
