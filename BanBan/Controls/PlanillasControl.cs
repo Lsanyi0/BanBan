@@ -23,7 +23,7 @@ namespace BanBan.Controls
         }
         public bool EmpleadoInSucursal(int idempleado, int idsucursal)
         {
-            return sb.trabajo.Where(x => x.idSucursal == idsucursal && x.idEmpleado == x.idEmpleado).Any();
+            return sb.trabajo.Where(x => x.idSucursal == idsucursal && x.idEmpleado == idempleado).Any();
         }
         public int GetIdSucursalByNombre(string sucursal)
         {

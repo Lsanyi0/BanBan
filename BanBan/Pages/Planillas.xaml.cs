@@ -20,6 +20,8 @@ namespace BanBan.Pages
         private PlanillasControl pc = new PlanillasControl();
         private BindingList<PlanillaModel> pm;
         private BindingList<PlanillaModel> pmInicial;
+        private BindingList<PlanillaModel> pmFiltro;
+        private bool loading = true;
         private const string file = "planilla.xml";
 
         public Planillas()
@@ -37,6 +39,7 @@ namespace BanBan.Pages
             ActualizarModelo(pm);
 
             lbNumero.Content = dgvPlanilla.Items.Count;
+            loading = false;
         }
 
         private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -67,6 +70,7 @@ namespace BanBan.Pages
             dgvPlanilla.ItemsSource = planillas;
             dgvAtenciones.ItemsSource = planillas;
             //dgvEditar.ItemsSource = planillas;
+            lbNumero.Content = planillas.Count();
         }
 
         private void btGuardar_Click(object sender, RoutedEventArgs e)
@@ -177,7 +181,7 @@ namespace BanBan.Pages
             PlanillaModel model = (PlanillaModel)sender;
             pm = new BindingList<PlanillaModel>((from pme in pm where pme.IdEmpleado != model.IdEmpleado select pme).ToList());
             pm.Add(model);
-            ActualizarModelo(pm);
+            //ActualizarModelo(pm);
         }
         private int ObtenerTipoDeHora(HorasExtraModel extraModel)
         {
@@ -200,31 +204,82 @@ namespace BanBan.Pages
 
         private void tbBuscar_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(tbBuscar.Text))
+            if (pm.Count > 1)
             {
-
+                if (!string.IsNullOrWhiteSpace(tbBuscar.Text) && tbBuscar.Text.Length > 3)
+                {
+                    FiltrarEmpleado(tbBuscar.Text.ToLower());
+                }
+                else
+                {
+                    dgvEditar.ItemsSource = pm;
+                    pmFiltro = pm;
+                    ActualizarModelo(pm);
+                }
             }
-            else if (string.IsNullOrEmpty(tbBuscar.Text))
+        }
+        private void FiltrarEmpleado(string empleado)
+        {
+            if (!string.IsNullOrWhiteSpace(empleado))
             {
-
+                pmFiltro = new BindingList<PlanillaModel>(pm.Where(x => x.NombreCompleto.ToLower().Contains(empleado)).ToList());
+                foreach (var planilla in pmFiltro)
+                {
+                    planilla.PropertyChanged += ActualizarPadre;
+                }
+                dgvEditar.ItemsSource = pmFiltro;
+                ActualizarModelo(pmFiltro);
             }
         }
         private void FiltroSucursal(string sucursal)
         {
-            if (!string.IsNullOrWhiteSpace(sucursal))
+            if (!string.IsNullOrWhiteSpace(sucursal) && !loading)
             {
                 int idsucursal = pc.GetIdSucursalByNombre(sucursal);
-                BindingList<PlanillaModel> fpm = new BindingList<PlanillaModel>(pm.Where(x => pc.EmpleadoInSucursal(x.IdEmpleado, idsucursal)).ToList());
-                foreach (var planilla in fpm)
+                pmFiltro = new BindingList<PlanillaModel>();
+                foreach (var planillaModel in pm)
+                {
+                    if (pc.EmpleadoInSucursal(planillaModel.IdEmpleado, idsucursal))
+                    {
+                        pmFiltro.Add(planillaModel);
+                    }
+                }
+                foreach (var planilla in pmFiltro)
                 {
                     planilla.PropertyChanged += ActualizarPadre;
                 }
-                dgvEditar.ItemsSource = fpm;
-                ActualizarModelo(fpm);
+                dgvEditar.ItemsSource = pmFiltro;
+                ActualizarModelo(pmFiltro);
+            }
+        }
+
+        private void cbSucursal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!loading)
+            {
+                if (cbSucursal.SelectedValue != null)
+                {
+                    FiltroSucursal(cbSucursal.SelectedValue.ToString());
+                }
+                else
+                {
+                    dgvEditar.ItemsSource = pm;
+                    pmFiltro = pm;
+                    ActualizarModelo(pm);
+                }
+            }
+        }
+
+        private void miActualizar_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbSucursal.SelectedValue != null)
+            {
+                FiltroSucursal(cbSucursal.SelectedValue.ToString());
             }
             else
             {
                 dgvEditar.ItemsSource = pm;
+                pmFiltro = pm;
                 ActualizarModelo(pm);
             }
         }

@@ -14,16 +14,13 @@
                TextBlock.FontSize="24" 
                Grid.Column="2" Grid.Row="1"
                HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
-        <StackPanel x:Name="StackPanel1" 
-                    Orientation="Horizontal" HorizontalAlignment="Center" 
-                    Grid.Row="2" Grid.ColumnSpan="2"/>
         <StackPanel x:Name="spSucursal" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" KeyUp="cbSucursalKeyUp">
             <Label x:Name="lbSucursal" Content="Sucursal:"  MinWidth="40"  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="cbSucursal" Height="30" MinWidth="150" 
-                      VerticalContentAlignment="Center" IsEditable="True"/>
+                      VerticalContentAlignment="Center" IsEditable="True" SelectionChanged="cbSucursal_SelectionChanged"/>
         </StackPanel>
         <StackPanel x:Name="spObtenerDatos" Orientation="Horizontal"
                     HorizontalAlignment="Left" 
@@ -70,7 +67,8 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem x:Name="miEditarEmlpleado" Header="Editar Empleado" Click="miEditarEmpleadoClick" />
+                            <MenuItem x:Name="miEditarEmlpleado" Header="Editar empleado" Click="miEditarEmpleadoClick" />
+                            <MenuItem x:Name="miActualizar" Header="Actualizar tabla" Click="miActualizar_Click"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
