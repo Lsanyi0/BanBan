@@ -116,18 +116,19 @@
         </TabControl>
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="23" Orientation="Horizontal" Margin="60,0,0,0">
             <Label Content="Horas dipositivo desde:" VerticalAlignment="Center" />
-            <DatePicker x:Name="dpDesdeHorasExtra" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
             <Label Content="Hasta:" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpHastaHorasExtra" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
             <Button x:Name="btObtenterDatos" Content="Cargar registros de dispositivo" HorizontalAlignment="Left" Height="30" MinWidth="120" Margin="5,0,0,0" Click="btObtenterDatos_Click"/>
         </StackPanel>
         <StackPanel x:Name="spEnviarDatos" Orientation="Horizontal"
                     Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" 
                     HorizontalAlignment="Right" Margin="0,0,40,0">
             <Label Content="Desde:" VerticalAlignment="Center" />
-            <DatePicker x:Name="dpDesde" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpDesdeHorasExtra" VerticalAlignment="Center"/>
             <Label Content="Hasta:" VerticalAlignment="Center"/>
-            <DatePicker x:Name="dpHasta" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpHastaHorasExtra" VerticalAlignment="Center"/>
+
             <Button x:Name="btEnviarDatos" Content="Enviar datos" Height="30" MinWidth="120" Margin="5,0,0,0" Click="EnviarDatos"/>
         </StackPanel>
         <Grid.RowDefinitions>
