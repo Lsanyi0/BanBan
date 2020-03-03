@@ -38,15 +38,6 @@
           <Property Name="ciudad" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="idDepartamento" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="comentariosplanilla">
-          <Key>
-            <PropertyRef Name="idComentarios" />
-          </Key>
-          <Property Name="idComentarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="comentario" Type="varchar" MaxLength="200" />
-          <Property Name="idPlanilla" Type="int" Nullable="false" />
-          <Property Name="idEmpleado" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="departamento">
           <Key>
             <PropertyRef Name="idDepartamento" />
@@ -62,24 +53,10 @@
           <Property Name="descuento" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
           <Property Name="monto" Type="decimal" Precision="6" Scale="4" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="200" />
+          <Property Name="tipo" Type="int" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idPlanilla" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="dianacional">
-          <Key>
-            <PropertyRef Name="idDiaNacional" />
-          </Key>
-          <Property Name="idDiaNacional" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="dia" Type="date" Nullable="false" />
-          <Property Name="idFiesta" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="diapatronal">
-          <Key>
-            <PropertyRef Name="idDiaPatronal" />
-          </Key>
-          <Property Name="idDiaPatronal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="dia" Type="date" Nullable="false" />
-          <Property Name="idCiudad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="dispositivo">
           <Key>
@@ -107,13 +84,6 @@
           <Property Name="idSistemaPension" Type="int" Nullable="false" />
           <Property Name="idCargo" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="fiestanacional">
-          <Key>
-            <PropertyRef Name="idFiesta" />
-          </Key>
-          <Property Name="idFiesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fiesta" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="horario">
           <Key>
             <PropertyRef Name="id" />
@@ -129,8 +99,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="horaInicio" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="horaFinal" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="horas" Type="double" />
+          <Property Name="fecha" Type="datetime" Precision="0" />
           <Property Name="comentarios" Type="varchar" MaxLength="100" />
           <Property Name="idTipoHora" Type="int" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
@@ -151,18 +121,18 @@
             <PropertyRef Name="idPlanilla" />
           </Key>
           <Property Name="idPlanilla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="periodo" Type="bool" Nullable="false" />
-          <Property Name="fecha" Type="date" Nullable="false" />
-          <Property Name="fallo" Type="bool" Nullable="false" />
+          <Property Name="periodo" Type="bool" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="fallo" Type="bool" />
         </EntityType>
         <EntityType Name="planillahorario">
           <Key>
             <PropertyRef Name="idPlanillaHorario" />
           </Key>
           <Property Name="idPlanillaHorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="entrada" Type="datetime" Precision="0" />
-          <Property Name="salida" Type="datetime" Precision="0" />
-          <Property Name="comentario" Type="varchar" MaxLength="50" />
+          <Property Name="entrada" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="salida" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="comentario" Type="varchar" MaxLength="100" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idPlanilla" Type="int" Nullable="false" />
         </EntityType>
@@ -269,30 +239,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_CPlanillaxEmpleado">
-          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
-          <End Role="comentariosplanilla" Type="Self.comentariosplanilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="empleado">
-              <PropertyRef Name="idEmpleado" />
-            </Principal>
-            <Dependent Role="comentariosplanilla">
-              <PropertyRef Name="idEmpleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_CPlanillaxPlanilla">
-          <End Role="planilla" Type="Self.planilla" Multiplicity="1" />
-          <End Role="comentariosplanilla" Type="Self.comentariosplanilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="planilla">
-              <PropertyRef Name="idPlanilla" />
-            </Principal>
-            <Dependent Role="comentariosplanilla">
-              <PropertyRef Name="idPlanilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_DescuentosxEmpleado">
           <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
           <End Role="descuentos" Type="Self.descuentos" Multiplicity="*" />
@@ -314,18 +260,6 @@
             </Principal>
             <Dependent Role="descuentos">
               <PropertyRef Name="idPlanilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_DiaNacionalxFiestaNacional">
-          <End Role="fiestanacional" Type="Self.fiestanacional" Multiplicity="1" />
-          <End Role="dianacional" Type="Self.dianacional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="fiestanacional">
-              <PropertyRef Name="idFiesta" />
-            </Principal>
-            <Dependent Role="dianacional">
-              <PropertyRef Name="idFiesta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -422,18 +356,6 @@
             </Principal>
             <Dependent Role="horario">
               <PropertyRef Name="idEmpleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_PatronalxCiudad">
-          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
-          <End Role="diapatronal" Type="Self.diapatronal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ciudad">
-              <PropertyRef Name="idCiudad" />
-            </Principal>
-            <Dependent Role="diapatronal">
-              <PropertyRef Name="idCiudad" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -550,14 +472,10 @@
           <EntitySet Name="atenciondetalle" EntityType="Self.atenciondetalle" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="cargo" EntityType="Self.cargo" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="sbanban" store:Type="Tables" />
-          <EntitySet Name="comentariosplanilla" EntityType="Self.comentariosplanilla" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="departamento" EntityType="Self.departamento" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="descuentos" EntityType="Self.descuentos" Schema="sbanban" store:Type="Tables" />
-          <EntitySet Name="dianacional" EntityType="Self.dianacional" Schema="sbanban" store:Type="Tables" />
-          <EntitySet Name="diapatronal" EntityType="Self.diapatronal" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="dispositivo" EntityType="Self.dispositivo" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="empleado" EntityType="Self.empleado" Schema="sbanban" store:Type="Tables" />
-          <EntitySet Name="fiestanacional" EntityType="Self.fiestanacional" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horario" EntityType="Self.horario" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horarioextra" EntityType="Self.horarioextra" Schema="sbanban" store:Type="Tables" />
           <EntitySet Name="horariosucursal" EntityType="Self.horariosucursal" Schema="sbanban" store:Type="Tables" />
@@ -583,14 +501,6 @@
             <End Role="departamento" EntitySet="departamento" />
             <End Role="ciudad" EntitySet="ciudad" />
           </AssociationSet>
-          <AssociationSet Name="fk_CPlanillaxEmpleado" Association="Self.fk_CPlanillaxEmpleado">
-            <End Role="empleado" EntitySet="empleado" />
-            <End Role="comentariosplanilla" EntitySet="comentariosplanilla" />
-          </AssociationSet>
-          <AssociationSet Name="fk_CPlanillaxPlanilla" Association="Self.fk_CPlanillaxPlanilla">
-            <End Role="planilla" EntitySet="planilla" />
-            <End Role="comentariosplanilla" EntitySet="comentariosplanilla" />
-          </AssociationSet>
           <AssociationSet Name="fk_DescuentosxEmpleado" Association="Self.fk_DescuentosxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
             <End Role="descuentos" EntitySet="descuentos" />
@@ -598,10 +508,6 @@
           <AssociationSet Name="fk_DescuentosxPlanilla" Association="Self.fk_DescuentosxPlanilla">
             <End Role="planilla" EntitySet="planilla" />
             <End Role="descuentos" EntitySet="descuentos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DiaNacionalxFiestaNacional" Association="Self.fk_DiaNacionalxFiestaNacional">
-            <End Role="fiestanacional" EntitySet="fiestanacional" />
-            <End Role="dianacional" EntitySet="dianacional" />
           </AssociationSet>
           <AssociationSet Name="fk_DispositivoxSucursal" Association="Self.fk_DispositivoxSucursal">
             <End Role="sucursal" EntitySet="sucursal" />
@@ -634,10 +540,6 @@
           <AssociationSet Name="fk_HorarioxEmpleado" Association="Self.fk_HorarioxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
             <End Role="horario" EntitySet="horario" />
-          </AssociationSet>
-          <AssociationSet Name="fk_PatronalxCiudad" Association="Self.fk_PatronalxCiudad">
-            <End Role="ciudad" EntitySet="ciudad" />
-            <End Role="diapatronal" EntitySet="diapatronal" />
           </AssociationSet>
           <AssociationSet Name="fk_PHorarioxEmpleado" Association="Self.fk_PHorarioxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
@@ -685,15 +587,10 @@
           <EntitySet Name="atenciondetalle" EntityType="sql3307115Model.atenciondetalle" />
           <EntitySet Name="cargo" EntityType="sql3307115Model.cargo" />
           <EntitySet Name="ciudad" EntityType="sql3307115Model.ciudad" />
-          <EntitySet Name="comentariosplanilla" EntityType="sql3307115Model.comentariosplanilla" />
           <EntitySet Name="departamento" EntityType="sql3307115Model.departamento" />
           <EntitySet Name="descuentos" EntityType="sql3307115Model.descuentos" />
-          <EntitySet Name="dianacional" EntityType="sql3307115Model.dianacional" />
-          <EntitySet Name="diapatronal" EntityType="sql3307115Model.diapatronal" />
           <EntitySet Name="empleado" EntityType="sql3307115Model.empleado" />
-          <EntitySet Name="fiestanacional" EntityType="sql3307115Model.fiestanacional" />
           <EntitySet Name="horario" EntityType="sql3307115Model.horario" />
-          <EntitySet Name="horarioextra" EntityType="sql3307115Model.horarioextra" />
           <EntitySet Name="horariosucursal" EntityType="sql3307115Model.horariosucursal" />
           <EntitySet Name="planilla" EntityType="sql3307115Model.planilla" />
           <EntitySet Name="planillahorario" EntityType="sql3307115Model.planillahorario" />
@@ -721,21 +618,9 @@
             <End Role="departamento" EntitySet="departamento" />
             <End Role="ciudad" EntitySet="ciudad" />
           </AssociationSet>
-          <AssociationSet Name="fk_PatronalxCiudad" Association="sql3307115Model.fk_PatronalxCiudad">
-            <End Role="ciudad" EntitySet="ciudad" />
-            <End Role="diapatronal" EntitySet="diapatronal" />
-          </AssociationSet>
           <AssociationSet Name="fk_SucursalxCiudad" Association="sql3307115Model.fk_SucursalxCiudad">
             <End Role="ciudad" EntitySet="ciudad" />
             <End Role="sucursal" EntitySet="sucursal" />
-          </AssociationSet>
-          <AssociationSet Name="fk_CPlanillaxEmpleado" Association="sql3307115Model.fk_CPlanillaxEmpleado">
-            <End Role="empleado" EntitySet="empleado" />
-            <End Role="comentariosplanilla" EntitySet="comentariosplanilla" />
-          </AssociationSet>
-          <AssociationSet Name="fk_CPlanillaxPlanilla" Association="sql3307115Model.fk_CPlanillaxPlanilla">
-            <End Role="planilla" EntitySet="planilla" />
-            <End Role="comentariosplanilla" EntitySet="comentariosplanilla" />
           </AssociationSet>
           <AssociationSet Name="fk_DescuentosxEmpleado" Association="sql3307115Model.fk_DescuentosxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
@@ -745,17 +630,9 @@
             <End Role="planilla" EntitySet="planilla" />
             <End Role="descuentos" EntitySet="descuentos" />
           </AssociationSet>
-          <AssociationSet Name="fk_DiaNacionalxFiestaNacional" Association="sql3307115Model.fk_DiaNacionalxFiestaNacional">
-            <End Role="fiestanacional" EntitySet="fiestanacional" />
-            <End Role="dianacional" EntitySet="dianacional" />
-          </AssociationSet>
           <AssociationSet Name="fk_EmpleadoxSPension" Association="sql3307115Model.fk_EmpleadoxSPension">
             <End Role="sistemapension" EntitySet="sistemapension" />
             <End Role="empleado" EntitySet="empleado" />
-          </AssociationSet>
-          <AssociationSet Name="fk_HExtraxEmpleado" Association="sql3307115Model.fk_HExtraxEmpleado">
-            <End Role="empleado" EntitySet="empleado" />
-            <End Role="horarioextra" EntitySet="horarioextra" />
           </AssociationSet>
           <AssociationSet Name="fk_HorarioxEmpleado" Association="sql3307115Model.fk_HorarioxEmpleado">
             <End Role="empleado" EntitySet="empleado" />
@@ -781,14 +658,6 @@
             <End Role="empleado" EntitySet="empleado" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
-          <AssociationSet Name="fk_HExtraxPlanilla" Association="sql3307115Model.fk_HExtraxPlanilla">
-            <End Role="planilla" EntitySet="planilla" />
-            <End Role="horarioextra" EntitySet="horarioextra" />
-          </AssociationSet>
-          <AssociationSet Name="fk_HExtraxTipo" Association="sql3307115Model.fk_HExtraxTipo">
-            <End Role="tipohora" EntitySet="tipohora" />
-            <End Role="horarioextra" EntitySet="horarioextra" />
-          </AssociationSet>
           <AssociationSet Name="fk_HorarioSxSucursal" Association="sql3307115Model.fk_HorarioSxSucursal">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="horariosucursal" EntitySet="horariosucursal" />
@@ -809,6 +678,19 @@
           <AssociationSet Name="fk_DispositivoxSucursal" Association="sql3307115Model.fk_DispositivoxSucursal">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="dispositivo" EntitySet="dispositivo" />
+          </AssociationSet>
+          <EntitySet Name="horarioextra" EntityType="sql3307115Model.horarioextra" />
+          <AssociationSet Name="fk_HExtraxEmpleado" Association="sql3307115Model.fk_HExtraxEmpleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="horarioextra" EntitySet="horarioextra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxPlanilla" Association="sql3307115Model.fk_HExtraxPlanilla">
+            <End Role="planilla" EntitySet="planilla" />
+            <End Role="horarioextra" EntitySet="horarioextra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HExtraxTipo" Association="sql3307115Model.fk_HExtraxTipo">
+            <End Role="tipohora" EntitySet="tipohora" />
+            <End Role="horarioextra" EntitySet="horarioextra" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="atencion">
@@ -848,19 +730,7 @@
           <Property Name="ciudad1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="idDepartamento" Type="Int32" Nullable="false" />
           <NavigationProperty Name="departamento" Relationship="sql3307115Model.fk_CiudadxDepartamento" FromRole="ciudad" ToRole="departamento" />
-          <NavigationProperty Name="diapatronal" Relationship="sql3307115Model.fk_PatronalxCiudad" FromRole="ciudad" ToRole="diapatronal" />
           <NavigationProperty Name="sucursal" Relationship="sql3307115Model.fk_SucursalxCiudad" FromRole="ciudad" ToRole="sucursal" />
-        </EntityType>
-        <EntityType Name="comentariosplanilla">
-          <Key>
-            <PropertyRef Name="idComentarios" />
-          </Key>
-          <Property Name="idComentarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
-          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="empleado" Relationship="sql3307115Model.fk_CPlanillaxEmpleado" FromRole="comentariosplanilla" ToRole="empleado" />
-          <NavigationProperty Name="planilla" Relationship="sql3307115Model.fk_CPlanillaxPlanilla" FromRole="comentariosplanilla" ToRole="planilla" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -882,24 +752,8 @@
           <Property Name="idPlanilla" Type="Int32" Nullable="false" />
           <NavigationProperty Name="empleado" Relationship="sql3307115Model.fk_DescuentosxEmpleado" FromRole="descuentos" ToRole="empleado" />
           <NavigationProperty Name="planilla" Relationship="sql3307115Model.fk_DescuentosxPlanilla" FromRole="descuentos" ToRole="planilla" />
-        </EntityType>
-        <EntityType Name="dianacional">
-          <Key>
-            <PropertyRef Name="idDiaNacional" />
-          </Key>
-          <Property Name="idDiaNacional" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dia" Type="DateTime" Nullable="false" />
-          <Property Name="idFiesta" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="fiestanacional" Relationship="sql3307115Model.fk_DiaNacionalxFiestaNacional" FromRole="dianacional" ToRole="fiestanacional" />
-        </EntityType>
-        <EntityType Name="diapatronal">
-          <Key>
-            <PropertyRef Name="idDiaPatronal" />
-          </Key>
-          <Property Name="idDiaPatronal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dia" Type="DateTime" Nullable="false" />
-          <Property Name="idCiudad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ciudad" Relationship="sql3307115Model.fk_PatronalxCiudad" FromRole="diapatronal" ToRole="ciudad" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="Int32" />
         </EntityType>
         <EntityType Name="empleado">
           <Key>
@@ -920,24 +774,15 @@
           <Property Name="idCargo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="atenciondetalle" Relationship="sql3307115Model.fk_ADetallexEmpleado" FromRole="empleado" ToRole="atenciondetalle" />
           <NavigationProperty Name="cargo" Relationship="sql3307115Model.fk_EmpleadoxCargo" FromRole="empleado" ToRole="cargo" />
-          <NavigationProperty Name="comentariosplanilla" Relationship="sql3307115Model.fk_CPlanillaxEmpleado" FromRole="empleado" ToRole="comentariosplanilla" />
           <NavigationProperty Name="descuentos" Relationship="sql3307115Model.fk_DescuentosxEmpleado" FromRole="empleado" ToRole="descuentos" />
           <NavigationProperty Name="sistemapension" Relationship="sql3307115Model.fk_EmpleadoxSPension" FromRole="empleado" ToRole="sistemapension" />
-          <NavigationProperty Name="horarioextra" Relationship="sql3307115Model.fk_HExtraxEmpleado" FromRole="empleado" ToRole="horarioextra" />
           <NavigationProperty Name="horario" Relationship="sql3307115Model.fk_HorarioxEmpleado" FromRole="empleado" ToRole="horario" />
           <NavigationProperty Name="planillahorario" Relationship="sql3307115Model.fk_PHorarioxEmpleado" FromRole="empleado" ToRole="planillahorario" />
           <NavigationProperty Name="registrosalarial" Relationship="sql3307115Model.fk_RegistroxEmpleado" FromRole="empleado" ToRole="registrosalarial" />
           <NavigationProperty Name="telefono" Relationship="sql3307115Model.fk_TelefonoxEmpleado" FromRole="empleado" ToRole="telefono" />
           <NavigationProperty Name="trabajo" Relationship="sql3307115Model.fk_TrabajoxEmpleado" FromRole="empleado" ToRole="trabajo" />
           <NavigationProperty Name="usuario" Relationship="sql3307115Model.fk_UsuarioxEmpleado" FromRole="empleado" ToRole="usuario" />
-        </EntityType>
-        <EntityType Name="fiestanacional">
-          <Key>
-            <PropertyRef Name="idFiesta" />
-          </Key>
-          <Property Name="idFiesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fiesta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="dianacional" Relationship="sql3307115Model.fk_DiaNacionalxFiestaNacional" FromRole="fiestanacional" ToRole="dianacional" />
+          <NavigationProperty Name="horarioextra" Relationship="sql3307115Model.fk_HExtraxEmpleado" FromRole="empleado" ToRole="horarioextra" />
         </EntityType>
         <EntityType Name="horario">
           <Key>
@@ -949,21 +794,6 @@
           <Property Name="dias" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="empleado" Relationship="sql3307115Model.fk_HorarioxEmpleado" FromRole="horario" ToRole="empleado" />
-        </EntityType>
-        <EntityType Name="horarioextra">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="horaInicio" Type="DateTime" Nullable="false" />
-          <Property Name="horaFinal" Type="DateTime" Nullable="false" />
-          <Property Name="comentarios" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="idTipoHora" Type="Int32" Nullable="false" />
-          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
-          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="empleado" Relationship="sql3307115Model.fk_HExtraxEmpleado" FromRole="horarioextra" ToRole="empleado" />
-          <NavigationProperty Name="planilla" Relationship="sql3307115Model.fk_HExtraxPlanilla" FromRole="horarioextra" ToRole="planilla" />
-          <NavigationProperty Name="tipohora" Relationship="sql3307115Model.fk_HExtraxTipo" FromRole="horarioextra" ToRole="tipohora" />
         </EntityType>
         <EntityType Name="horariosucursal">
           <Key>
@@ -984,18 +814,17 @@
           <Property Name="periodo" Type="Boolean" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" />
           <Property Name="fallo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="comentariosplanilla" Relationship="sql3307115Model.fk_CPlanillaxPlanilla" FromRole="planilla" ToRole="comentariosplanilla" />
           <NavigationProperty Name="descuentos" Relationship="sql3307115Model.fk_DescuentosxPlanilla" FromRole="planilla" ToRole="descuentos" />
-          <NavigationProperty Name="horarioextra" Relationship="sql3307115Model.fk_HExtraxPlanilla" FromRole="planilla" ToRole="horarioextra" />
           <NavigationProperty Name="planillahorario" Relationship="sql3307115Model.fk_PHorarioxPlanilla" FromRole="planilla" ToRole="planillahorario" />
+          <NavigationProperty Name="horarioextra" Relationship="sql3307115Model.fk_HExtraxPlanilla" FromRole="planilla" ToRole="horarioextra" />
         </EntityType>
         <EntityType Name="planillahorario">
           <Key>
             <PropertyRef Name="idPlanillaHorario" />
           </Key>
           <Property Name="idPlanillaHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="entrada" Type="DateTime" />
-          <Property Name="salida" Type="DateTime" />
+          <Property Name="entrada" Type="DateTime" Nullable="false" />
+          <Property Name="salida" Type="DateTime" Nullable="false" />
           <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <Property Name="idPlanilla" Type="Int32" Nullable="false" />
@@ -1130,18 +959,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_PatronalxCiudad">
-          <End Type="sql3307115Model.ciudad" Role="ciudad" Multiplicity="1" />
-          <End Type="sql3307115Model.diapatronal" Role="diapatronal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ciudad">
-              <PropertyRef Name="idCiudad" />
-            </Principal>
-            <Dependent Role="diapatronal">
-              <PropertyRef Name="idCiudad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_SucursalxCiudad">
           <End Type="sql3307115Model.ciudad" Role="ciudad" Multiplicity="1" />
           <End Type="sql3307115Model.sucursal" Role="sucursal" Multiplicity="*" />
@@ -1151,30 +968,6 @@
             </Principal>
             <Dependent Role="sucursal">
               <PropertyRef Name="idCiudad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_CPlanillaxEmpleado">
-          <End Type="sql3307115Model.empleado" Role="empleado" Multiplicity="1" />
-          <End Type="sql3307115Model.comentariosplanilla" Role="comentariosplanilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="empleado">
-              <PropertyRef Name="idEmpleado" />
-            </Principal>
-            <Dependent Role="comentariosplanilla">
-              <PropertyRef Name="idEmpleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_CPlanillaxPlanilla">
-          <End Type="sql3307115Model.planilla" Role="planilla" Multiplicity="1" />
-          <End Type="sql3307115Model.comentariosplanilla" Role="comentariosplanilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="planilla">
-              <PropertyRef Name="idPlanilla" />
-            </Principal>
-            <Dependent Role="comentariosplanilla">
-              <PropertyRef Name="idPlanilla" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1202,18 +995,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_DiaNacionalxFiestaNacional">
-          <End Type="sql3307115Model.fiestanacional" Role="fiestanacional" Multiplicity="1" />
-          <End Type="sql3307115Model.dianacional" Role="dianacional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="fiestanacional">
-              <PropertyRef Name="idFiesta" />
-            </Principal>
-            <Dependent Role="dianacional">
-              <PropertyRef Name="idFiesta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_EmpleadoxSPension">
           <End Type="sql3307115Model.sistemapension" Role="sistemapension" Multiplicity="1" />
           <End Type="sql3307115Model.empleado" Role="empleado" Multiplicity="*" />
@@ -1223,18 +1004,6 @@
             </Principal>
             <Dependent Role="empleado">
               <PropertyRef Name="idSistemaPension" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_HExtraxEmpleado">
-          <End Type="sql3307115Model.empleado" Role="empleado" Multiplicity="1" />
-          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="empleado">
-              <PropertyRef Name="idEmpleado" />
-            </Principal>
-            <Dependent Role="horarioextra">
-              <PropertyRef Name="idEmpleado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1310,30 +1079,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_HExtraxPlanilla">
-          <End Type="sql3307115Model.planilla" Role="planilla" Multiplicity="1" />
-          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="planilla">
-              <PropertyRef Name="idPlanilla" />
-            </Principal>
-            <Dependent Role="horarioextra">
-              <PropertyRef Name="idPlanilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_HExtraxTipo">
-          <End Type="sql3307115Model.tipohora" Role="tipohora" Multiplicity="1" />
-          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tipohora">
-              <PropertyRef Name="idTipoHora" />
-            </Principal>
-            <Dependent Role="horarioextra">
-              <PropertyRef Name="idTipoHora" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_HorarioSxSucursal">
           <End Type="sql3307115Model.sucursal" Role="sucursal" Multiplicity="1" />
           <End Type="sql3307115Model.horariosucursal" Role="horariosucursal" Multiplicity="*" />
@@ -1403,6 +1148,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="horarioextra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="horas" Type="Double" />
+          <Property Name="fecha" Type="DateTime" />
+          <Property Name="comentarios" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoHora" Type="Int32" Nullable="false" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idPlanilla" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="sql3307115Model.fk_HExtraxEmpleado" FromRole="horarioextra" ToRole="empleado" />
+          <NavigationProperty Name="planilla" Relationship="sql3307115Model.fk_HExtraxPlanilla" FromRole="horarioextra" ToRole="planilla" />
+          <NavigationProperty Name="tipohora" Relationship="sql3307115Model.fk_HExtraxTipo" FromRole="horarioextra" ToRole="tipohora" />
+        </EntityType>
+        <Association Name="fk_HExtraxEmpleado">
+          <End Type="sql3307115Model.empleado" Role="empleado" Multiplicity="1" />
+          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="horarioextra">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxPlanilla">
+          <End Type="sql3307115Model.planilla" Role="planilla" Multiplicity="1" />
+          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="planilla">
+              <PropertyRef Name="idPlanilla" />
+            </Principal>
+            <Dependent Role="horarioextra">
+              <PropertyRef Name="idPlanilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HExtraxTipo">
+          <End Type="sql3307115Model.tipohora" Role="tipohora" Multiplicity="1" />
+          <End Type="sql3307115Model.horarioextra" Role="horarioextra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipohora">
+              <PropertyRef Name="idTipoHora" />
+            </Principal>
+            <Dependent Role="horarioextra">
+              <PropertyRef Name="idTipoHora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1446,16 +1242,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="comentariosplanilla">
-            <EntityTypeMapping TypeName="sql3307115Model.comentariosplanilla">
-              <MappingFragment StoreEntitySet="comentariosplanilla">
-                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
-                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="idComentarios" ColumnName="idComentarios" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="departamento">
             <EntityTypeMapping TypeName="sql3307115Model.departamento">
               <MappingFragment StoreEntitySet="departamento">
@@ -1467,30 +1253,14 @@
           <EntitySetMapping Name="descuentos">
             <EntityTypeMapping TypeName="sql3307115Model.descuentos">
               <MappingFragment StoreEntitySet="descuentos">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
                 <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="monto" ColumnName="monto" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="descuento" ColumnName="descuento" />
                 <ScalarProperty Name="idDescuentos" ColumnName="idDescuentos" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dianacional">
-            <EntityTypeMapping TypeName="sql3307115Model.dianacional">
-              <MappingFragment StoreEntitySet="dianacional">
-                <ScalarProperty Name="idFiesta" ColumnName="idFiesta" />
-                <ScalarProperty Name="dia" ColumnName="dia" />
-                <ScalarProperty Name="idDiaNacional" ColumnName="idDiaNacional" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="diapatronal">
-            <EntityTypeMapping TypeName="sql3307115Model.diapatronal">
-              <MappingFragment StoreEntitySet="diapatronal">
-                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
-                <ScalarProperty Name="dia" ColumnName="dia" />
-                <ScalarProperty Name="idDiaPatronal" ColumnName="idDiaPatronal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1513,14 +1283,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="fiestanacional">
-            <EntityTypeMapping TypeName="sql3307115Model.fiestanacional">
-              <MappingFragment StoreEntitySet="fiestanacional">
-                <ScalarProperty Name="fiesta" ColumnName="fiesta" />
-                <ScalarProperty Name="idFiesta" ColumnName="idFiesta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="horario">
             <EntityTypeMapping TypeName="sql3307115Model.horario">
               <MappingFragment StoreEntitySet="horario">
@@ -1528,19 +1290,6 @@
                 <ScalarProperty Name="dias" ColumnName="dias" />
                 <ScalarProperty Name="horaSalida" ColumnName="horaSalida" />
                 <ScalarProperty Name="horaEntrada" ColumnName="horaEntrada" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="horarioextra">
-            <EntityTypeMapping TypeName="sql3307115Model.horarioextra">
-              <MappingFragment StoreEntitySet="horarioextra">
-                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
-                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
-                <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
-                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
-                <ScalarProperty Name="horaFinal" ColumnName="horaFinal" />
-                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1659,6 +1408,19 @@
                 <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
                 <ScalarProperty Name="ip" ColumnName="ip" />
                 <ScalarProperty Name="idDispositivo" ColumnName="idDispositivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horarioextra">
+            <EntityTypeMapping TypeName="sql3307115Model.horarioextra">
+              <MappingFragment StoreEntitySet="horarioextra">
+                <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idTipoHora" ColumnName="idTipoHora" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="horas" ColumnName="horas" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

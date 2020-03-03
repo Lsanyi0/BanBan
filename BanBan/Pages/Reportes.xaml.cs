@@ -217,13 +217,13 @@ namespace BanBan.Pages
                         AFPEmpleado = empleado.sistemapension.descuento,
                         PorcentajeCargo = empleado.cargo.atenciones ?? 0,
                     };
-                    List<DateTime?> Inicio = (from pln in sb.planillahorario 
+                    List<DateTime> Inicio = (from pln in sb.planillahorario 
                                               join plnp in sb.planilla on pln.idPlanilla 
                                               equals plnp.idPlanilla 
                                               where (plnp.fecha >= inicio.Date && plnp.fecha <= fin.Date)
                                               && pln.idEmpleado.Equals(pm.IdEmpleado) 
                                               select pln.entrada).ToList();
-                    List<DateTime?> Fin = (from pln in sb.planillahorario
+                    List<DateTime> Fin = (from pln in sb.planillahorario
                                            join plnp in sb.planilla on pln.idPlanilla
                                            equals plnp.idPlanilla
                                            where (plnp.fecha >= inicio.Date && plnp.fecha <= fin.Date)

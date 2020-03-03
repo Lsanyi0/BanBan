@@ -183,6 +183,8 @@ namespace BanBan
             btPlanillas.Visibility = Visibility.Collapsed;
             btReportes.Visibility = Visibility.Collapsed;
             btAgregarEmpleados.Visibility = Visibility.Collapsed;
+            btPlanillasHE.Visibility = Visibility.Collapsed;
+            btConfigurar.Visibility = Visibility.Collapsed;
             frPpal.Navigate(configuracion);
         }
 

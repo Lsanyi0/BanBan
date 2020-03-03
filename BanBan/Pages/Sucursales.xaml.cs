@@ -16,7 +16,7 @@ namespace BanBan.Pages
     public partial class Sucursales : Page
     {
         sBanBan sb = new sBanBan();
-        diapatronal dp;
+
         SucursalesControl sc = new SucursalesControl();
         private string date = "";
         private int ind = 0;
@@ -77,8 +77,8 @@ namespace BanBan.Pages
                 if (val.Equals("sucursal existente"))
                 {
                     List<string> listaA = new List<string>();
-                    listaA= sc.DeterminarAsuetos(cbMunicipio.Text);
-                    if (listaA.Count()==lsAsuetos.Items.Count)
+                    listaA = sc.DeterminarAsuetos(cbMunicipio.Text);
+                    if (listaA.Count() == lsAsuetos.Items.Count)
                     {
                         MessageBox.Show(val);
                     }
@@ -90,22 +90,8 @@ namespace BanBan.Pages
                             DateTime dia = Convert.ToDateTime(item);
                             var mn = from muni in sb.ciudad where muni.ciudad1.Equals(cbMunicipio.Text) select muni.idCiudad;
                             int id = mn.FirstOrDefault();
-                            var asut = from asu in sb.diapatronal
-                                       join cd in sb.ciudad on asu.idCiudad equals cd.idCiudad
-                                       where asu.dia == dia && asu.idCiudad == id
-                                       select asu.idDiaPatronal;
-                            foreach (var asuetos in asut)
-                            {
-                                var diaD = new diapatronal { idDiaPatronal = int.Parse(asuetos.ToString())};
-                                sb.Entry(diaD).State = System.Data.Entity.EntityState.Deleted;
-                                sb.SaveChangesAsync();
-                            }
-                                dp = new diapatronal();
-                                dp.dia = dia;
-                                dp.idCiudad = id;
-                                sb.diapatronal.Add(dp);
-                                sb.SaveChangesAsync();
-                            
+
+                            sb.SaveChangesAsync();
 
                         }
                         MessageBox.Show("datos actualizados");
@@ -116,21 +102,7 @@ namespace BanBan.Pages
 
         private void CbMunicipio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var asu = (from at1 in sb.diapatronal
-                      join mun in sb.ciudad
-                       on at1.idCiudad equals mun.idCiudad
-                      where mun.ciudad1 == cbMunicipio.Text
-                      select at1.dia).ToList();
-            if (asu == null)
-            {
 
-            }
-            else
-            {
-
-                lsAsuetos.ItemsSource = asu;
-
-            }
         }
 
         private void tbAsueto_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -148,7 +120,7 @@ namespace BanBan.Pages
         public void agregarAsueto()
         {
             List<string> list = new List<string>();
-            
+
             foreach (var item in lsAsuetos.Items)
             {
                 list.Add(item.ToString());
@@ -158,10 +130,10 @@ namespace BanBan.Pages
             {
                 lista.Add(item);
             }
-            lsAsuetos.ItemsSource="";
+            lsAsuetos.ItemsSource = "";
             lista.Add(date.ToString());
             lsAsuetos.ItemsSource = lista;
-            
+
         }
 
         public void eliminarAsueto(string asuetoL)
@@ -169,7 +141,7 @@ namespace BanBan.Pages
             string var = "";
             foreach (var item in lista)
             {
-                if (item.ToString()==asuetoL)
+                if (item.ToString() == asuetoL)
                 {
                     var = item;
                 }
@@ -226,7 +198,7 @@ namespace BanBan.Pages
 
         private void btLimpiar_Click(object sender, RoutedEventArgs e)
         {
-            lsAsuetos.ItemsSource="";
+            lsAsuetos.ItemsSource = "";
             lista.Clear();
         }
 
@@ -234,7 +206,7 @@ namespace BanBan.Pages
         {
             lista.Clear();
             lista = sc.DeterminarAsuetos(cbMunicipio.Text);
-            lsAsuetos.ItemsSource="";
+            lsAsuetos.ItemsSource = "";
             if (lista.Count == 0)
             {
                 lsAsuetos.ItemsSource = lista;
@@ -262,7 +234,7 @@ namespace BanBan.Pages
                     lsAsuetos.ItemsSource = "";
                     List<string> list = new List<string>();
                     foreach (var asu in suc.DiasAsueto) list.Add(asu.ToString());
-                        lsAsuetos.ItemsSource=list;
+                    lsAsuetos.ItemsSource = list;
                     cbSupervisor.SelectedItem = suc.NombreEmpleado;
                 }
             }

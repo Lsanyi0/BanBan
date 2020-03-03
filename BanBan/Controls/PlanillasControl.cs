@@ -19,7 +19,13 @@ namespace BanBan.Controls
         }
         public List<empleado> ObtenerEmpleados()
         {
-            return (from em in sb.empleado select em).ToList();
+            List<empleado> empleados = (from em in sb.empleado select em).ToList();
+            foreach (var empleado in empleados)
+            {
+                empleado.planillahorario = null;
+                empleado.horarioextra = null;
+            }
+            return empleados;
         }
         public bool EmpleadoInSucursal(int idempleado, int idsucursal)
         {
@@ -113,13 +119,21 @@ namespace BanBan.Controls
                     pm.HorasNocturnas = GetNocturnidad(Fin);
                     pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
 
-                    List<decimal> horasExtra = GetTiposDeHora(empleado);
+                    pm.Entradas = empleado.planillahorario.Select(x => x.entrada).ToList();
+                    pm.Salidas = empleado.planillahorario.Select(x => x.salida).ToList();
+
+                    pm.Horas = GetHorasTrabajadasMax(pm.Entradas, pm.Salidas);
+                    pm.NumeroDias = GetDiasTrabajados(pm.Entradas);
+                    pm.HorasNocturnas = GetNocturnidad(pm.Salidas);
+                    pm.HorasAusencia = GetHorasAusente(pm.Entradas, pm.Salidas);
+
+                    List<double?> horasExtra = GetTiposDeHora(empleado);
                     try
                     {
-                        pm.HorasExtra = horasExtra[0];
-                        pm.HorasNocturnasExtra = horasExtra[1];
-                        pm.HorasAsueto = horasExtra[2];
-                        pm.HorasDescanso = horasExtra[3];
+                        pm.HorasExtra = (decimal)horasExtra[0];
+                        pm.HorasNocturnasExtra = (decimal)horasExtra[1];
+                        pm.HorasAsueto = (decimal)horasExtra[2];
+                        pm.HorasDescanso = (decimal)horasExtra[3];
                     }
                     catch (Exception)
                     {
@@ -134,7 +148,7 @@ namespace BanBan.Controls
             }
             return new BindingList<PlanillaModel>();
         }
-        private int GetDiasTrabajados(List<DateTime?> Dias)
+        private int GetDiasTrabajados(List<DateTime> Dias)
         {
             return Dias.Count;
         }
@@ -156,7 +170,11 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).Value.TotalHours);
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
+                if (Horas >= HorasQuincena)
+                {
+                    return HorasQuincena;
+                }
             }
             return Horas;
         }
@@ -169,26 +187,22 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private List<decimal> GetTiposDeHora(empleado emp)
+        private List<double?> GetTiposDeHora(empleado emp)
         {
-            List<decimal> Horas = new List<decimal>();
+            List<double?> Horas = new List<double?>();
             try
             {
-                List<DateTime> Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                List<DateTime> Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                List<double?> horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 2).Select(x => x.horas).ToList();
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 3).Select(x => x.horas).ToList();
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 4).Select(x => x.horas).ToList();
+                Horas.AddRange(horas);
 
-                Inicio = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaInicio).ToList() ?? new List<DateTime>();
-                Fin = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horaFinal).ToList() ?? new List<DateTime>();
-                Horas.Add(GetHorasTrabajadas(Inicio, Fin));
+                horas = emp.horarioextra.Where(x => x.tipohora.idTipoHora == 5).Select(x => x.horas).ToList();
+                Horas.AddRange(horas);
             }
             catch (Exception)
             {
@@ -196,7 +210,7 @@ namespace BanBan.Controls
             return Horas;
         }
         //Horas > 7:00 pm
-        private decimal GetNocturnidad(List<DateTime?> Finales)
+        private decimal GetNocturnidad(List<DateTime> Finales)
         {
             TimeSpan HoraNocturna = DateTime.Parse("7:00 pm").TimeOfDay;
             decimal Horas = 0;
@@ -209,7 +223,7 @@ namespace BanBan.Controls
             }
             return Horas;
         }
-        private decimal GetHorasAusente(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        private decimal GetHorasAusente(List<DateTime> Iniciales, List<DateTime> Finales)
         {
             decimal Horas = GetHorasTrabajadas(Iniciales, Finales);
             if (Horas < HorasQuincena)
@@ -244,5 +258,63 @@ namespace BanBan.Controls
             return planillaXML;
         }
 
+        public int GetNewIdPlanilla()
+        {
+            planilla pn = new planilla() { fecha = new DateTime() };
+            sb.planilla.Add(pn);
+            sb.SaveChanges();
+            return pn.idPlanilla;
+        }
+
+        public void GuardarHorariosPlanilla(int idPlanilla, PlanillaModel planillaModel)
+        {
+            List<planillahorario> ph = new List<planillahorario>();
+            for (int i = 0; i < planillaModel.Entradas.Count; i++)
+            {
+                ph.Add(new planillahorario()
+                {
+                    entrada = planillaModel.Entradas[i],
+                    salida = planillaModel.Salidas[i],
+                    idEmpleado = planillaModel.IdEmpleado,
+                    idPlanilla = idPlanilla
+                });
+            }
+            sb.planillahorario.AddRange(ph);
+        }
+        public void GuardarHorarioExtra(int idPlanilla, PlanillaModel planillaModel)
+        {
+            if (planillaModel.HorasExtra > 0)
+            {
+                horarioextra HorasExtra = new horarioextra() { idEmpleado = planillaModel.IdEmpleado, idPlanilla = idPlanilla };
+                HorasExtra.tipohora = new tipohora() { idTipoHora = sb.tipohora.Where(x => x.tipo == "extra normal").Select(x => x.idTipoHora).FirstOrDefault(), };
+                HorasExtra.horas = (double)planillaModel.HorasExtra;
+                sb.horarioextra.Add(HorasExtra);
+            }
+            if (planillaModel.HorasNocturnasExtra > 0)
+            {
+                horarioextra HorasExtra = new horarioextra() { idEmpleado = planillaModel.IdEmpleado, idPlanilla = idPlanilla };
+                HorasExtra.tipohora = new tipohora() { idTipoHora = sb.tipohora.Where(x => x.tipo == "extra nocturna").Select(x => x.idTipoHora).FirstOrDefault() };
+                HorasExtra.horas = (double)planillaModel.HorasNocturnasExtra;
+                sb.horarioextra.Add(HorasExtra);
+            }
+            if (planillaModel.HorasAsueto > 0)
+            {
+                horarioextra HorasExtra = new horarioextra() { idEmpleado = planillaModel.IdEmpleado, idPlanilla = idPlanilla };
+                HorasExtra.tipohora = new tipohora() { idTipoHora = sb.tipohora.Where(x => x.tipo == "extra nocturna").Select(x => x.idTipoHora).FirstOrDefault() };
+                HorasExtra.horas = (double)planillaModel.HorasAsueto;
+                sb.horarioextra.Add(HorasExtra);
+            }
+            if (planillaModel.HorasDescanso > 0)
+            {
+                horarioextra HorasExtra = new horarioextra() { idEmpleado = planillaModel.IdEmpleado, idPlanilla = idPlanilla };
+                HorasExtra.tipohora = new tipohora() { idTipoHora = sb.tipohora.Where(x => x.tipo == "extra nocturna").Select(x => x.idTipoHora).FirstOrDefault() };
+                HorasExtra.horas = (double)planillaModel.HorasDescanso;
+                sb.horarioextra.Add(HorasExtra);
+            }
+        }
+        public void SaveChanges()
+        {
+            sb.SaveChanges();
+        }
     }
 }

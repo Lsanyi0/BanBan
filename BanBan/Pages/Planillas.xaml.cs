@@ -20,8 +20,6 @@ namespace BanBan.Pages
         private PlanillasControl pc = new PlanillasControl();
         private BindingList<PlanillaModel> pm;
         private BindingList<PlanillaModel> pmInicial;
-        private BindingList<PlanillaModel> pmFiltro;
-        private bool loading = true;
         private const string file = "planilla.xml";
 
         public Planillas()
@@ -39,7 +37,6 @@ namespace BanBan.Pages
             ActualizarModelo(pm);
 
             lbNumero.Content = dgvPlanilla.Items.Count;
-            loading = false;
         }
 
         private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -91,11 +88,17 @@ namespace BanBan.Pages
 
         private void btCerrarPlanilla_Click(object sender, RoutedEventArgs e)
         {
+            if (DialogResult.No == System.Windows.Forms.MessageBox.Show("Los datos seran guardados en la base de datos, listos para ser utilizados en reportes y no podran ser modificados. ¿Desea continuar?", "Terminar revision", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                return;
+            }
+            int idPlanilla = pc.GetNewIdPlanilla();
             foreach (var planillamodel in pm)
             {
-                planilla planilla = new planilla();
-
+                pc.GuardarHorariosPlanilla(idPlanilla, planillamodel);
+                pc.GuardarHorarioExtra(idPlanilla, planillamodel);
             }
+            pc.SaveChanges();
         }
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
@@ -144,14 +147,17 @@ namespace BanBan.Pages
                                 {
                                     empleado.horarioextra.Add(new horarioextra()
                                     {
-                                        horaInicio = HorasExtra.HoraInicio,
-                                        horaFinal = HorasExtra.HoraFinal,
                                         tipohora = new tipohora()
                                         {
                                             idTipoHora = ObtenerTipoDeHora(HorasExtra)
                                         },
                                         comentarios = HorasExtra.Comentario
-                                    });
+                                    };
+                                    DateTime Inicio = HorasExtra.HoraInicio;
+                                    DateTime Fin = HorasExtra.HoraFinal;
+
+                                    hex.horas = (Fin - Inicio).TotalHours;
+                                    empleado.horarioextra.Add(hex);
                                 }
                                 else
                                 {

@@ -20,6 +20,8 @@ namespace BanBan
         public decimal monto { get; set; }
         public int idEmpleado { get; set; }
         public int idPlanilla { get; set; }
+        public string comentarios { get; set; }
+        public Nullable<int> tipo { get; set; }
     
         public virtual empleado empleado { get; set; }
         public virtual planilla planilla { get; set; }

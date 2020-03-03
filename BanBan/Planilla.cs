@@ -17,10 +17,9 @@ namespace BanBan
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public planilla()
         {
-            this.comentariosplanilla = new HashSet<comentariosplanilla>();
             this.descuentos = new HashSet<descuentos>();
-            this.horarioextra = new HashSet<horarioextra>();
             this.planillahorario = new HashSet<planillahorario>();
+            this.horarioextra = new HashSet<horarioextra>();
         }
     
         public int idPlanilla { get; set; }
@@ -29,12 +28,10 @@ namespace BanBan
         public bool fallo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentariosplanilla> comentariosplanilla { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<descuentos> descuentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<horarioextra> horarioextra { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<planillahorario> planillahorario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<horarioextra> horarioextra { get; set; }
     }
 }

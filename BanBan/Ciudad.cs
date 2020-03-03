@@ -17,7 +17,6 @@ namespace BanBan
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ciudad()
         {
-            this.diapatronal = new HashSet<diapatronal>();
             this.sucursal = new HashSet<sucursal>();
         }
     
@@ -26,8 +25,6 @@ namespace BanBan
         public int idDepartamento { get; set; }
     
         public virtual departamento departamento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<diapatronal> diapatronal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sucursal> sucursal { get; set; }
     }

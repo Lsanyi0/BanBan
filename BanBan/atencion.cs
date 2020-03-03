@@ -12,18 +12,19 @@ namespace BanBan
     using System;
     using System.Collections.Generic;
     
-    public partial class fiestanacional
+    public partial class atencion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public fiestanacional()
+        public atencion()
         {
-            this.dianacional = new HashSet<dianacional>();
+            this.atenciondetalle = new HashSet<atenciondetalle>();
         }
     
-        public int idFiesta { get; set; }
-        public string fiesta { get; set; }
+        public int idAtencion { get; set; }
+        public string atencion1 { get; set; }
+        public decimal montoBase { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dianacional> dianacional { get; set; }
+        public virtual ICollection<atenciondetalle> atenciondetalle { get; set; }
     }
 }
