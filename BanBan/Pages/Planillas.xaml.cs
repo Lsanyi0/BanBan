@@ -9,6 +9,8 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Windows.Input;
 
 namespace BanBan.Pages
 {
@@ -20,8 +22,9 @@ namespace BanBan.Pages
         private PlanillasControl pc = new PlanillasControl();
         private BindingList<PlanillaModel> pm;
         private BindingList<PlanillaModel> pmInicial;
+        private BindingList<PlanillaModel> pmFiltro;
         private const string file = "planilla.xml";
-
+        private bool loading = true;
         public Planillas()
         {
             InitializeComponent();
@@ -37,6 +40,7 @@ namespace BanBan.Pages
             ActualizarModelo(pm);
 
             lbNumero.Content = dgvPlanilla.Items.Count;
+            loading = false;
         }
 
         private void cbSucursalKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -103,6 +107,7 @@ namespace BanBan.Pages
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             OpenFileDialog ofd = new OpenFileDialog()
             {
                 Multiselect = true,
@@ -145,7 +150,7 @@ namespace BanBan.Pages
                             {
                                 if (ObtenerTipoDeHora(HorasExtra) != 0)
                                 {
-                                    empleado.horarioextra.Add(new horarioextra()
+                                    horarioextra hex = new horarioextra()
                                     {
                                         tipohora = new tipohora()
                                         {
@@ -181,6 +186,7 @@ namespace BanBan.Pages
                 lbNumero.Content = pm.Count;
             }
             HorasExtraModel.Load = false;
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
         }
         private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
         {

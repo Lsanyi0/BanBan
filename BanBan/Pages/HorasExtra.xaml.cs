@@ -432,6 +432,7 @@ namespace BanBan.Pages
 
         private void btObtenterDatos_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             if (!dpHasta.SelectedDate.HasValue || !dpDesde.SelectedDate.HasValue)
             {
                 return;
@@ -448,7 +449,10 @@ namespace BanBan.Pages
                 {
                     List<DatosDispositivoModel> DatosDispositivo = GetMarcaciones(Horario, dpDesde.SelectedDate, dpHasta.SelectedDate.Value.AddHours(23.9999));
                     ddm = AgregarRegistros(DatosDispositivo, new List<DatosDispositivoModel>(ddm));
+                    ddm = new BindingList<DatosDispositivoModel>(ddm.Where(x => !string.IsNullOrWhiteSpace(x.NombreEmpleado)).ToList());
                     dgvHorasDispositivo.ItemsSource = ddm;
+                    HorasDispositivo.Focus();
+                    dc.objCZKEM.Disconnect();
                 }
                 else { MessageBox.Show("La fechas \"Desde\" no puede ser mayor que \"Hasta\"", "Error!", 0, MessageBoxImage.Exclamation); }
             }
@@ -456,6 +460,7 @@ namespace BanBan.Pages
             {
                 MessageBox.Show("Error: " + ex, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         private BindingList<DatosDispositivoModel> AgregarRegistros(List<DatosDispositivoModel> datosDispositivo, List<DatosDispositivoModel> ddm)

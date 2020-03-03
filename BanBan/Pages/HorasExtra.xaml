@@ -43,9 +43,9 @@
         </StackPanel>
         <Button x:Name="btGuardar" Height="30" MaxWidth="130" Content="Guardar" Margin="5,0,40,0" Grid.Row="2" Grid.Column="4" Click="btGuardar_Click"/>
         <Button x:Name="btCancelar" Height="30" MaxWidth="130" Content="Cancelar" Margin="5,0,40,0" Grid.Row="3" Grid.Column="4" Click="btCancelar_Click"/>
-        <TabControl x:Name="tcHoras" HorizontalAlignment="Left" Margin="60,10,38,0" Grid.Row="4" Grid.ColumnSpan="5">
+        <TabControl x:Name="tcHoras" HorizontalAlignment="Stretch" Margin="60,10,38,0" Grid.Row="4" Grid.ColumnSpan="5" >
             <TabItem x:Name="HorasExtraa" Header="Horas extra" GotFocus="HorasExtraa_GotFocus">
-                <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" Width="1278">
+                <DataGrid x:Name="dgvPlanilla" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False"  PreviewKeyDown="dgvPlanilla_PreviewKeyDown" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre" Binding="{Binding NombreCompleto}"/>
                         <DataGridTemplateColumn Header="Hora inicio" x:Name="HoraInicio" >
@@ -82,7 +82,7 @@
                 </DataGrid>
             </TabItem>
             <TabItem x:Name="HorasDispositivo" Header="Horas dispositivo" GotFocus="HorasDispositivo_GotFocus">
-                <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False" Width="1278">
+                <DataGrid x:Name="dgvHorasDispositivo" AlternatingRowBackground="LightSkyBlue" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre" Binding="{Binding NombreEmpleado,Mode=OneWay}"/>
                         <DataGridTemplateColumn Header="Hora entrada">

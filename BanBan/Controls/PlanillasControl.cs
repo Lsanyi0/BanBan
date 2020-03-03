@@ -112,13 +112,6 @@ namespace BanBan.Controls
                         AFPEmpleado = empleado.sistemapension.descuento,
                         PorcentajeCargo = empleado.cargo.atenciones ?? 0,
                     };
-                    List<DateTime?> Inicio = empleado.planillahorario.Select(x => x.entrada).ToList();
-                    List<DateTime?> Fin = empleado.planillahorario.Select(x => x.salida).ToList();
-                    pm.Horas = GetHorasTrabajadasMax(Inicio, Fin);
-                    pm.NumeroDias = GetDiasTrabajados(Inicio);
-                    pm.HorasNocturnas = GetNocturnidad(Fin);
-                    pm.HorasAusencia = GetHorasAusente(Inicio, Fin);
-
                     pm.Entradas = empleado.planillahorario.Select(x => x.entrada).ToList();
                     pm.Salidas = empleado.planillahorario.Select(x => x.salida).ToList();
 
@@ -152,12 +145,12 @@ namespace BanBan.Controls
         {
             return Dias.Count;
         }
-        public decimal GetHorasTrabajadasMax(List<DateTime?> Iniciales, List<DateTime?> Finales)
+        public decimal GetHorasTrabajadasMax(List<DateTime> Iniciales, List<DateTime> Finales)
         {
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).Value.TotalHours);
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
                 if (Horas >= HorasQuincena)
                 {
                     return HorasQuincena;
@@ -170,7 +163,7 @@ namespace BanBan.Controls
             decimal Horas = 0;
             for (int i = 0; i < Iniciales.Count; i++)
             {
-                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).TotalHours);
+                Horas += (decimal)Math.Abs((Finales[i] - Iniciales[i]).Value.TotalHours);
                 if (Horas >= HorasQuincena)
                 {
                     return HorasQuincena;

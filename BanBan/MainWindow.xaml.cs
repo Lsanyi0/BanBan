@@ -3,6 +3,7 @@ using BanBan.Pages;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media.Animation;
 
@@ -34,7 +35,6 @@ namespace BanBan
 
             InitializeComponent();
 
-
             anims = new List<Storyboard>
             {
                 FindResource("stbLoginCorrecto") as Storyboard,
@@ -47,8 +47,8 @@ namespace BanBan
             tiposUsuario.Add("Supervisor");
             tiposUsuario.Add("Root");
 
-            System.Windows.Input.NavigationCommands.BrowseBack.InputGestures.Clear();
-            System.Windows.Input.NavigationCommands.BrowseForward.InputGestures.Clear();
+            NavigationCommands.BrowseBack.InputGestures.Clear();
+            NavigationCommands.BrowseForward.InputGestures.Clear();
 
             if (Properties.Settings.Default.Dropbox == "C:\\")
             {
@@ -66,7 +66,7 @@ namespace BanBan
             if (LoginControl.tipoUsuario == null) Close();
 
             anim = true;
-
+            Mouse.OverrideCursor = Cursors.Wait;
             if (LoginControl.tipoUsuario == tiposUsuario[0])
             {
                 empleados = new Empleados();
@@ -88,6 +88,7 @@ namespace BanBan
                 activarIT();
             }
             frPpal.IsEnabled = true;
+            Mouse.OverrideCursor = Cursors.Arrow;
         }
         //Cierra sesion y ejecuta las animaciones correspondientes
         private void cerrarSesion()

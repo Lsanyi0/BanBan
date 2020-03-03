@@ -104,6 +104,7 @@ namespace BanBan.Pages
             {
                 System.Windows.MessageBox.Show("Fallo en insercion de usuario" + EnrollNumber, "Fallo en la insercion", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            dc.objCZKEM.Disconnect();
         }
         //nombre <= 16 char
         public ICollection<UserInfo> GetAllUserInfo(DispositivoControl objZkeeper, int machineNumber)

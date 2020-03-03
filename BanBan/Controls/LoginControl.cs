@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BanBan.Controls
 {
@@ -18,13 +19,14 @@ namespace BanBan.Controls
         }
         public void isUsuarioValido(string usuario, string clave)
         {
+            Mouse.OverrideCursor = Cursors.AppStarting;
             try
             {
                 if (usu != null)
                 {
                     UsuarioValido = (from us in usu
-                                     where us.usuario1 == usuario &&
-                                     us.contrasena == clave
+                                     where us.usuario1.Equals(usuario) &&
+                                     us.contrasena.Equals(clave)
                                      select us).Any();
                     if (UsuarioValido)
                     {
@@ -42,6 +44,7 @@ namespace BanBan.Controls
                 tipoUsuario = "Supervisor";
                 offline = true;
             }
+            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         public async Task<bool> verificarUsuario()
