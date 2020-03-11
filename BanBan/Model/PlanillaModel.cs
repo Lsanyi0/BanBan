@@ -120,7 +120,7 @@ namespace BanBan.Model
         {
             get
             {
-                return (Sueldo - DescuentoAusencia)
+                return Sueldo 
                 + TotalHorasExtra
                 + TotalHorasNocturnas //Nocturnidad
                 + TotalHorasExtraNocturnas

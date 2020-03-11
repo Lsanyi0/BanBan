@@ -97,17 +97,16 @@ namespace BanBan.Pages
                 return;
             }
             int idPlanilla = pc.GetNewIdPlanilla();
-            foreach (var planillamodel in pm)
+            pc.GuardarPlanillas(pc.GetPlanillasAGuardar(idPlanilla, new List<PlanillaModel>(pm)));
+            foreach (var planillaModel in pm)
             {
-                pc.GuardarHorariosPlanilla(idPlanilla, planillamodel);
-                pc.GuardarHorarioExtra(idPlanilla, planillamodel);
+                pc.GuardarHorarioExtra(idPlanilla, planillaModel);
             }
             pc.SaveChanges();
         }
 
         private void btObtenerDatos_Click(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             OpenFileDialog ofd = new OpenFileDialog()
             {
                 Multiselect = true,
@@ -115,9 +114,15 @@ namespace BanBan.Pages
                 Title = "Seleccionar archivos",
                 InitialDirectory = HorasExtraOfflineControl.pathDB
             };
-            List<empleado> empleados = pc.ObtenerEmpleados();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                List<EmpleadoModel> empleados = new List<EmpleadoModel>();
+                foreach (var empleado in pc.ObtenerEmpleados().ToList())
+                {
+                    empleados.Add(new EmpleadoModel(empleado));
+                }
+
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                 HorasExtraModel.Load = true;
                 foreach (string file in ofd.FileNames)
                 {
@@ -137,11 +142,10 @@ namespace BanBan.Pages
                         {
                             if (empleado.idEmpleado == Marcacion.idEmpleado)
                             {
-                                empleado.planillahorario.Add(new planillahorario()
-                                {
-                                    entrada = Marcacion.Entrada,
-                                    salida = Marcacion.Salida
-                                });
+                                PlanillaEmpleadoModel planilla = new PlanillaEmpleadoModel();
+                                planilla.entrada = Marcacion.Entrada;
+                                planilla.salida = Marcacion.Salida;
+                                empleado.planillasHorario.Add(planilla);
                             }
                         }
                         foreach (var HorasExtra in ds.HorasExtra)
@@ -150,19 +154,16 @@ namespace BanBan.Pages
                             {
                                 if (ObtenerTipoDeHora(HorasExtra) != 0)
                                 {
-                                    horarioextra hex = new horarioextra()
-                                    {
-                                        tipohora = new tipohora()
-                                        {
-                                            idTipoHora = ObtenerTipoDeHora(HorasExtra)
-                                        },
-                                        comentarios = HorasExtra.Comentario
-                                    };
+                                    HorarioExtra hex = new HorarioExtra();
+
+                                    hex.idTipoHora = pc.GetTipohora(ObtenerTipoDeHora(HorasExtra)).idTipoHora;
+                                    hex.comentarios = HorasExtra.Comentario;
                                     DateTime Inicio = HorasExtra.HoraInicio;
                                     DateTime Fin = HorasExtra.HoraFinal;
 
                                     hex.horas = (Fin - Inicio).TotalHours;
-                                    empleado.horarioextra.Add(hex);
+                                    hex.fecha = new DateTime(Inicio.DayOfYear);
+                                    empleado.horarioExtra.Add(hex);
                                 }
                                 else
                                 {
@@ -172,7 +173,7 @@ namespace BanBan.Pages
                         }
                     }
                 }
-                empleados = empleados.Where(x => x.planillahorario.Count > 0).OrderByDescending(x => x.nombre).ToList();
+                empleados = empleados.Where(x => x.planillasHorario.Count > 0).OrderByDescending(x => x.nombre).ToList();
                 ofd.Dispose();
                 pm = pc.getPlanillaModels(empleados);
                 foreach (var planilla in pm)
@@ -184,9 +185,9 @@ namespace BanBan.Pages
                 dgvEditar.ItemsSource = pm;
                 pmInicial = pm;
                 lbNumero.Content = pm.Count;
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
             HorasExtraModel.Load = false;
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
         }
         private void ActualizarPadre(object sender, PropertyChangedEventArgs args)
         {
